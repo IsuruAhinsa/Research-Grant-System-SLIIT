@@ -1,9 +1,16 @@
-<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+<div class="max-w-md bg-white rounded-xl mx-4 sm:mx-0">
     <div>
         {{ $logo }}
     </div>
 
-    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+    <div class="p-8">
         {{ $slot }}
+        <div class="text-xs mt-8">
+            <div class="text-center text-primary-700">
+                <p>— <b>Powered By</b> —</p>
+                <p>↞ <b>Business Application
+                        Services Division - SLIIT </b> ↠</p>
+            </div>
+        </div>
     </div>
 </div>
