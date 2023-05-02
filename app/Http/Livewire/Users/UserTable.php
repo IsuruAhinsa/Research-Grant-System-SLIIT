@@ -15,6 +15,8 @@ class UserTable extends Component implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
 
+    protected $listeners = ['refreshUserTable' => '$refresh'];
+
     protected function getTableQuery(): Builder
     {
         return User::query();
@@ -34,8 +36,11 @@ class UserTable extends Component implements Tables\Contracts\HasTable
                         );
                     }
                 ),
+
             TextColumn::make('name'),
+
             TextColumn::make('email'),
+
             TextColumn::make('role')
                 ->getStateUsing(
                     function (User $record) {
@@ -45,12 +50,13 @@ class UserTable extends Component implements Tables\Contracts\HasTable
                         return $data;
                     }
                 ),
+
             TextColumn::make('last_login')
                 ->since()
                 ->placeholder('-')
                 ->description(fn(User $record): string => isset($record->last_login_ip) ? $record->last_login_ip : ''),
+
             TextColumn::make('created_at'),
-            TextColumn::make('updated_at'),
         ];
     }
 
@@ -59,6 +65,16 @@ class UserTable extends Component implements Tables\Contracts\HasTable
         return [
             Action::make('edit')
                 ->url(fn(User $record): string => route('users.edit', $record))
+            ->icon('heroicon-s-pencil')
+            ->label('Edit')
+            ->color('success'),
+
+            Action::make('delete')
+//                ->url(fn(User $record): string => route('users.destroy', $record))
+                    ->action(fn(User $record) => $this->emit('confirmDeletion', ['key' => $record->id]))
+                ->icon('heroicon-s-trash')
+                ->label('Delete')
+                ->color('danger')
         ];
     }
 

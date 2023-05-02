@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Users;
 
 use App\Models\User;
+use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,11 +13,7 @@ use Livewire\Component;
 class UserIndex extends Component
 {
     public $user;
-
-    public $isOpen = false;
-
     public $confirmingDeletion = false;
-
     public $forceDelete = false;
 
     protected $listeners = [
@@ -41,10 +38,11 @@ class UserIndex extends Component
         // First, check if we are not trying to delete ourselves
         if ($user->id === Auth::id()) {
             $this->confirmingDeletion = false;
-//            $this->notification()->error(
-//                'Cannot Delete Yourself',
-//                'We would feel really bad if you deleted yourself, please reconsider.'
-//            );
+            Notification::make()
+                ->title('Cannot Delete Yourself')
+                ->body('We would feel really bad if you deleted yourself, please reconsider.')
+                ->warning()
+                ->send();
         } else {
 
             if ($this->forceDelete === true) {
@@ -54,12 +52,13 @@ class UserIndex extends Component
             }
 
             $this->confirmingDeletion = false;
-            $this->emit('eventRefresh');
-//            $this->notification()->success(
-//                'User Deleted.',
-//                $this->forceDelete === true ? 'The User was deleted successfully!' : 'The User moved into deleted user!'
-//            );
+            Notification::make()
+                ->title('User Deleted.')
+                ->body($this->forceDelete === true ? 'The User was deleted successfully!' : 'The User moved into deleted user!')
+                ->success()
+                ->send();
 
+            $this->emit('refreshUserTable');
         }
 
         if ($this->forceDelete === true) {

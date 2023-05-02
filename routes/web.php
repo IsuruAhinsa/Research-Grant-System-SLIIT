@@ -29,5 +29,5 @@ Route::middleware([
 
     require __DIR__.'/livewire.php';
 
-    Route::resource('users', UserController::class)->except(['index', 'show']);
+    Route::resource('users', UserController::class)->except(['index', 'show', 'destroy']);
 });

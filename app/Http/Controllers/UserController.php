@@ -76,12 +76,4 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User was successfully updated!');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
-    {
-        //
-    }
 }
