@@ -18,10 +18,10 @@ Breadcrumbs::for('users.create', function (BreadcrumbTrail $trail) {
     $trail->push('Create User', route('users.create'));
 });
 
-Breadcrumbs::for('users.edit', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('users.edit', function (BreadcrumbTrail $trail, $user) {
     $trail->parent('dashboard');
     $trail->push('Users', route('users.index'));
-    $trail->push('Edit User', route('users.edit'));
+    $trail->push('Edit User', route('users.edit', $user));
 });
 
 Breadcrumbs::for('users.trash', function (BreadcrumbTrail $trail) {

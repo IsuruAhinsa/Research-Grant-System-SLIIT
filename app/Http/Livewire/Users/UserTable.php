@@ -58,8 +58,7 @@ class UserTable extends Component implements Tables\Contracts\HasTable
     {
         return [
             Action::make('edit')
-                ->action(fn(User $record) => $this->emit('edit', ['key' => $record->id]))
-                ->resetFormData()
+                ->url(fn(User $record): string => route('users.edit', $record))
         ];
     }
 

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -14,7 +15,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $roles = Role::all();
+        return view('users.create',[
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -45,7 +49,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $roles = Role::all();
+        return view('users.edit',[
+            'user' => $user,
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -53,7 +61,20 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->name = $request->input('name');
+        $user->email = e($request->input('email'));
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+
+        if ($user->save()) {
+            $user->roles()->detach();
+            if ($request->input('roles')) {
+                $user->assignRole($request->input('roles'));
+            }
+        }
+
+        return redirect()->route('users.index')->with('success', 'User was successfully updated!');
     }
 
     /**
