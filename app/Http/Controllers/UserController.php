@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
@@ -38,10 +39,16 @@ class UserController extends Controller
                 $user->assignRole($request->input('roles'));
             }
 
-            // Send Notification
+            // Send Email Notification
         }
 
-        return redirect()->route('users.index')->with('success', 'User was successfully created!');
+        return redirect()->route('users.index')->with([
+            Notification::make()
+                ->title('Saved')
+                ->body('User was successfully created!')
+                ->success()
+                ->send()
+        ]);
     }
 
     /**
@@ -74,6 +81,12 @@ class UserController extends Controller
             }
         }
 
-        return redirect()->route('users.index')->with('success', 'User was successfully updated!');
+        return redirect()->route('users.index')->with([
+            Notification::make()
+                ->title('Updated')
+                ->body('User was successfully updated!')
+                ->success()
+                ->send()
+        ]);
     }
 }
