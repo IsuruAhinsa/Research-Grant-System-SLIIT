@@ -1,44 +1,44 @@
 <x-guest-layout>
     <x-slot name="authForm">
-        <x-authentication-card>
+        <x-ui.authentication-card>
             <x-slot name="logo">
-                <x-authentication-card-logo/>
+                <x-ui.authentication-card-logo/>
             </x-slot>
 
-            <x-validation-errors class="mb-4"/>
+            <x-ui.validation-errors class="mb-4"/>
 
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
                 <div>
-                    <x-label for="name" value="{{ __('Name') }}"/>
-                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
+                    <x-ui.label for="name" value="{{ __('Name') }}"/>
+                    <x-ui.input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
                              autofocus autocomplete="name"/>
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="email" value="{{ __('Email') }}"/>
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+                    <x-ui.label for="email" value="{{ __('Email') }}"/>
+                    <x-ui.input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                              required autocomplete="username"/>
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="password" value="{{ __('Password') }}"/>
-                    <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                    <x-ui.label for="password" value="{{ __('Password') }}"/>
+                    <x-ui.input id="password" class="block mt-1 w-full" type="password" name="password" required
                              autocomplete="new-password"/>
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}"/>
-                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                    <x-ui.label for="password_confirmation" value="{{ __('Confirm Password') }}"/>
+                    <x-ui.input id="password_confirmation" class="block mt-1 w-full" type="password"
                              name="password_confirmation" required autocomplete="new-password"/>
                 </div>
 
                 @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                     <div class="mt-4">
-                        <x-label for="terms">
+                        <x-ui.label for="terms">
                             <div class="flex items-center">
-                                <x-checkbox name="terms" id="terms" required/>
+                                <x-ui.checkbox name="terms" id="terms" required/>
 
                                 <div class="ml-2">
                                     {!! __('I agree to the :terms_of_service and :privacy_policy', [
@@ -47,13 +47,13 @@
                                     ]) !!}
                                 </div>
                             </div>
-                        </x-label>
+                        </x-ui.label>
                     </div>
                 @endif
 
-                <x-button class="w-full bg-secondary-800 hover:bg-secondary-900 active:bg-secondary-800 focus:bg-secondary-800 rounded-3xl text-center py-3 mt-5">
+                <x-ui.button class="w-full bg-secondary-800 hover:bg-secondary-900 active:bg-secondary-800 focus:bg-secondary-800 rounded-3xl text-center py-3 mt-5">
                     {{ __('Sign up') }}
-                </x-button>
+                </x-ui.button>
 
                 <div class="flex items-center justify-end mt-4">
                     <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -62,6 +62,6 @@
                     </a>
                 </div>
             </form>
-        </x-authentication-card>
+        </x-ui.authentication-card>
     </x-slot>
 </x-guest-layout>

@@ -10,7 +10,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
-
+    <style>[x-cloak] { display: none !important; }</style>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -18,7 +18,7 @@
     @livewireStyles
 </head>
 <body class="font-sans antialiased h-full">
-<x-banner/>
+<x-ui.banner/>
 <div x-data="{ opensidebar: false }" @keydown.window.escape="opensidebar = false">
     @include('layouts.responsive-sidebar')
     @include('layouts.sidebar')
@@ -40,7 +40,7 @@
 </div>
 
 @stack('modals')
-
+@stack('scripts')
 @livewireScripts
 </body>
 </html>

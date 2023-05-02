@@ -23,7 +23,7 @@ return [
     |
     */
 
-    'view' => 'components/breadcrumb',
+    'view' => 'components/ui/breadcrumb',
 
     /*
     |--------------------------------------------------------------------------

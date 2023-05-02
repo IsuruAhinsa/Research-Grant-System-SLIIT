@@ -1,8 +1,8 @@
 <x-guest-layout>
     <x-slot name="authForm">
-        <x-authentication-card>
+        <x-ui.authentication-card>
             <x-slot name="logo">
-                <x-authentication-card-logo/>
+                <x-ui.authentication-card-logo/>
             </x-slot>
 
             <div x-data="{ recovery: false }">
@@ -14,20 +14,20 @@
                     {{ __('Please confirm access to your account by entering one of your emergency recovery codes.') }}
                 </div>
 
-                <x-validation-errors class="mb-4"/>
+                <x-ui.validation-errors class="mb-4"/>
 
                 <form method="POST" action="{{ route('two-factor.login') }}">
                     @csrf
 
                     <div class="mt-4" x-show="! recovery">
-                        <x-label for="code" value="{{ __('Code') }}"/>
-                        <x-input id="code" class="block mt-1 w-full" type="text" inputmode="numeric" name="code"
+                        <x-ui.label for="code" value="{{ __('Code') }}"/>
+                        <x-ui.input id="code" class="block mt-1 w-full" type="text" inputmode="numeric" name="code"
                                  autofocus x-ref="code" autocomplete="one-time-code"/>
                     </div>
 
                     <div class="mt-4" x-cloak x-show="recovery">
-                        <x-label for="recovery_code" value="{{ __('Recovery Code') }}"/>
-                        <x-input id="recovery_code" class="block mt-1 w-full" type="text" name="recovery_code"
+                        <x-ui.label for="recovery_code" value="{{ __('Recovery Code') }}"/>
+                        <x-ui.input id="recovery_code" class="block mt-1 w-full" type="text" name="recovery_code"
                                  x-ref="recovery_code" autocomplete="one-time-code"/>
                     </div>
 
@@ -51,12 +51,12 @@
                             {{ __('Use an authentication code') }}
                         </button>
 
-                        <x-button class="ml-4">
+                        <x-ui.button class="ml-4">
                             {{ __('Log in') }}
-                        </x-button>
+                        </x-ui.button>
                     </div>
                 </form>
             </div>
-        </x-authentication-card>
+        </x-ui.authentication-card>
     </x-slot>
 </x-guest-layout>

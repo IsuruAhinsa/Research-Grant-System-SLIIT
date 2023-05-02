@@ -1,11 +1,11 @@
 <x-guest-layout>
     <x-slot name="authForm">
-        <x-authentication-card>
+        <x-ui.authentication-card>
             <x-slot name="logo">
-                <x-authentication-card-logo/>
+                <x-ui.authentication-card-logo/>
             </x-slot>
 
-            <x-validation-errors class="mb-4"/>
+            <x-ui.validation-errors class="mb-4"/>
 
             @if (session('status'))
                 <div class="mb-4 font-medium text-sm text-green-600">
@@ -17,27 +17,27 @@
                 @csrf
 
                 <div>
-                    <x-label for="email" value="{{ __('Email') }}"/>
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+                    <x-ui.label for="email" value="{{ __('Email') }}"/>
+                    <x-ui.input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                              required autofocus autocomplete="username"/>
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="password" value="{{ __('Password') }}"/>
-                    <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                    <x-ui.label for="password" value="{{ __('Password') }}"/>
+                    <x-ui.input id="password" class="block mt-1 w-full" type="password" name="password" required
                              autocomplete="current-password"/>
                 </div>
 
                 <div class="block mt-4">
                     <label for="remember_me" class="flex items-center">
-                        <x-checkbox id="remember_me" name="remember"/>
+                        <x-ui.checkbox id="remember_me" name="remember"/>
                         <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                     </label>
                 </div>
 
-                <x-button class="w-full bg-secondary-800 hover:bg-secondary-900 active:bg-secondary-800 focus:bg-secondary-800 rounded-3xl text-center py-3 mt-5">
+                <x-ui.button class="w-full bg-secondary-800 hover:bg-secondary-900 active:bg-secondary-800 focus:bg-secondary-800 rounded-3xl text-center py-3 mt-5">
                     {{ __('Sign in') }}
-                </x-button>
+                </x-ui.button>
 
                 <div class="flex items-center justify-end mt-4">
                     @if (Route::has('password.request'))
@@ -48,6 +48,6 @@
                     @endif
                 </div>
             </form>
-        </x-authentication-card>
+        </x-ui.authentication-card>
     </x-slot>
 </x-guest-layout>
