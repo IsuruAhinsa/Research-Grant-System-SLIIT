@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -22,7 +23,14 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:100', 'min:2'],
+            'email' => ['required', 'string', 'email', 'max:100',
+                Rule::unique('users', 'email')->ignore($this->route('user')->id)
+            ],
+            'password' => ['nullable', 'confirmed'],
+            'roles' => ['required'],
         ];
+
+        // TODO: validate users email domain as sliit.lk
     }
 }

@@ -27,5 +27,7 @@ class StoreUserRequest extends FormRequest
             'password' => ['required', 'confirmed'],
             'roles' => ['required'],
         ];
+
+        // TODO: validate users email domain as sliit.lk
     }
 }

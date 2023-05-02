@@ -39,7 +39,7 @@ class UserController extends Controller
                 $user->assignRole($request->input('roles'));
             }
 
-            // Send Email Notification
+            // TODO: send notification to relevant user's email
         }
 
         return redirect()->route('users.index')->with([
@@ -80,6 +80,8 @@ class UserController extends Controller
                 $user->assignRole($request->input('roles'));
             }
         }
+
+        // TODO: send notification to relevant user's email
 
         return redirect()->route('users.index')->with([
             Notification::make()
