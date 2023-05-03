@@ -25,12 +25,23 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:100', 'min:2'],
             'email' => ['required', 'string', 'email', 'max:100',
-                Rule::unique('users', 'email')->ignore($this->route('user')->id)
+                Rule::unique('users', 'email')->ignore($this->route('user')->id),
+                'ends_with:sliit.lk'
             ],
             'password' => ['nullable', 'confirmed'],
             'roles' => ['required'],
         ];
+    }
 
-        // TODO: validate users email domain as sliit.lk
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'email.ends_with' => 'Please enter the valid email domain. (sliit.lk)',
+        ];
     }
 }
