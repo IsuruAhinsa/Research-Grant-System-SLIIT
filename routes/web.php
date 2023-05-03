@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DesignationController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -36,4 +37,10 @@ Route::middleware([
     Route::resource('roles', RoleController::class)->except(['show']);
     Route::resource('faculties', FacultyController::class)->except('show');
     Route::resource('designations', DesignationController::class)->except('show');
+
+    Route::get('downloads', [DownloadController::class, 'index'])->name('downloads.index');
+    Route::get('downloads/research_proposal_application_form', [DownloadController::class, 'downloadResearchProposalApplicationFrom'])
+        ->name('downloads.research_proposal_application_form');
+    Route::get('downloads/other_research_documents', [DownloadController::class, 'downloadOtherResearchDocument'])
+        ->name('downloads.other_research_documents');
 });

@@ -82,3 +82,8 @@ Breadcrumbs::for('designations.edit', function (BreadcrumbTrail $trail, $designa
     $trail->push('Designations', route('designations.index'));
     $trail->push('Edit Designation', route('designations.edit', $designation));
 });
+
+Breadcrumbs::for('downloads.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Downloads', route('downloads.index'));
+});
