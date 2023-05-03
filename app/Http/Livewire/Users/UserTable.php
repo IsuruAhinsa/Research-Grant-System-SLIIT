@@ -65,13 +65,12 @@ class UserTable extends Component implements Tables\Contracts\HasTable
         return [
             Action::make('edit')
                 ->url(fn(User $record): string => route('users.edit', $record))
-            ->icon('heroicon-s-pencil')
-            ->label('Edit')
-            ->color('success'),
+                ->icon('heroicon-s-pencil')
+                ->label('Edit')
+                ->color('success'),
 
             Action::make('delete')
-//                ->url(fn(User $record): string => route('users.destroy', $record))
-                    ->action(fn(User $record) => $this->emit('confirmDeletion', ['key' => $record->id]))
+                ->action(fn(User $record) => $this->emit('confirmDeletion', ['key' => $record->id]))
                 ->icon('heroicon-s-trash')
                 ->label('Delete')
                 ->color('danger')

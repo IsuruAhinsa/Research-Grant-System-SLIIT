@@ -13,6 +13,6 @@
     <div class="my-5">
         @livewire('users.user-table')
     </div>
-    
+
     @include('users.partials.delete-confirmation-modal')
 </div>

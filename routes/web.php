@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,5 @@ Route::middleware([
     require __DIR__.'/livewire.php';
 
     Route::resource('users', UserController::class)->except(['index', 'show', 'destroy']);
+    Route::resource('roles', RoleController::class)->except(['show']);
 });
