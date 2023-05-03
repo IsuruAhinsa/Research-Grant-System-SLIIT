@@ -2,7 +2,10 @@
 
 namespace App\Http\Livewire\Roles;
 
+use Filament\Notifications\Notification;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
@@ -50,18 +53,24 @@ class RoleTable extends Component implements Tables\Contracts\HasTable
     protected function getTableActions(): array
     {
         return [
-            Action::make('edit')
-                ->url(fn(Role $record): string => route('roles.edit', $record))
-                ->icon('heroicon-s-pencil')
-                ->label('Edit')
-                ->color('success'),
-
-            Action::make('delete')
-//                ->url(fn(Role $record): string => route('roles.destroy', $record))
-                ->icon('heroicon-s-trash')
-                ->label('Delete')
-                ->color('danger')
-            // TODO: delete action implement
+            ActionGroup::make([
+                Action::make('edit')
+                    ->url(fn(Role $record): string => route('roles.edit', $record))
+                    ->icon('heroicon-s-pencil')
+                    ->label('Edit')
+                    ->color('primary'),
+                DeleteAction::make()->modalButton('Delete')
+                ->before(function (DeleteAction $action, Role $record) {
+                    if ($record->name == 'Super Administrator') {
+                        Notification::make()
+                            ->title('Unauthorized!!')
+                            ->body('Sorry! Can\'t delete super administrator permissions.')
+                            ->warning()
+                            ->send();
+                        $action->cancel();
+                    }
+                })
+            ])
         ];
     }
 

@@ -64,22 +64,4 @@ class DesignationController extends Controller
                     ->send()
             ]);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Designation $designation)
-    {
-        if ($designation) {
-            $designation->delete();
-        }
-
-        return back()->with([
-            Notification::make()
-                ->title('Deleted')
-                ->body('Designation was successfully deleted!')
-                ->success()
-                ->send()
-        ]);
-    }
 }

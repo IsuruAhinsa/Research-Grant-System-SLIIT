@@ -62,22 +62,4 @@ class FacultyController extends Controller
                 ->send()
         ]);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Faculty $faculty)
-    {
-        if ($faculty) {
-            $faculty->delete();
-        }
-
-        return back()->with([
-            Notification::make()
-                ->title('Deleted')
-                ->body('Faculty was successfully deleted!')
-                ->success()
-                ->send()
-        ]);
-    }
 }
