@@ -37,7 +37,7 @@
                             Faculties
                         </a>
 
-                        <a href="#"
+                        <a href="{{ route('designations.index') }}"
                            class="group w-full flex items-center pl-2 pr-2 py-2 text-sm font-medium text-white rounded-md hover:bg-primary-600">
                             Designations
                         </a>

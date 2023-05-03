@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -34,4 +35,5 @@ Route::middleware([
     Route::resource('users', UserController::class)->except(['index', 'show', 'destroy']);
     Route::resource('roles', RoleController::class)->except(['show']);
     Route::resource('faculties', FacultyController::class)->except('show');
+    Route::resource('designations', DesignationController::class)->except('show');
 });

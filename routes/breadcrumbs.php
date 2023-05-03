@@ -57,11 +57,28 @@ Breadcrumbs::for('faculties.index', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('faculties.create', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
     $trail->push('Faculties', route('faculties.index'));
-    $trail->push('Faculties', route('faculties.create'));
+    $trail->push('Create Faculty', route('faculties.create'));
 });
 
 Breadcrumbs::for('faculties.edit', function (BreadcrumbTrail $trail, $faculty) {
     $trail->parent('dashboard');
     $trail->push('Faculties', route('faculties.index'));
-    $trail->push('Faculties', route('faculties.edit', $faculty));
+    $trail->push('Edit Faculty', route('faculties.edit', $faculty));
+});
+
+Breadcrumbs::for('designations.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Designations', route('designations.index'));
+});
+
+Breadcrumbs::for('designations.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Designations', route('designations.index'));
+    $trail->push('Create Designation', route('designations.create'));
+});
+
+Breadcrumbs::for('designations.edit', function (BreadcrumbTrail $trail, $designation) {
+    $trail->parent('dashboard');
+    $trail->push('Designations', route('designations.index'));
+    $trail->push('Edit Designation', route('designations.edit', $designation));
 });
