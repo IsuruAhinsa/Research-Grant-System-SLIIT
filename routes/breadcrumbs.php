@@ -48,3 +48,20 @@ Breadcrumbs::for('roles.edit', function (BreadcrumbTrail $trail, $role) {
     $trail->push('Role & Permissions', route('roles.index'));
     $trail->push($role->name, route('roles.edit', $role));
 });
+
+Breadcrumbs::for('faculties.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Faculties', route('faculties.index'));
+});
+
+Breadcrumbs::for('faculties.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Faculties', route('faculties.index'));
+    $trail->push('Faculties', route('faculties.create'));
+});
+
+Breadcrumbs::for('faculties.edit', function (BreadcrumbTrail $trail, $faculty) {
+    $trail->parent('dashboard');
+    $trail->push('Faculties', route('faculties.index'));
+    $trail->push('Faculties', route('faculties.edit', $faculty));
+});

@@ -32,7 +32,7 @@
                     <div class="space-y-1 border-2 border-blue-600 rounded-lg m-3 p-2" id="sub-menu-2"
                          x-show="open">
 
-                        <a href="#"
+                        <a href="{{ route('faculties.index') }}"
                            class="group w-full flex items-center pl-2 pr-2 py-2 text-sm font-medium text-white rounded-md hover:bg-primary-600">
                             Faculties
                         </a>
