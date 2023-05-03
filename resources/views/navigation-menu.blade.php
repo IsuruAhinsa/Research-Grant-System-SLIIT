@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="bg-primary-900 border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <button type="button" class="px-4 text-gray-500 focus:outline-none md:hidden text-white" @click="opensidebar = true">
