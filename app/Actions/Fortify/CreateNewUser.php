@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -17,7 +18,7 @@ class CreateNewUser implements CreatesNewUsers
      *
      * @param  array<string, string>  $input
      */
-    public function create(array $input): User
+    public function create(array $input)
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
@@ -36,6 +37,11 @@ class CreateNewUser implements CreatesNewUsers
 
         $user->assignRole('Principal Investigator');
 
-        return $user;
+        event(new Registered($user));
+
+        session()->flash('status', 'Registration successful! Awaiting approval from admin.');
+
+        throw new \Illuminate\Auth\AuthenticationException();
+
     }
 }
