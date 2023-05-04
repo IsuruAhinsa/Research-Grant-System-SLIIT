@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserCreated;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -39,7 +41,9 @@ class UserController extends Controller
                 $user->assignRole($request->input('roles'));
             }
 
-            // TODO: send notification to relevant user's email
+            // send notification to relevant user's email
+            Mail::to($request->input('email'))
+                ->send(new UserCreated($user, $request->input('password')));
         }
 
         return redirect()->route('users.index')->with([
@@ -80,8 +84,6 @@ class UserController extends Controller
                 $user->assignRole($request->input('roles'));
             }
         }
-
-        // TODO: send notification to relevant user's email
 
         return redirect()->route('users.index')->with([
             Notification::make()
