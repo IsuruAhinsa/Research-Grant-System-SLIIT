@@ -87,3 +87,8 @@ Breadcrumbs::for('downloads.index', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
     $trail->push('Downloads', route('downloads.index'));
 });
+
+Breadcrumbs::for('principal-investigators.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Upload New Research Proposal', route('principal-investigators.create'));
+});

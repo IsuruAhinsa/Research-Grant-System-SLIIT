@@ -80,26 +80,34 @@
                     </div>
                 </div>
 
-                <x-ui.sidebar-item title="Projects" route="#">
-                    <x-ui.svg-icon class="mr-3 flex-shrink-0 text-white">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
-                    </x-ui.svg-icon>
-                </x-ui.sidebar-item>
+                <div x-data="{ open: false }">
+                    <x-ui.sidebar-item @click="open = !open" route="#">
+                        <x-ui.svg-icon class="mr-3 flex-shrink-0 text-white">
+                            <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"></path>
+                        </x-ui.svg-icon>
+                        <span class="flex-1">Uploads</span>
+                        <svg
+                            class="text-gray-300 ml-3 flex-shrink-0 h-5 w-5 transform group-hover:text-gray-400 transition-colors ease-in-out duration-150"
+                            viewBox="0 0 20 20" aria-hidden="true"
+                            :class="{ 'text-gray-400 rotate-90': open, 'text-gray-300': !(open) }">
+                            <path d="M6 6L14 10L6 14V6Z" fill="currentColor"></path>
+                        </svg>
+                    </x-ui.sidebar-item>
+                    <div class="space-y-1 border-2 border-blue-600 rounded-lg m-3 p-2" id="sub-menu-2"
+                         x-show="open">
 
-                <x-ui.sidebar-item title="Calendar" route="#">
-                    <x-ui.svg-icon class="mr-3 flex-shrink-0 text-white">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </x-ui.svg-icon>
-                </x-ui.sidebar-item>
+                        <a href="{{ route('principal-investigators.create') }}"
+                           class="group w-full flex items-center pl-2 pr-2 py-2 text-sm font-medium text-white rounded-md hover:bg-primary-600">
+                            New Research Proposal
+                        </a>
 
-                <x-ui.sidebar-item title="Documents" route="#">
-                    <x-ui.svg-icon class="mr-3 flex-shrink-0 text-white">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
-                    </x-ui.svg-icon>
-                </x-ui.sidebar-item>
+                        <a href="#"
+                           class="group w-full flex items-center pl-2 pr-2 py-2 text-sm font-medium text-white rounded-md hover:bg-primary-600">
+                            Corrected Research Proposal
+                        </a>
+
+                    </div>
+                </div>
 
                 <x-ui.sidebar-item title="Downloads" route="{{ route('downloads.index') }}">
                     <x-ui.svg-icon class="mr-3 flex-shrink-0 text-white">

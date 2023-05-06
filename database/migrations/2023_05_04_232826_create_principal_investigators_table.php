@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('principal_investigators', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('designation_id');
+            $table->foreign('designation_id')->references('id')->on('designations');
+            $table->unsignedBigInteger('faculty_id');
+            $table->foreign('faculty_id')->references('id')->on('faculties');
+            $table->string('title');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('research_title');
+            $table->string('phone');
+            $table->string('email');
+            $table->string('resume');
+            $table->string('research_grant_proposal');
+            $table->string('budget_activity_plan');
+            $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('principal_investigators');
+    }
+};
