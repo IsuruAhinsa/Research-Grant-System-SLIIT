@@ -111,6 +111,40 @@ class RolePermissionSeeder extends Seeder
                     'profile.edit',
                 ],
             ],
+
+            [
+                'group_name' => 'Download',
+                'permissions' => [
+                    'downloads.view',
+                ],
+            ],
+
+            [
+                'group_name' => 'Faculty',
+                'permissions' => [
+                    'faculties.create',
+                    'faculties.view',
+                    'faculties.edit',
+                    'faculties.delete',
+                ],
+            ],
+
+            [
+                'group_name' => 'Designation',
+                'permissions' => [
+                    'designations.create',
+                    'designations.view',
+                    'designations.edit',
+                    'designations.delete',
+                ],
+            ],
+
+            [
+                'group_name' => 'Disbursement Plan',
+                'permissions' => [
+                    'disbursements.create',
+                ],
+            ],
         ];
     }
 }
