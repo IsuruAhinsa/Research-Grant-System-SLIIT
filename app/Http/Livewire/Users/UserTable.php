@@ -42,6 +42,8 @@ class UserTable extends Component implements Tables\Contracts\HasTable
             TextColumn::make('email'),
 
             TextColumn::make('role')
+                ->searchable(false)
+                ->sortable(false)
                 ->getStateUsing(
                     function (User $record) {
                         foreach ($record->roles as $role) {

@@ -92,3 +92,18 @@ Breadcrumbs::for('principal-investigators.create', function (BreadcrumbTrail $tr
     $trail->parent('dashboard');
     $trail->push('Upload New Research Proposal', route('principal-investigators.create'));
 });
+
+Breadcrumbs::for('principal-investigators.index', function (BreadcrumbTrail $trail) {
+
+    if (request()->status == 'Pending') {
+        $title = 'New Applications';
+    } elseif (request()->status == 'Approved') {
+        $title = 'Approved Applications';
+    } else {
+        $title = 'Rejected Applications';
+    }
+
+    $trail->parent('dashboard');
+    $trail->push($title, route('principal-investigators.index'));
+});
+

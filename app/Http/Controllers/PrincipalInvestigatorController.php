@@ -13,23 +13,10 @@ class PrincipalInvestigatorController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $principal_investigators = PrincipalInvestigator::where('status', request()->status)->first();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePrincipalInvestigatorRequest $request)
-    {
-        //
+        return view('principal-investigators.index')
+            ->with('principal_investigators', $principal_investigators);
     }
 
     /**
@@ -37,7 +24,7 @@ class PrincipalInvestigatorController extends Controller
      */
     public function show(PrincipalInvestigator $principalInvestigator)
     {
-        //
+        return view('principal-investigators.show')->with('principalInvestigator', $principalInvestigator);
     }
 
     /**

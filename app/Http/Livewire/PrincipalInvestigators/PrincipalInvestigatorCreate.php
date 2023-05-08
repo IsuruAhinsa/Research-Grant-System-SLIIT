@@ -52,21 +52,21 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                         Grid::make(2)->schema([
                             TextInput::make('title')
                                 ->datalist([
-                                    'Dr.',
-                                    'Esq.',
-                                    'Hon.',
-                                    'Jr.',
-                                    'Mr.',
-                                    'Mrs.',
-                                    'Ms.',
-                                    'Messrs.',
-                                    'Mmes.',
-                                    'Msgr.',
-                                    'Prof.',
-                                    'Rev.',
-                                    'Rt. Hon.',
-                                    'Sr.',
-                                    'St.',
+                                    'Dr',
+                                    'Esq',
+                                    'Hon',
+                                    'Jr',
+                                    'Mr',
+                                    'Mrs',
+                                    'Ms',
+                                    'Messrs',
+                                    'Mmes',
+                                    'Msgr',
+                                    'Prof',
+                                    'Rev',
+                                    'Rt. Hon',
+                                    'Sr',
+                                    'St',
                                 ])
                                 ->string()
                                 ->placeholder('Please select the title.')
@@ -152,7 +152,6 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                     ->description('Upload your assistant\'s documents.')
                     ->schema([
                         FileUpload::make('assistant_attachments')
-                            ->required()
                             ->label('Upload assistant\'s CV(s)')
                             ->helperText('Accepted filetype is pdf only. Max upload size 20mb.')
                             ->maxSize(1024 * 20)
@@ -191,7 +190,7 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
             }
         }
 
-        return redirect(route('dashboard'))->with([
+        return redirect(route('disbursement_plans.create', $principal_investigator->id))->with([
             Notification::make()
                 ->title('Submitted')
                 ->body('Research Grant Handling Details Submitted Successfully!')
