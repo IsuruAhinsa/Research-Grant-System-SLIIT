@@ -16,7 +16,7 @@
                     </x-ui.svg-icon>
                 </x-ui.sidebar-item>
 
-                @role('Administrator')
+                @hasanyrole('Super Administrator|Administrator')
                     <div x-data="{ open: false }">
                     <x-ui.sidebar-item @click="open = !open" route="#">
                         <x-ui.svg-icon class="mr-3 flex-shrink-0 text-white">
@@ -51,7 +51,7 @@
 
                     </div>
                 </div>
-                @endrole
+                @endhasanyrole
 
                 @role('Principal Investigator')
                     <div x-data="{ open: false }">
@@ -92,6 +92,8 @@
                     </x-ui.sidebar-item>
                 @endrole
 
+                @hasanyrole('Super Administrator|Administrator')
+
                 <div x-data="{ open: false }">
                     <x-ui.sidebar-item @click="open = !open" route="#">
                         <x-ui.svg-icon class="mr-3 flex-shrink-0 text-white">
@@ -131,7 +133,6 @@
                     </div>
                 </div>
 
-                @hasanyrole('Super Administrator|Administrator')
                 <x-ui.sidebar-item title="User Management" route="{{ route('users.index') }}">
                     <x-ui.svg-icon class="mr-3 flex-shrink-0 text-white">
                         <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
