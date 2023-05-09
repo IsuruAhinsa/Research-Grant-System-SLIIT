@@ -190,7 +190,15 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
             }
         }
 
-        return redirect(route('disbursement_plans.create', $principal_investigator->id))->with([
+//        return redirect(route('disbursement_plans.create', $principal_investigator->id))->with([
+//            Notification::make()
+//                ->title('Submitted')
+//                ->body('Research Grant Handling Details Submitted Successfully!')
+//                ->success()
+//                ->send()
+//        ]);
+
+        return redirect(route('dashboard', $principal_investigator->id))->with([
             Notification::make()
                 ->title('Submitted')
                 ->body('Research Grant Handling Details Submitted Successfully!')
