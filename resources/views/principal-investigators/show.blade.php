@@ -1,6 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div>
+{{--            {{ Breadcrumbs::render('principal-investigators.show', $principalInvestigator) }}--}}
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ $principalInvestigator->full_name }}
             </h2>
@@ -8,9 +9,12 @@
     </x-slot>
 
     <div class="my-5 bg-white shadow overflow-hidden sm:rounded-lg">
-        <div class="px-4 py-5 sm:px-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">Applicant Information</h3>
-            <p class="mt-1 max-w-2xl text-sm text-gray-500">Personal details and applications.</p>
+        <div class="flex justify-between items-center px-4 py-5 sm:px-6">
+            <div>
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Applicant Information</h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">Personal details and applications.</p>
+            </div>
+            @include('principal-investigators.approval')
         </div>
         <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
             <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
@@ -45,10 +49,7 @@
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Status</dt>
                     <dd class="mt-1 text-sm text-gray-900">
-                        <div
-                            class="inline-flex items-center justify-center space-x-1 rtl:space-x-reverse min-h-6 px-2 py-0.5 text-sm font-medium tracking-tight rounded-xl whitespace-nowrap text-warning-700 bg-warning-500/10">
-                            {{$principalInvestigator->status}}
-                        </div>
+                        <x-ui.badge>{{$principalInvestigator->status}}</x-ui.badge>
                     </dd>
                 </div>
                 <div class="sm:col-span-2 space-y-5">
@@ -68,7 +69,7 @@
                                         <span class="ml-2 flex-1 w-0 truncate"> resume_back_end_developer.pdf </span>
                                     </div>
                                     <div class="ml-4 flex-shrink-0">
-                                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                        <a href="{{ route('principal-investigators.downloads.resume', $principalInvestigator) }}" class="font-medium text-indigo-600 hover:text-indigo-500">
                                             Download </a>
                                     </div>
                                 </li>
@@ -92,7 +93,7 @@
                                         <span class="ml-2 flex-1 w-0 truncate"> resume_back_end_developer.pdf </span>
                                     </div>
                                     <div class="ml-4 flex-shrink-0">
-                                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                        <a href="{{ route('principal-investigators.downloads.GrantProposal', $principalInvestigator) }}" class="font-medium text-indigo-600 hover:text-indigo-500">
                                             Download </a>
                                     </div>
                                 </li>
@@ -116,7 +117,7 @@
                                         <span class="ml-2 flex-1 w-0 truncate"> resume_back_end_developer.pdf </span>
                                     </div>
                                     <div class="ml-4 flex-shrink-0">
-                                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                        <a href="{{ route('principal-investigators.downloads.BudgetActivityPlan', $principalInvestigator) }}" class="font-medium text-indigo-600 hover:text-indigo-500">
                                             Download </a>
                                     </div>
                                 </li>
@@ -143,7 +144,7 @@
                                                     class="ml-2 flex-1 w-0 truncate"> resume_back_end_developer.pdf </span>
                                             </div>
                                             <div class="ml-4 flex-shrink-0">
-                                                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                                <a href="{{ route('principal-investigators.co-principal-investigators.downloads.resume', $investigator->id) }}" class="font-medium text-indigo-600 hover:text-indigo-500">
                                                     Download </a>
                                             </div>
                                         </li>
@@ -172,7 +173,7 @@
                                                     class="ml-2 flex-1 w-0 truncate"> resume_back_end_developer.pdf </span>
                                             </div>
                                             <div class="ml-4 flex-shrink-0">
-                                                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                                <a href="{{ route('principal-investigators.research-assistant.downloads.resume', $assistant->id) }}" class="font-medium text-indigo-600 hover:text-indigo-500">
                                                     Download </a>
                                             </div>
                                         </li>
