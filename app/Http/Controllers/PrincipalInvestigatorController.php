@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CoPrincipalInvestigator;
 use App\Models\PrincipalInvestigator;
 use App\Http\Requests\StorePrincipalInvestigatorRequest;
 use App\Http\Requests\UpdatePrincipalInvestigatorRequest;
+use App\Models\ResearchAssistant;
+use Illuminate\Support\Facades\Storage;
 
 class PrincipalInvestigatorController extends Controller
 {
@@ -49,5 +52,40 @@ class PrincipalInvestigatorController extends Controller
     public function destroy(PrincipalInvestigator $principalInvestigator)
     {
         //
+    }
+
+    public function downloadResume(PrincipalInvestigator $principalInvestigator)
+    {
+        if (Storage::disk('public')->exists($principalInvestigator->resume)) {
+            return Storage::disk('public')->download($principalInvestigator->resume);
+        }
+    }
+
+    public function downloadGrantProposal(PrincipalInvestigator $principalInvestigator)
+    {
+        if (Storage::disk('public')->exists($principalInvestigator->research_grant_proposal)) {
+            return Storage::disk('public')->download($principalInvestigator->research_grant_proposal);
+        }
+    }
+
+    public function downloadBudgetActivityPlan(PrincipalInvestigator $principalInvestigator)
+    {
+        if (Storage::disk('public')->exists($principalInvestigator->budget_activity_plan)) {
+            return Storage::disk('public')->download($principalInvestigator->budget_activity_plan);
+        }
+    }
+
+    public function downloadCoPrincipalInvestigatorResume(CoPrincipalInvestigator $coPrincipalInvestigator)
+    {
+        if (Storage::disk('public')->exists($coPrincipalInvestigator->attachment)) {
+            return Storage::disk('public')->download($coPrincipalInvestigator->attachment);
+        }
+    }
+
+    public function downloadResearchAssistantResume(ResearchAssistant $researchAssistant)
+    {
+        if (Storage::disk('public')->exists($researchAssistant->attachment)) {
+            return Storage::disk('public')->download($researchAssistant->attachment);
+        }
     }
 }
