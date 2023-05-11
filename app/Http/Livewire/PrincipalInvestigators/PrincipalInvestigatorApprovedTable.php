@@ -44,10 +44,12 @@ class PrincipalInvestigatorApprovedTable extends Component implements HasTable
             TextColumn::make('faculty')
                 ->description(fn(PrincipalInvestigator $record): string => Faculty::where('id', $record->faculty_id)->first()->code)
                 ->searchable(false)
+                ->sortable(false)
                 ->getStateUsing(fn(PrincipalInvestigator $record) => Faculty::where('id', $record->faculty_id)->first()->name),
 
             TextColumn::make('designation')
                 ->searchable(false)
+                ->sortable(false)
                 ->getStateUsing(fn(PrincipalInvestigator $record) => Designation::where('id', $record->designation_id)->first()->designation),
 
             BadgeColumn::make('status')

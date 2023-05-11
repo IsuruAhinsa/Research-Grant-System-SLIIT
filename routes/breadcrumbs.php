@@ -107,3 +107,26 @@ Breadcrumbs::for('principal-investigators.index', function (BreadcrumbTrail $tra
     $trail->push($title, route('principal-investigators.index'));
 });
 
+// TODO: create breadcrumbs for principal investigator detail page.
+//Breadcrumbs::for('principal-investigators.show', function (BreadcrumbTrail $trail, $principalInvestigator) {
+//    $trail->parent('dashboard');
+//    $trail->push(parse_url(url()->previous())['query'], route('principal-investigators.index'));
+//    $trail->push($principalInvestigator->fullname);
+//});
+
+Breadcrumbs::for('reviewers.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Reviewers', route('reviewers.index'));
+});
+
+Breadcrumbs::for('reviewers.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Reviewers', route('reviewers.index'));
+    $trail->push('Create Reviewer', route('reviewers.create'));
+});
+
+Breadcrumbs::for('reviewers.edit', function (BreadcrumbTrail $trail, $reviewer) {
+    $trail->parent('dashboard');
+    $trail->push('Reviewers', route('reviewers.index'));
+    $trail->push('Edit Reviewer', route('reviewers.edit', $reviewer));
+});
