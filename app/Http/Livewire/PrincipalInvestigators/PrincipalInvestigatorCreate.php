@@ -19,6 +19,7 @@ use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\HtmlString;
 use Livewire\Component;
+use Livewire\TemporaryUploadedFile;
 
 class PrincipalInvestigatorCreate extends Component implements HasForms
 {
@@ -117,6 +118,10 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                 ->maxSize(1024 * 20)
                                 ->disk('public')
                                 ->directory('uploads/resumes')
+                                ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                                    $filename = date("Y_m_d_h_i_s") . "_" . "resume";
+                                    return (string) str($file->getClientOriginalExtension())->prepend($filename . ".");
+                                })
                                 ->acceptedFileTypes(['application/pdf']),
                             FileUpload::make('research_grant_proposal')
                                 ->required()
@@ -124,6 +129,10 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                 ->disk('public')
                                 ->directory('uploads/research-grant-proposals')
                                 ->helperText('Accepted filetypes are docx,doc only. Max upload size 20mb.')
+                                ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                                    $filename = date("Y_m_d_h_i_s") . "_" . "research_grant_proposal";
+                                    return (string) str($file->getClientOriginalExtension())->prepend($filename . ".");
+                                })
                                 ->acceptedFileTypes(['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']),
                             FileUpload::make('budget_activity_plan')
                                 ->required()
@@ -131,6 +140,10 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                 ->disk('public')
                                 ->directory('uploads/budget-activity-plans')
                                 ->helperText('Accepted filetypes are xlsx,xls only. Max upload size 20mb.')
+                                ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                                    $filename = date("Y_m_d_h_i_s") . "_" . "budget_activity_plan";
+                                    return (string) str($file->getClientOriginalExtension())->prepend($filename . ".");
+                                })
                                 ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']),
                         ])
                     ]),
