@@ -15,6 +15,12 @@
     </x-slot>
 
     <div class="my-5">
-        @livewire('principal-investigators.principal-investigator-table')
+        @if(request()->status == 'Pending')
+            @livewire('principal-investigators.principal-investigator-pending-table')
+        @elseif(request()->status == 'Approved')
+            @livewire('principal-investigators.principal-investigator-approved-table')
+        @else
+            @livewire('principal-investigators.principal-investigator-rejected-table')
+        @endif
     </div>
 </x-app-layout>

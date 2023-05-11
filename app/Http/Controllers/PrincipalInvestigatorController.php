@@ -8,6 +8,7 @@ use App\Http\Requests\StorePrincipalInvestigatorRequest;
 use App\Http\Requests\UpdatePrincipalInvestigatorRequest;
 use App\Models\ResearchAssistant;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PrincipalInvestigatorController extends Controller
 {
@@ -16,10 +17,7 @@ class PrincipalInvestigatorController extends Controller
      */
     public function index()
     {
-        $principal_investigators = PrincipalInvestigator::where('status', request()->status)->first();
-
-        return view('principal-investigators.index')
-            ->with('principal_investigators', $principal_investigators);
+        return view('principal-investigators.index');
     }
 
     /**

@@ -7,21 +7,20 @@ use App\Models\Faculty;
 use App\Models\PrincipalInvestigator;
 use Closure;
 use Filament\Tables\Columns\BadgeColumn;
-use Filament\Tables\Columns\Layout\Split;
-use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class PrincipalInvestigatorTable extends Component implements HasTable
+class PrincipalInvestigatorPendingTable extends Component implements HasTable
 {
     use InteractsWithTable;
 
     protected function getTableQuery(): Builder
     {
-        return PrincipalInvestigator::query()->where('status', request()->status);
+        return PrincipalInvestigator::query()
+            ->where('status', 'Pending');
     }
 
     protected function getTableColumns(): array
@@ -63,7 +62,7 @@ class PrincipalInvestigatorTable extends Component implements HasTable
 
     protected function getTableRecordUrlUsing(): ?Closure
     {
-        return fn (PrincipalInvestigator $record): string => route('principal-investigators.show', $record);
+        return fn(PrincipalInvestigator $record): string => route('principal-investigators.show', $record);
     }
 
     public function render()
