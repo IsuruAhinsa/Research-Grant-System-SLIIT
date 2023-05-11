@@ -32,3 +32,12 @@
         <x-ui.badge>{{$principalInvestigator->status}}</x-ui.badge>
     </dd>
 </div>
+
+@if($principalInvestigator->status == 'Rejected')
+    <div class="sm:col-span-1">
+        <dt class="text-sm font-medium text-gray-500">Remarks</dt>
+        <dd class="mt-1 text-sm text-danger-600">
+            {{ $principalInvestigator->remarks }}
+        </dd>
+    </div>
+@endif

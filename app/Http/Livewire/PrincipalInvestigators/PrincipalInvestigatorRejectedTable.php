@@ -21,7 +21,7 @@ class PrincipalInvestigatorRejectedTable extends Component implements HasTable
     protected function getTableQuery(): Builder
     {
         return PrincipalInvestigator::query()
-            ->where('status', 'Pending');
+            ->where('status', 'Rejected');
     }
 
     protected function getTableColumns(): array
