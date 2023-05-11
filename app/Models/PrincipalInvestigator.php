@@ -23,7 +23,9 @@ class PrincipalInvestigator extends Model
         'research_title',
         'resume',
         'research_grant_proposal',
-        'budget_activity_plan'
+        'budget_activity_plan',
+        'status',
+        'remarks',
     ];
 
     public function designation(): HasOne
