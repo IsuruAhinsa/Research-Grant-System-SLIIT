@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\PrincipalInvestigators\PrincipalInvestigatorCreate;
 use App\Http\Livewire\Reviewers\ReviewerCreate;
+use App\Http\Livewire\Reviewers\ReviewerEdit;
 use App\Http\Livewire\Users\UserIndex;
 use Illuminate\Support\Facades\Route;
 
@@ -12,3 +13,5 @@ Route::get('principal-investigators/create', PrincipalInvestigatorCreate::class)
 
 Route::get('reviewers/create', ReviewerCreate::class)
     ->name('reviewers.create');
+Route::get('reviewers/{reviewer}/edit', ReviewerEdit::class)
+    ->name('reviewers.edit');

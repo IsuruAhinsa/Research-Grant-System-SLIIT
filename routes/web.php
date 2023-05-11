@@ -97,7 +97,7 @@ Route::middleware([
     /**
      * Reviewer Routes
      */
-    Route::resource('reviewers', ReviewerController::class)->except(['show', 'destroy', 'create', 'store']);
+    Route::resource('reviewers', ReviewerController::class)->only('index');
 
     /**
      * Disbursement Plan Routes

@@ -1,9 +1,9 @@
 <div>
     <x-slot name="header">
         <div>
-            {{ Breadcrumbs::render('reviewers.create') }}
+            {{ Breadcrumbs::render('reviewers.edit', $reviewer) }}
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Create New Reviewer') }}
+                {{ __('Edit Reviewer') }}
             </h2>
         </div>
     </x-slot>
@@ -18,7 +18,7 @@
                 </x-ui.secondary-button>
 
                 <x-ui.button type="submit">
-                    {{ __('Create Reviewer') }}
+                    {{ __('Update Reviewer') }}
                 </x-ui.button>
             </div>
         </form>

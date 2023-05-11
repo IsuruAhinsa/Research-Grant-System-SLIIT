@@ -11,13 +11,25 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Livewire\Component;
 
-class ReviewerCreate extends Component implements HasForms
+class ReviewerEdit extends Component implements HasForms
 {
     use InteractsWithForms;
+
+    public Reviewer $reviewer;
     public $title;
     public $first_name;
     public $last_name;
     public $faculty_id;
+
+    public function mount(): void
+    {
+        $this->form->fill([
+            'title' => $this->reviewer->title,
+            'first_name' => $this->reviewer->first_name,
+            'last_name' => $this->reviewer->last_name,
+            'faculty_id' => $this->reviewer->faculty_id,
+        ]);
+    }
 
     protected function getFormSchema(): array
     {
@@ -67,18 +79,26 @@ class ReviewerCreate extends Component implements HasForms
 
     public function saveReviewer()
     {
-        Reviewer::create($this->form->getState());
+        $this->reviewer->update(
+            $this->form->getState(),
+        );
 
         return redirect(route('reviewers.index'))->with([
             Notification::make()
-                ->title('Saved')
-                ->body('Reviewer Created Successfully!')
+                ->title('Updated')
+                ->body('Reviewer Updated Successfully!')
                 ->success()
                 ->send()
         ]);
     }
+
+    protected function getFormModel(): Reviewer
+    {
+        return $this->reviewer;
+    }
+
     public function render()
     {
-        return view('reviewers.reviewer-create');
+        return view('reviewers.reviewer-edit');
     }
 }
