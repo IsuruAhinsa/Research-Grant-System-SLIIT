@@ -6,6 +6,7 @@ use App\Models\Designation;
 use App\Models\Faculty;
 use App\Models\PrincipalInvestigator;
 use Closure;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -63,6 +64,18 @@ class PrincipalInvestigatorRejectedTable extends Component implements HasTable
     protected function getTableRecordUrlUsing(): ?Closure
     {
         return fn(PrincipalInvestigator $record): string => route('principal-investigators.show', $record);
+    }
+
+    protected function getTableActions(): array
+    {
+        return [
+            Action::make('show')
+                ->label(' ')
+                ->icon('heroicon-o-chevron-right')
+                ->color('success')
+                ->size('lg')
+                ->url(fn(PrincipalInvestigator $record): string =>  route('principal-investigators.show', $record))
+        ];
     }
 
     public function render()
