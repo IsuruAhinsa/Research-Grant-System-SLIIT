@@ -76,14 +76,16 @@ class PrincipalInvestigatorController extends Controller
     public function downloadCoPrincipalInvestigatorResume(CoPrincipalInvestigator $coPrincipalInvestigator)
     {
         if (Storage::disk('public')->exists($coPrincipalInvestigator->attachment)) {
-            return Storage::disk('public')->download($coPrincipalInvestigator->attachment);
+            $filename = $coPrincipalInvestigator->created_at . "_" . $coPrincipalInvestigator->id;
+            return Storage::disk('public')->download($coPrincipalInvestigator->attachment, $filename);
         }
     }
 
     public function downloadResearchAssistantResume(ResearchAssistant $researchAssistant)
     {
         if (Storage::disk('public')->exists($researchAssistant->attachment)) {
-            return Storage::disk('public')->download($researchAssistant->attachment);
+            $filename = $researchAssistant->created_at . "_" . $researchAssistant->id;
+            return Storage::disk('public')->download($researchAssistant->attachment, $filename);
         }
     }
 }
