@@ -12,8 +12,8 @@
             {{ __('Cancel') }}
         </x-ui.secondary-button>
 
-        <x-ui.danger-button class="ml-3" wire:click.prevent="approve" wire:loading.attr="disabled">
+        <x-ui.success-button class="ml-3" wire:click.prevent="approve" wire:loading.attr="disabled">
             {{ __('Approve') }}
-        </x-ui.danger-button>
+        </x-ui.success-button>
     </x-slot>
 </x-ui.dialog-modal>
