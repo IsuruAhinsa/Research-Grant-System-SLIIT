@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('research_grant_proposal');
             $table->string('budget_activity_plan');
             $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }
