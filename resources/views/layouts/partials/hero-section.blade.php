@@ -14,7 +14,6 @@
                                         class="px-3 py-0.5 text-white text-xs font-semibold leading-5 uppercase tracking-wide bg-gradient-to-r from-teal-500 to-cyan-600 rounded-full">We're hiring</span>
                             <span class="ml-4 text-sm">Visit our careers page</span>
                             <svg class="ml-2 w-5 h-5 text-gray-500"
-                                 x-description="Heroicon name: solid/chevron-right"
                                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                  aria-hidden="true">
                                 <path fill-rule="evenodd"
