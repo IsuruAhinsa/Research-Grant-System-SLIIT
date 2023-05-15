@@ -25,7 +25,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::view('about', 'about');
+Route::view('about', 'about')->name('about');
+
+Route::view('contact', 'contact')->name('contact');
 
 Route::middleware([
     'auth:sanctum',

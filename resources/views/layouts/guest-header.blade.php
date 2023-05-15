@@ -26,9 +26,9 @@
 
                     <a href="{{ url('/') }}" class="text-base font-medium text-white hover:text-gray-300">Home</a>
 
-                    <a href="#" class="text-base font-medium text-white hover:text-gray-300">About</a>
+                    <a href="{{ route('about') }}" class="text-base font-medium text-white hover:text-gray-300">About</a>
 
-                    <a href="#" class="text-base font-medium text-white hover:text-gray-300">Contact Us</a>
+                    <a href="{{ route('contact') }}" class="text-base font-medium text-white hover:text-gray-300">Contact Us</a>
 
                     <a href="#" class="text-base font-medium text-white hover:text-gray-300">SLIIT University</a>
 
