@@ -25,6 +25,8 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::view('about', 'about');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
