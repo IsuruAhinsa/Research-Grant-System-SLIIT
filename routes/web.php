@@ -107,7 +107,12 @@ Route::middleware([
      * Disbursement Plan Routes
      */
 
-    Route::get('disbursement_plans/create/{principal_investigator_id}', [DisbursementPlanController::class, 'create'])->name('disbursement_plans.create');
+    Route::get('disbursement_plans/create/{principal_investigator_id}', [DisbursementPlanController::class, 'create'])
+        ->name('disbursement_plans.create');
 
-    Route::post('disbursement_plans/store', [DisbursementPlanController::class, 'store'])->name('disbursement_plans.store');
+    Route::post('disbursement_plans/store', [DisbursementPlanController::class, 'store'])
+        ->name('disbursement_plans.store');
+
+    Route::view('disbursement_plans/success', 'disbursement-plans.success')
+        ->name('disbursement_plans.success');
 });
