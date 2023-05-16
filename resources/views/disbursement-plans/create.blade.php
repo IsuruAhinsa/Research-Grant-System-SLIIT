@@ -74,6 +74,7 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <x-ui.label for="month" value="{{ __('Month') }}"/>
                                 <x-ui.select id="month" name="month" class="mt-1 block w-full">
+                                    <option selected disabled>Select Month</option>
                                     @foreach(\App\Models\DisbursementPlan::months()->all() as $month)
                                         <option value="{{$month['name']}}">{{ $month['name'] }}</option>
                                     @endforeach
@@ -84,6 +85,7 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <x-ui.label for="category" value="{{ __('Category') }}"/>
                                 <x-ui.select id="category" name="category" class="mt-1 block w-full">
+                                    <option selected disabled>Select Category</option>
                                     @foreach(\App\Models\DisbursementPlan::categories()->all() as $category)
                                         <option value="{{$category['name']}}">{{ $category['name'] }}</option>
                                     @endforeach
