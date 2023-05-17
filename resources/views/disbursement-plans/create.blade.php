@@ -95,13 +95,15 @@
 
                             <div class="col-span-6 sm:col-span-3">
                                 <x-ui.label for="activity" value="{{ __('Activity') }}"/>
-                                <x-ui.input value="{{ old('activity') }}" id="activity" type="text" name="activity" class="mt-1 block w-full"/>
+                                <x-ui.input value="{{ old('activity') }}" id="activity" type="text" name="activity"
+                                            class="mt-1 block w-full"/>
                                 <x-ui.input-error for="activity" class="mt-2"/>
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
                                 <x-ui.label for="amount" value="{{ __('Amount') }}"/>
-                                <x-ui.input value="{{ old('amount') }}" id="amount" type="text" name="amount" class="mt-1 block w-full"/>
+                                <x-ui.input value="{{ old('amount') }}" id="amount" type="text" name="amount"
+                                            class="mt-1 block w-full"/>
                                 <x-ui.input-error for="amount" class="mt-2"/>
                             </div>
                         </div>
@@ -151,12 +153,17 @@
                                         </tr>
                                     @endforeach
                                     <tr>
-                                        <td colspan="3" class="py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Total</td>
+                                        <td colspan="3"
+                                            class="py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Total
+                                        </td>
                                         <td class="px-2 py-2 text-sm font-medium text-gray-900 text-right">{{ number_format($disbursement_plans->sum('amount'), 2) }}</td>
                                     </tr>
 
                                     <tr>
-                                        <td colspan="3" class="py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Remaining Balance</td>
+                                        <td colspan="3"
+                                            class="py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Remaining
+                                            Balance
+                                        </td>
                                         <td class="px-2 py-2 text-sm font-medium text-gray-900 text-right">{{ number_format(400000 - $disbursement_plans->sum('amount'), 2) }}</td>
                                     </tr>
                                     </tbody>
@@ -168,11 +175,13 @@
             </div>
         </div>
 
-        <div class="flex justify-end space-x-4">
-            <a href="{{ route('disbursement_plans.success') }}">
-                <x-ui.button>Save & Finish</x-ui.button>
-            </a>
-        </div>
+        @if(\App\Models\DisbursementPlan::where('principal_investigator_id', $principalInvestigatorId)->exists())
+            <div class="flex justify-end space-x-4">
+                <a href="{{ route('disbursement_plans.success') }}">
+                    <x-ui.button>Save & Finish</x-ui.button>
+                </a>
+            </div>
+        @endif
     </div>
 
 </x-app-layout>
