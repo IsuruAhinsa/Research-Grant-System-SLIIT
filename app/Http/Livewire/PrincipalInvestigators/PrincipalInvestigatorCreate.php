@@ -9,7 +9,7 @@ use App\Models\PrincipalInvestigator;
 use App\Models\ResearchAssistant;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
@@ -17,6 +17,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\HtmlString;
 use Livewire\Component;
 use Livewire\TemporaryUploadedFile;
@@ -38,10 +39,19 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
     public $budget_activity_plan;
     public $co_pi_attachments = [];
     public $assistant_attachments = [];
+    public $user_id;
 
     protected $messages = [
         'email.ends_with' => 'Please enter the valid email domain. (sliit.lk)'
     ];
+
+    public function mount(): void
+    {
+        $this->form->fill([
+            'email' => Auth::user()->email,
+            'user_id' => Auth::id(),
+        ]);
+    }
 
     protected function getFormSchema(): array
     {
@@ -51,6 +61,7 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                     ->description('Fill your details and upload documents.')
                     ->schema([
                         Grid::make(2)->schema([
+                            Hidden::make('user_id'),
                             TextInput::make('title')
                                 ->datalist([
                                     'Dr',
@@ -120,7 +131,7 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                 ->directory('uploads/resumes')
                                 ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                     $filename = date("Y_m_d_h_i_s") . "_" . "resume";
-                                    return (string) str($file->getClientOriginalExtension())->prepend($filename . ".");
+                                    return (string)str($file->getClientOriginalExtension())->prepend($filename . ".");
                                 })
                                 ->acceptedFileTypes(['application/pdf']),
                             FileUpload::make('research_grant_proposal')
@@ -131,7 +142,7 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                 ->helperText('Accepted filetypes are docx,doc only. Max upload size 20mb.')
                                 ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                     $filename = date("Y_m_d_h_i_s") . "_" . "research_grant_proposal";
-                                    return (string) str($file->getClientOriginalExtension())->prepend($filename . ".");
+                                    return (string)str($file->getClientOriginalExtension())->prepend($filename . ".");
                                 })
                                 ->acceptedFileTypes(['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']),
                             FileUpload::make('budget_activity_plan')
@@ -142,7 +153,7 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                 ->helperText('Accepted filetypes are xlsx,xls only. Max upload size 20mb.')
                                 ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                     $filename = date("Y_m_d_h_i_s") . "_" . "budget_activity_plan";
-                                    return (string) str($file->getClientOriginalExtension())->prepend($filename . ".");
+                                    return (string)str($file->getClientOriginalExtension())->prepend($filename . ".");
                                 })
                                 ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']),
                         ])

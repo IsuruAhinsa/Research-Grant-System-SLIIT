@@ -107,6 +107,11 @@ Breadcrumbs::for('principal-investigators.index', function (BreadcrumbTrail $tra
     $trail->push($title, route('principal-investigators.index'));
 });
 
+Breadcrumbs::for('principal-investigators.dashboard', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Research Proposal Overview', route('principal-investigators.dashboard', auth()->id()));
+});
+
 // TODO: create breadcrumbs for principal investigator detail page.
 //Breadcrumbs::for('principal-investigators.show', function (BreadcrumbTrail $trail, $principalInvestigator) {
 //    $trail->parent('dashboard');
