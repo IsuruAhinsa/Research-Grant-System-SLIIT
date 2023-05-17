@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreign('designation_id')->references('id')->on('designations');
             $table->unsignedBigInteger('faculty_id');
             $table->foreign('faculty_id')->references('id')->on('faculties');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('title');
             $table->string('first_name');
             $table->string('last_name');

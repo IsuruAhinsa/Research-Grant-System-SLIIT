@@ -7,6 +7,7 @@ use App\Models\PrincipalInvestigator;
 use App\Http\Requests\StorePrincipalInvestigatorRequest;
 use App\Http\Requests\UpdatePrincipalInvestigatorRequest;
 use App\Models\ResearchAssistant;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -18,6 +19,14 @@ class PrincipalInvestigatorController extends Controller
     public function index()
     {
         return view('principal-investigators.index');
+    }
+
+    public function dashboard(User $user)
+    {
+        $principal_investigator = $user->principal_investigator;
+        return view('principal-investigators.dashboard', [
+            'principal_investigator' => $principal_investigator
+        ]);
     }
 
     /**

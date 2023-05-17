@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PrincipalInvestigator extends Model
 {
@@ -26,16 +26,17 @@ class PrincipalInvestigator extends Model
         'budget_activity_plan',
         'status',
         'remarks',
+        'user_id',
     ];
 
-    public function designation(): HasOne
+    public function designation(): BelongsTo
     {
-        return $this->hasOne(Designation::class);
+        return $this->belongsTo(Designation::class);
     }
 
-    public function faculty(): HasOne
+    public function faculty(): BelongsTo
     {
-        return $this->hasOne(Faculty::class);
+        return $this->belongsTo(Faculty::class);
     }
 
     public function co_principal_investigators(): HasMany
@@ -53,5 +54,10 @@ class PrincipalInvestigator extends Model
         return Attribute::make(
             get: fn (mixed $value, array $attributes) => "{$attributes['title']}. {$attributes['first_name']} {$attributes['last_name']}"
         );
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

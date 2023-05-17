@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Faculty extends Model
@@ -13,9 +12,9 @@ class Faculty extends Model
 
     protected $fillable = ['name', 'code'];
 
-    public function principalInvestigator(): BelongsTo
+    public function principalInvestigators(): HasMany
     {
-        return $this->belongsTo(PrincipalInvestigator::class);
+        return $this->hasMany(PrincipalInvestigator::class);
     }
 
     public function reviewers(): HasMany

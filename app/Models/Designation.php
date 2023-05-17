@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Designation extends Model
 {
@@ -12,8 +12,8 @@ class Designation extends Model
 
     protected $fillable = ['designation'];
 
-    public function principalInvestigator(): BelongsTo
+    public function principalInvestigators(): HasMany
     {
-        return $this->belongsTo(PrincipalInvestigator::class);
+        return $this->hasMany(PrincipalInvestigator::class);
     }
 }
