@@ -1,11 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div>
-<<<<<<< HEAD
             {{ Breadcrumbs::render('principal-investigators.dashboard') }}
-=======
-            {{ Breadcrumbs::render('principal-investigators.index') }}
->>>>>>> origin/master
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Research Proposal Overview
             </h2>
