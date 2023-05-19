@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -95,5 +97,28 @@ class User extends Authenticatable
     public function principal_investigator(): HasOne
     {
         return $this->hasOne(PrincipalInvestigator::class);
+    }
+
+    public function designation(): BelongsTo
+    {
+        return $this->belongsTo(Designation::class);
+    }
+
+    public function faculty(): BelongsTo
+    {
+        return $this->belongsTo(Faculty::class);
+    }
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                if ($attributes['title'] != null) {
+                    return "{$attributes['title']}. {$attributes['first_name']} {$attributes['last_name']}";
+                } else {
+                    return "{$attributes['first_name']} {$attributes['last_name']}";
+                }
+            }
+        );
     }
 }

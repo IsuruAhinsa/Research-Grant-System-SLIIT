@@ -26,7 +26,7 @@ class StoreDisbursementPlanRequest extends FormRequest
             'month' => ['required', 'string', 'min:3'],
             'category' => ['required', 'string', 'min:3'],
             'activity' => ['required', 'string', 'min:3'],
-            'amount' => ['required', 'numeric'],
+            'amount' => ['required', 'numeric', 'decimal:2'],
         ];
     }
 }

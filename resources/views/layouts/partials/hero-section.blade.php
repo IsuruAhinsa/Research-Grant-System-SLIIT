@@ -24,11 +24,10 @@
                         <h1 class="mt-4 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
                             <span class="block">A better way to</span>
                             <span
-                                class="pb-3 block bg-clip-text text-transparent bg-gradient-to-r from-teal-200 to-cyan-400 sm:pb-5">ship web apps</span>
+                                class="pb-3 block bg-clip-text text-transparent bg-gradient-to-r from-teal-200 to-cyan-400 sm:pb-5">some quote</span>
                         </h1>
                         <p class="text-base text-gray-300 sm:text-xl lg:text-lg xl:text-xl">
-                            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui Lorem cupidatat
-                            commodo. Elit sunt amet fugiat veniam occaecat fugiat.
+                            Please enter your valid sliit email address for requesting to create your account.
                         </p>
                         <div class="mt-10 sm:mt-12">
                             <form action="#" class="sm:max-w-xl sm:mx-auto lg:mx-0">
@@ -41,11 +40,11 @@
                                     <div class="mt-3 sm:mt-0 sm:ml-3">
                                         <button type="submit"
                                                 class="block w-full py-3 px-4 rounded-md shadow bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 focus:ring-offset-gray-900">
-                                            Start free trial
+                                            Request for Login
                                         </button>
                                     </div>
                                 </div>
-                                <p class="mt-3 text-sm text-gray-300 sm:mt-4">Start your free 14-day trial, no
+                                <p class="mt-3 text-sm text-gray-300 sm:mt-4">Start your free journey, no
                                     credit card necessary. By providing your email, you agree to our <a href="#"
                                                                                                         class="font-medium text-white">terms
                                         of service</a>.</p>

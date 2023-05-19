@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Mail\UserCreated;
+use App\Models\Designation;
+use App\Models\Faculty;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -19,8 +22,12 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
+        $faculties = Faculty::all();
+        $designations = Designation::all();
         return view('users.create',[
             'roles' => $roles,
+            'designations' => $designations,
+            'faculties' => $faculties
         ]);
     }
 
@@ -30,11 +37,21 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $user = new User();
-        $user->name = $request->input('name');
+        $user->title = $request->input('title');
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
         $user->email = e($request->input('email'));
+        $user->index = $request->input('index');
+        $user->faculty_id = $request->input('faculty');
+        $user->designation_id = $request->input('designation');
+
         if ($request->filled('password')) {
-            $user->password = Hash::make($request->input('password'));
+            $password = $request->input('password');
+        } else {
+            $password = Str::random(10);
         }
+
+        $user->password = Hash::make($password);
 
         if ($user->save()) {
             if ($request->input('roles')) {
@@ -43,7 +60,7 @@ class UserController extends Controller
 
             // send notification to relevant user's email
             Mail::to($request->input('email'))
-                ->send(new UserCreated($user, $request->input('password')));
+                ->send(new UserCreated($user, $password));
         }
 
         return redirect()->route('users.index')->with([

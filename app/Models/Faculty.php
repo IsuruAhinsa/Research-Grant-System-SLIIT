@@ -17,6 +17,11 @@ class Faculty extends Model
         return $this->hasMany(PrincipalInvestigator::class);
     }
 
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function reviewers(): HasMany
     {
         return $this->hasMany(Reviewer::class);

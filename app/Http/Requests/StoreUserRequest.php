@@ -22,9 +22,14 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:100', 'min:2'],
+            'faculty' => ['required', 'string'],
+            'designation' => ['required', 'string'],
+            'title' => ['required', 'string', 'max:100', 'min:2'],
+            'first_name' => ['required', 'string', 'max:100', 'min:2'],
+            'last_name' => ['required', 'string', 'max:100', 'min:2'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users,email', 'ends_with:sliit.lk'],
-            'password' => ['required', 'confirmed'],
+            'index' => ['required', 'integer', 'digits:4', 'unique:users,index'],
+            'password' => ['nullable', 'confirmed'],
             'roles' => ['required'],
         ];
     }

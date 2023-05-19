@@ -16,4 +16,9 @@ class Designation extends Model
     {
         return $this->hasMany(PrincipalInvestigator::class);
     }
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
 }

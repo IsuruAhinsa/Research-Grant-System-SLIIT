@@ -8,7 +8,7 @@
         </div>
     </x-slot>
 
-    <div class="bg-white rounded-xl py-10 px-12 my-5 shadow lg:max-w-3xl lg:mx-auto">
+    <div class="bg-white rounded-xl py-10 px-12 my-5 shadow lg:max-w-full lg:mx-auto">
         <div class="flex items-center mb-4">
             <x-ui.svg-icon class="mr-3">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -19,18 +19,75 @@
 
         <form class="row" method="POST" action="{{ route('users.store') }}">
             @csrf
-            <div class="relative w-full sm:max-w-half sm:flex-half space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                 <div>
-                    <x-ui.label for="name" value="{{ __('Name') }}"/>
-                    <x-ui.input id="name" type="text" placeholder="Enter Name" class="mt-1 block w-full" name="name" value="{{ old('name') }}"/>
-                    <x-ui.input-error for="name" class="mt-2"/>
+                    <x-ui.label for="title" value="{{ __('Title') }}"/>
+                    <x-ui.input list="titles" id="title" type="text" placeholder="Enter Title" class="mt-1 block w-full" name="title" value="{{ old('title') }}"/>
+                    <datalist id="titles">
+                        <option value="Dr">
+                        <option value="Esq">
+                        <option value="Hon">
+                        <option value="Jr">
+                        <option value="Mr">
+                        <option value="Mrs">
+                        <option value="Ms">
+                        <option value="Messrs">
+                        <option value="Mmes">
+                        <option value="Msgr">
+                        <option value="Prof">
+                        <option value="Rev">
+                        <option value="Rt. Hon">
+                        <option value="Sr">
+                        <option value="St">
+                    </datalist>
+                    <x-ui.input-error for="title" class="mt-2"/>
+                </div>
+
+                <div>
+                    <x-ui.label for="first_name" value="{{ __('First Name') }}"/>
+                    <x-ui.input id="first_name" type="text" placeholder="Enter First Name" class="mt-1 block w-full" name="first_name" value="{{ old('first_name') }}"/>
+                    <x-ui.input-error for="first_name" class="mt-2"/>
+                </div>
+
+                <div>
+                    <x-ui.label for="last_name" value="{{ __('Last Name') }}"/>
+                    <x-ui.input id="last_name" type="text" placeholder="Enter Last Name" class="mt-1 block w-full" name="last_name" value="{{ old('last_name') }}"/>
+                    <x-ui.input-error for="last_name" class="mt-2"/>
                 </div>
 
                 <div>
                     <x-ui.label for="email" value="{{ __('Email Address') }}"/>
                     <x-ui.input id="email" type="email" placeholder="Enter Email Address" class="mt-1 block w-full" name="email" value="{{ old('email') }}"/>
                     <x-ui.input-error for="email" class="mt-2"/>
+                </div>
+
+                <div>
+                    <x-ui.label for="index" value="{{ __('SLIIT ID') }}"/>
+                    <x-ui.input id="index" type="text" placeholder="Enter SLIIT ID" class="mt-1 block w-full" name="index" value="{{ old('index') }}"/>
+                    <x-ui.input-error for="index" class="mt-2"/>
+                </div>
+
+                <div>
+                    <x-ui.label for="faculty" value="{{ __('Faculty') }}"/>
+                    <x-ui.select class="mt-1 block w-full" name="faculty">
+                        <option selected disabled>Select a faculty</option>
+                        @foreach($faculties as $faculty)
+                            <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
+                        @endforeach
+                    </x-ui.select>
+                    <x-ui.input-error for="faculty" class="mt-2"/>
+                </div>
+
+                <div>
+                    <x-ui.label for="designation" value="{{ __('Designation') }}"/>
+                    <x-ui.select class="mt-1 block w-full" name="designation">
+                        <option selected disabled>Select a Designation</option>
+                        @foreach($designations as $designation)
+                            <option value="{{ $designation->id }}">{{ $designation->designation }}</option>
+                        @endforeach
+                    </x-ui.select>
+                    <x-ui.input-error for="designation" class="mt-2"/>
                 </div>
 
                 <div>

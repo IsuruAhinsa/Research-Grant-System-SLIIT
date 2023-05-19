@@ -35,13 +35,15 @@
                 </div>
             </div>
             <div class="hidden md:flex md:items-center md:space-x-6">
-                <a href="{{ route('login') }}" class="text-base font-medium text-white hover:text-gray-300">
-                    Sign in
-                </a>
-                <a href="{{ route('register') }}"
+                @if(!request()->routeIs('login'))
+                    <a href="{{ route('login') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-secondary-800 hover:bg-secondary-900">
+                        Sign in
+                    </a>
+                @endif
+                {{--<a href="{{ route('register') }}"
                    class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-secondary-800 hover:bg-secondary-900">
                     Sign Up
-                </a>
+                </a>--}}
             </div>
         </nav>
     </div>
@@ -87,9 +89,9 @@
 
                 </div>
                 <div class="mt-6 px-5">
-                    <a href="{{ route('register') }}"
+                   {{-- <a href="{{ route('register') }}"
                        class="block text-center w-full py-3 px-4 rounded-md shadow bg-gradient-to-r from-secondary-400 to-primary-600 text-white font-medium hover:from-secodary-600 hover:to-primary-700">Sign
-                        Up</a>
+                        Up</a>--}}
                 </div>
                 <div class="mt-6 px-5">
                     <p class="text-center text-base font-medium text-gray-500">Existing Sliit User? <a
