@@ -94,9 +94,7 @@
                     <x-ui.label for="roles" value="{{ __('Roles') }}"/>
                     <x-ui.select class="mt-1 block w-full" name="roles">
                         @foreach($roles as $role)
-                            @unless($role->name == "Principal Investigator")
-                                <option value="{{ $role->name }}">{{ $role->name }}</option>
-                            @endunless
+                            <option value="{{ $role->name }}">{{ $role->name }}</option>
                         @endforeach
                     </x-ui.select>
                     <x-ui.input-error for="roles" class="mt-2"/>

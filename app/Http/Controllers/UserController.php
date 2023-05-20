@@ -59,8 +59,10 @@ class UserController extends Controller
             }
 
             // send notification to relevant user's email
-            Mail::to($request->input('email'))
-                ->send(new UserCreated($user, $password));
+            if ($request->input('roles') != "Principal Investigator") {
+                Mail::to($request->input('email'))
+                    ->send(new UserCreated($user, $password));
+            }
         }
 
         return redirect()->route('users.index')->with([
