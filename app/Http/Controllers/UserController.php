@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Filament\Notifications\Notification;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -121,5 +122,33 @@ class UserController extends Controller
                 ->success()
                 ->send()
         ]);
+    }
+
+    protected function requestToLogin(Request $request)
+    {
+        $request->validate([
+           'email' => ['required', 'string', 'email', 'max:100', 'ends_with:sliit.lk']
+        ], [
+            'email.ends_with' => 'Please enter the valid email domain. (sliit.lk)',
+        ]);
+
+        $email = $request->input('email');
+
+        $user = User::where('email', $email)->first();
+
+        if ($user->getRoleNames()->first() != 'Principal Investigator') {
+            return back()->withErrors(['email' => 'Sorry! You are not a Principal Investigator.']);
+        }
+
+        $password = Str::random(10);
+        $user->password = Hash::make($password);
+
+        if ($user->save()) {
+            Mail::to($email)
+                ->send(new UserCreated($user, $password));
+        }
+
+        return redirect()->route('login')->with('status', 'Request successful! Check your email inbox for your credentials.');
+
     }
 }

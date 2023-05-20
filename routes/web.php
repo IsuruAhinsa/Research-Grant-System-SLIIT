@@ -29,6 +29,8 @@ Route::view('about', 'about')->name('about');
 
 Route::view('contact', 'contact')->name('contact');
 
+Route::post('request', [UserController::class, 'requestToLogin'])->name('request');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
