@@ -34,23 +34,17 @@ class PrincipalInvestigatorRejectedTable extends Component implements HasTable
                         ->orderBy('first_name', $direction)
                         ->orderBy('last_name', $direction);
                 })
-                ->searchable(['title', 'first_name', 'last_name'])
+                ->searchable(['title', 'first_name', 'last_name', 'email'])
                 ->description(fn(PrincipalInvestigator $record): string => $record->email),
 
             TextColumn::make('phone'),
 
             TextColumn::make('research_title')->label('Research Title'),
 
-            TextColumn::make('faculty')
-                ->description(fn(PrincipalInvestigator $record): string => Faculty::where('id', $record->faculty_id)->first()->code)
-                ->searchable(false)
-                ->sortable(false)
-                ->getStateUsing(fn(PrincipalInvestigator $record) => Faculty::where('id', $record->faculty_id)->first()->name),
+            TextColumn::make('faculty.name')
+                ->description(fn(PrincipalInvestigator $record): string => Faculty::where('id', $record->faculty_id)->first()->code),
 
-            TextColumn::make('designation')
-                ->searchable(false)
-                ->sortable(false)
-                ->getStateUsing(fn(PrincipalInvestigator $record) => Designation::where('id', $record->designation_id)->first()->designation),
+            TextColumn::make('designation.designation'),
 
             BadgeColumn::make('status')
                 ->colors([
