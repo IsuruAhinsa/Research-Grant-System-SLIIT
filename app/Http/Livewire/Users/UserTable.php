@@ -4,12 +4,11 @@ namespace App\Http\Livewire\Users;
 
 use App\Models\User;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Contracts\HasTable;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Filament\Tables;
-use stdClass;
 
 class UserTable extends Component implements Tables\Contracts\HasTable
 {
@@ -25,33 +24,23 @@ class UserTable extends Component implements Tables\Contracts\HasTable
     protected function getTableColumns(): array
     {
         return [
-            TextColumn::make('id')
-                ->getStateUsing(
-                    static function (stdClass $rowLoop, HasTable $livewire): string {
-                        return (string)(
-                            $rowLoop->iteration +
-                            ($livewire->tableRecordsPerPage * (
-                                    $livewire->page - 1
-                                ))
-                        );
-                    }
-                ),
-
-            TextColumn::make('name'),
+            TextColumn::make('fullname')
+                ->searchable(['title', 'first_name', 'last_name'])
+                ->sortable(['title', 'first_name', 'last_name']),
 
             TextColumn::make('email'),
 
-            TextColumn::make('role')
-                ->searchable(false)
-                ->sortable(false)
-                ->getStateUsing(
-                    function (User $record) {
-                        foreach ($record->roles as $role) {
-                            $data[] = $role->name;
-                        }
-                        return $data;
-                    }
-                ),
+            TextColumn::make('index')
+                ->placeholder('-'),
+
+            TextColumn::make('roles.name')
+                ->placeholder('-'),
+
+            TextColumn::make('faculty.name')
+                ->placeholder('-'),
+
+            TextColumn::make('designation.designation')
+                ->placeholder('-'),
 
             TextColumn::make('last_login')
                 ->since()
@@ -65,17 +54,19 @@ class UserTable extends Component implements Tables\Contracts\HasTable
     protected function getTableActions(): array
     {
         return [
-            Action::make('edit')
-                ->url(fn(User $record): string => route('users.edit', $record))
-                ->icon('heroicon-s-pencil')
-                ->label('Edit')
-                ->color('success'),
+            ActionGroup::make([
+                Action::make('edit')
+                    ->url(fn(User $record): string => route('users.edit', $record))
+                    ->icon('heroicon-s-pencil')
+                    ->label('Edit')
+                    ->color('success'),
 
-            Action::make('delete')
-                ->action(fn(User $record) => $this->emit('confirmDeletion', ['key' => $record->id]))
-                ->icon('heroicon-s-trash')
-                ->label('Delete')
-                ->color('danger')
+                Action::make('delete')
+                    ->action(fn(User $record) => $this->emit('confirmDeletion', ['key' => $record->id]))
+                    ->icon('heroicon-s-trash')
+                    ->label('Delete')
+                    ->color('danger')
+            ])
         ];
     }
 
