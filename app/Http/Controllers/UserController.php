@@ -78,9 +78,13 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
+        $faculties = Faculty::all();
+        $designations = Designation::all();
         return view('users.edit',[
             'user' => $user,
             'roles' => $roles,
+            'designations' => $designations,
+            'faculties' => $faculties
         ]);
     }
 
@@ -89,8 +93,14 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->name = $request->input('name');
+        $user->title = $request->input('title');
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
         $user->email = e($request->input('email'));
+        $user->index = $request->input('index');
+        $user->faculty_id = $request->input('faculty');
+        $user->designation_id = $request->input('designation');
+
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
         }
