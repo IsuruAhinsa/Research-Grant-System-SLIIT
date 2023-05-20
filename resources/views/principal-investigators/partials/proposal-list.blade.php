@@ -7,14 +7,6 @@
     <ul role="list" class="relative z-0 divide-y divide-gray-200 border-b border-gray-200">
         <li class="relative pl-4 pr-6 py-5 hover:bg-gray-50 sm:py-6 sm:pl-6 lg:pl-8 xl:pl-6">
             @if($principal_investigator)
-                <div class="flex items-center justify-between space-x-4">
-                    <!-- Repo name and link -->
-                    <div class="min-w-0 space-y-3">
-                        <div class="flex items-center space-x-3">
-                  <span class="h-4 w-4 bg-green-100 rounded-full flex items-center justify-center" aria-hidden="true">
-                    <span class="h-2 w-2 bg-green-400 rounded-full"></span>
-                  </span>
-                            <span class="block">
             <div class="flex items-center justify-between space-x-4">
                 <!-- Repo name and link -->
                 <div class="min-w-0 space-y-3">
