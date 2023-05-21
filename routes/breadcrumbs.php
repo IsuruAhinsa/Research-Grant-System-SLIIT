@@ -118,20 +118,3 @@ Breadcrumbs::for('principal-investigators.dashboard', function (BreadcrumbTrail 
 //    $trail->push(parse_url(url()->previous())['query'], route('principal-investigators.index'));
 //    $trail->push($principalInvestigator->fullname);
 //});
-
-Breadcrumbs::for('reviewers.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('dashboard');
-    $trail->push('Reviewers', route('reviewers.index'));
-});
-
-Breadcrumbs::for('reviewers.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('dashboard');
-    $trail->push('Reviewers', route('reviewers.index'));
-    $trail->push('Create Reviewer', route('reviewers.create'));
-});
-
-Breadcrumbs::for('reviewers.edit', function (BreadcrumbTrail $trail, $reviewer) {
-    $trail->parent('dashboard');
-    $trail->push('Reviewers', route('reviewers.index'));
-    $trail->push('Edit Reviewer', route('reviewers.edit', $reviewer));
-});

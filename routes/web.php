@@ -5,7 +5,6 @@ use App\Http\Controllers\DisbursementPlanController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\PrincipalInvestigatorController;
-use App\Http\Controllers\ReviewerController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -102,11 +101,6 @@ Route::middleware([
 
     Route::get('principal-investigators/ResearchAssistant/{researchAssistant}/downloads/resume', [PrincipalInvestigatorController::class, 'downloadResearchAssistantResume'])
         ->name('principal-investigators.research-assistant.downloads.resume');
-
-    /**
-     * Reviewer Routes
-     */
-    Route::resource('reviewers', ReviewerController::class)->only('index');
 
     /**
      * Disbursement Plan Routes
