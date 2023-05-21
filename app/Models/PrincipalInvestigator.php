@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\ModelStatus\HasStatuses;
 
 class PrincipalInvestigator extends Model
 {
-    use HasFactory;
+    use HasFactory, HasStatuses;
 
     protected $fillable = [
         'designation_id',
@@ -24,7 +25,6 @@ class PrincipalInvestigator extends Model
         'resume',
         'research_grant_proposal',
         'budget_activity_plan',
-        'status',
         'remarks',
         'user_id',
     ];

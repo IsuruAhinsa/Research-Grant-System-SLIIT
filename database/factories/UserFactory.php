@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
+use Spatie\Permission\Models\Role;
 
 class UserFactory extends Factory
 {
@@ -25,8 +26,13 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'faculty_id' => $this->faker->randomDigitNotNull(),
+            'designation_id' => $this->faker->randomDigitNotNull(),
+            'title' => $this->faker->title,
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'email' => $this->faker->userName . '@' . 'sliit.lk',
+            'index' => $this->faker->randomNumber(4, true),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'two_factor_secret' => null,
@@ -68,5 +74,13 @@ class UserFactory extends Factory
                 ->when(is_callable($callback), $callback),
             'ownedTeams'
         );
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (User $user) {
+            $role = Role::inRandomOrder()->first();
+            $user->assignRole($role->name);
+        });
     }
 }

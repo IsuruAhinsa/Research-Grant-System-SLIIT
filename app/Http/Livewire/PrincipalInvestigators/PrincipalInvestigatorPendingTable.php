@@ -21,7 +21,7 @@ class PrincipalInvestigatorPendingTable extends Component implements HasTable
     protected function getTableQuery(): Builder
     {
         return PrincipalInvestigator::query()
-            ->where('status', 'Pending');
+            ->currentStatus('Pending');
     }
 
     protected function getTableColumns(): array
@@ -46,7 +46,8 @@ class PrincipalInvestigatorPendingTable extends Component implements HasTable
 
             TextColumn::make('designation.designation'),
 
-            BadgeColumn::make('status')
+            BadgeColumn::make('statuses.name')
+                ->label('Status')
                 ->colors([
                     'warning' => 'Pending',
                     'success' => 'Approved',

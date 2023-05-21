@@ -20,8 +20,9 @@ class Approval extends Component
 
     public function approve()
     {
-        $this->principalInvestigator->status = "Approved";
-        $this->principalInvestigator->save();
+        $role = auth()->user()->getRoleNames()->first();
+
+        $this->principalInvestigator->setStatus("{$role}-Approved");
 
         $this->confirmingApproval = false;
 
@@ -50,9 +51,9 @@ class Approval extends Component
     {
         $this->validate();
 
-        $this->principalInvestigator->status = "Rejected";
-        $this->principalInvestigator->remarks = $this->remarks;
-        $this->principalInvestigator->save();
+        $role = auth()->user()->getRoleNames()->first();
+
+        $this->principalInvestigator->setStatus("{$role}-Rejected", $this->remarks);
 
         $this->confirmingDecline = false;
 

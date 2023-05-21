@@ -214,6 +214,8 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
             }
         }
 
+        $principal_investigator->setStatus('Pending');
+
         return redirect(route('disbursement_plans.create', $principal_investigator->id))->with([
             Notification::make()
                 ->title('Submitted')
