@@ -127,9 +127,10 @@ class UserController extends Controller
     protected function requestToLogin(Request $request)
     {
         $request->validate([
-           'email' => ['required', 'string', 'email', 'max:100', 'ends_with:sliit.lk']
+           'email' => ['required', 'string', 'email', 'max:100', 'ends_with:sliit.lk', 'exists:users,email']
         ], [
             'email.ends_with' => 'Please enter the valid email domain. (sliit.lk)',
+            'email.exists' => 'Your email address do not match with our records. Please contact your system administrator.'
         ]);
 
         $email = $request->input('email');
