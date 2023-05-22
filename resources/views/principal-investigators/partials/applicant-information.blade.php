@@ -1,37 +1,29 @@
-<div class="sm:col-span-1">
-    <dt class="text-sm font-medium text-gray-500">Full name</dt>
-    <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->full_name }}</dd>
-</div>
-<div class="sm:col-span-1">
-    <dt class="text-sm font-medium text-gray-500">Application for</dt>
-    <dd class="mt-1 text-sm text-gray-900">Backend Developer</dd>
-</div>
-<div class="sm:col-span-1">
-    <dt class="text-sm font-medium text-gray-500">Email address</dt>
-    <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->email }}</dd>
-</div>
-<div class="sm:col-span-1">
-    <dt class="text-sm font-medium text-gray-500">Phone</dt>
-    <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->phone }}</dd>
-</div>
+@unlessrole('Dean')
+    <div class="sm:col-span-1">
+        <dt class="text-sm font-medium text-gray-500">Full name</dt>
+        <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->full_name }}</dd>
+    </div>
+    <div class="sm:col-span-1">
+        <dt class="text-sm font-medium text-gray-500">Email address</dt>
+        <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->email }}</dd>
+    </div>
+    <div class="sm:col-span-1">
+        <dt class="text-sm font-medium text-gray-500">Phone</dt>
+        <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->phone }}</dd>
+    </div>
+@endunlessrole
+
 <div class="sm:col-span-1">
     <dt class="text-sm font-medium text-gray-500">Research Title</dt>
     <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->research_title }}</dd>
 </div>
+
 <div class="sm:col-span-1">
     <dt class="text-sm font-medium text-gray-500">Faculty</dt>
     <dd class="mt-1 text-sm text-gray-900">{{ \App\Models\Faculty::where('id',$principalInvestigator->faculty_id)->first()->name }}</dd>
 </div>
+
 <div class="sm:col-span-1">
     <dt class="text-sm font-medium text-gray-500">Designation</dt>
     <dd class="mt-1 text-sm text-gray-900">{{ \App\Models\Designation::where('id', $principalInvestigator->designation_id)->first()->designation }}</dd>
 </div>
-
-@if($principalInvestigator->status == 'Rejected')
-    <div class="sm:col-span-1">
-        <dt class="text-sm font-medium text-gray-500">Remarks</dt>
-        <dd class="mt-1 text-sm text-danger-600">
-            {{ $principalInvestigator->remarks }}
-        </dd>
-    </div>
-@endif

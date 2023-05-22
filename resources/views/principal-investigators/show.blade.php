@@ -24,15 +24,19 @@
 
                         <div class="sm:col-span-2 space-y-5">
 
-                            @include('principal-investigators.partials.download-principal-investigator-resume-attachment')
+                            @unlessrole('Dean')
+                                @include('principal-investigators.partials.download-principal-investigator-resume-attachment')
+                            @endunlessrole
 
                             @include('principal-investigators.partials.download-research-grant-proposal')
 
                             @include('principal-investigators.partials.download-budget-activity-plan')
 
-                            @include('principal-investigators.partials.download-co-principal-investigator-resume')
+                            @unlessrole('Dean')
+                                @include('principal-investigators.partials.download-co-principal-investigator-resume')
 
-                            @include('principal-investigators.partials.download-research-assistant-resume')
+                                @include('principal-investigators.partials.download-research-assistant-resume')
+                            @endunlessrole
 
                         </div>
 
@@ -46,9 +50,9 @@
 
         <section aria-labelledby="timeline-title" class="lg:col-start-3 lg:col-span-1 space-y-6">
             @hasrole('Dean')
-                @if($principalInvestigator->status == "Dean-Approved")
-                    @livewire('principal-investigators.reviewer-create')
-                @endif
+            @if($principalInvestigator->status == "Dean-Approved")
+                @livewire('principal-investigators.reviewer-create')
+            @endif
             @endhasrole
 
             @include('principal-investigators.partials.status-history-card')
