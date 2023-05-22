@@ -46,13 +46,6 @@ class PrincipalInvestigatorApprovedTable extends Component implements HasTable
 
             TextColumn::make('designation.designation'),
 
-            BadgeColumn::make('statuses.name')
-                ->colors([
-                    'warning' => 'Pending',
-                    'success' => 'Approved',
-                    'danger' => 'Rejected',
-                ]),
-
             TextColumn::make('created_at'),
         ];
     }

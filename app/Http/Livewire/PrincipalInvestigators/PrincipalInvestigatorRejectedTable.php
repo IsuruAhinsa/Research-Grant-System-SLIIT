@@ -20,8 +20,7 @@ class PrincipalInvestigatorRejectedTable extends Component implements HasTable
 
     protected function getTableQuery(): Builder
     {
-        return PrincipalInvestigator::query()
-            ->where('status', 'Rejected');
+        return PrincipalInvestigator::query();
     }
 
     protected function getTableColumns(): array
@@ -45,13 +44,6 @@ class PrincipalInvestigatorRejectedTable extends Component implements HasTable
                 ->description(fn(PrincipalInvestigator $record): string => Faculty::where('id', $record->faculty_id)->first()->code),
 
             TextColumn::make('designation.designation'),
-
-            BadgeColumn::make('status')
-                ->colors([
-                    'warning' => 'Pending',
-                    'success' => 'Approved',
-                    'danger' => 'Rejected',
-                ]),
 
             TextColumn::make('created_at'),
         ];
