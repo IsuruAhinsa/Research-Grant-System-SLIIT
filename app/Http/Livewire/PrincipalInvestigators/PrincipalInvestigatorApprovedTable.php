@@ -21,7 +21,7 @@ class PrincipalInvestigatorApprovedTable extends Component implements HasTable
     protected function getTableQuery(): Builder
     {
         return PrincipalInvestigator::query()
-            ->currentStatus('Super Administrator-Approved');
+            ->currentStatus(['Dean-Approved', 'Super Administrator-Approved']);
     }
 
     protected function getTableColumns(): array

@@ -20,7 +20,8 @@ class PrincipalInvestigatorRejectedTable extends Component implements HasTable
 
     protected function getTableQuery(): Builder
     {
-        return PrincipalInvestigator::query();
+        return PrincipalInvestigator::query()
+            ->currentStatus(['Dean-Rejected', 'Super Administrator-Rejected']);
     }
 
     protected function getTableColumns(): array
