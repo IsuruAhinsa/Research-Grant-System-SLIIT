@@ -26,12 +26,6 @@
     <dt class="text-sm font-medium text-gray-500">Designation</dt>
     <dd class="mt-1 text-sm text-gray-900">{{ \App\Models\Designation::where('id', $principalInvestigator->designation_id)->first()->designation }}</dd>
 </div>
-<div class="sm:col-span-1">
-    <dt class="text-sm font-medium text-gray-500">Status</dt>
-    <dd class="mt-1 text-sm text-gray-900">
-        <x-ui.badge>{{$principalInvestigator->status}}</x-ui.badge>
-    </dd>
-</div>
 
 @if($principalInvestigator->status == 'Rejected')
     <div class="sm:col-span-1">
