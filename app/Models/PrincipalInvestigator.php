@@ -27,6 +27,7 @@ class PrincipalInvestigator extends Model
         'budget_activity_plan',
         'remarks',
         'user_id',
+        'grant_number',
     ];
 
     public function designation(): BelongsTo

@@ -13,6 +13,13 @@
     </div>
 @endunlessrole
 
+@isset($principalInvestigator->grant_number)
+    <div class="sm:col-span-1">
+        <dt class="text-sm font-medium text-gray-500">Grant Number</dt>
+        <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->grant_number }}</dd>
+    </div>
+@endisset
+
 <div class="sm:col-span-1">
     <dt class="text-sm font-medium text-gray-500">Research Title</dt>
     <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->research_title }}</dd>

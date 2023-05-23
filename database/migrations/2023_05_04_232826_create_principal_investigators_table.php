@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('research_grant_proposal');
             $table->string('budget_activity_plan');
             $table->text('remarks')->nullable();
+            $table->string('grant_number')->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,9 @@
 namespace App\Http\Livewire\PrincipalInvestigators;
 
 use Filament\Notifications\Notification;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Approval extends Component
@@ -13,6 +16,8 @@ class Approval extends Component
 
     public $remarks;
 
+    public $grant_number;
+
     public function confirmApprove()
     {
         $this->confirmingApproval = true;
@@ -20,9 +25,18 @@ class Approval extends Component
 
     public function approve()
     {
+        $this->validate(
+            ['grant_number' => Rule::requiredIf(Auth::user()->hasRole(['Super Administrator', 'Administrator']))]
+        );
+
         $role = auth()->user()->getRoleNames()->first();
 
         $this->principalInvestigator->setStatus("{$role}-Approved");
+
+        if (Auth::user()->hasRole(['Super Administrator', 'Administrator'])) {
+            $this->principalInvestigator->grant_number = $this->grant_number;
+            $this->principalInvestigator->save();
+        }
 
         $this->confirmingApproval = false;
 
@@ -39,17 +53,11 @@ class Approval extends Component
         $this->confirmingDecline = true;
     }
 
-    protected $rules = [
-        'remarks' => 'required'
-    ];
-
-    protected $messages = [
-        'remarks.required' => 'Please enter the reason to reject this application.'
-    ];
-
     public function decline()
     {
-        $this->validate();
+        $this->validate(['remarks' => 'required'],[
+            'remarks.required' => 'Please enter the reason to reject this application.'
+        ]);
 
         $role = auth()->user()->getRoleNames()->first();
 
