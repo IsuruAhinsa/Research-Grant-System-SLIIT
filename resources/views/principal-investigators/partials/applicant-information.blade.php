@@ -11,6 +11,10 @@
         <dt class="text-sm font-medium text-gray-500">Phone</dt>
         <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->phone }}</dd>
     </div>
+    <div class="sm:col-span-1">
+        <dt class="text-sm font-medium text-gray-500">Sliit ID</dt>
+        <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->user->index }}</dd>
+    </div>
 @endunlessrole
 
 @isset($principalInvestigator->grant_number)
