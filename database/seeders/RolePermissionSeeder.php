@@ -36,7 +36,6 @@ class RolePermissionSeeder extends Seeder
         Role::create(['name' => 'Generic User']);
         Role::create(['name' => 'Dean']);
         Role::create(['name' => 'Principal Investigator']);
-        Role::create(['name' => 'Reviewer']);
 
         $this->command->info('Default Roles added.');
 
