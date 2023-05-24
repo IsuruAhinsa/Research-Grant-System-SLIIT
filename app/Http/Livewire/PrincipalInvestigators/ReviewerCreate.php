@@ -39,6 +39,7 @@ class ReviewerCreate extends Component implements HasForms
                     $users = User::role('Principal Investigator')
                         ->where('faculty_id', $get('faculty_id'))
                         ->whereNot('id', $this->principalInvestigator->user_id)
+                        ->whereNotIn('id', $this->principalInvestigator->users()->pluck('user_id'))
                         ->get();
                     return $users->pluck('fullname', 'id');
                 })
@@ -55,28 +56,46 @@ class ReviewerCreate extends Component implements HasForms
 
     public function saveReviewer()
     {
-        // TODO: prevent adding limit to 4
-
         $userIds = $this->form->getState()['user_id'];
-        $users = User::whereIn('id', $userIds)->get();
 
-        $this->principalInvestigator->users()->detach($users);
+        if (count($userIds) > 4) {
+            return back()->with([
+                Notification::make()
+                    ->title('Error')
+                    ->body('You can only assign four(4) reviewers to each research.')
+                    ->danger()
+                    ->send()
+            ]);
+        } else {
+            $users = User::whereIn('id', $userIds)->get();
 
-        $this->principalInvestigator->users()->attach($users);
+            $this->principalInvestigator->users()->detach($users);
 
-        // TODO: sending dashboard notifications and emails
+            if ($this->principalInvestigator->users()->count() >= 4) {
+                return back()->with([
+                    Notification::make()
+                        ->title('Error')
+                        ->body('You can only assign four(4) reviewers to each research.')
+                        ->danger()
+                        ->send()
+                ]);
+            } else {
+                $this->principalInvestigator->users()->attach($users);
 
-        $this->reset(['user_id', 'faculty_id']);
+                // TODO: sending dashboard notifications and emails
 
-        $this->emit('refreshReviewerCreate');
+                $this->reset(['user_id', 'faculty_id']);
 
-        return back()->with([
-            Notification::make()
-                ->title('Reviewers Assigned')
-                ->success()
-                ->send()
-        ]);
+                $this->emit('refreshReviewerCreate');
 
+                return back()->with([
+                    Notification::make()
+                        ->title('Reviewers Assigned')
+                        ->success()
+                        ->send()
+                ]);
+            }
+        }
     }
 
     public function render()
