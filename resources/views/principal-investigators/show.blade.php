@@ -3,7 +3,13 @@
         <div>
             {{--            {{ Breadcrumbs::render('principal-investigators.show', $principalInvestigator) }}--}}
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ $principalInvestigator->full_name }}
+                @hasanyrole('Super Administrator|Administrator')
+                    {{ $principalInvestigator->full_name }}
+                @else
+                    @isset($principalInvestigator->grant_number)
+                        {{ $principalInvestigator->grant_number }}
+                    @endisset
+                @endhasanyrole
             </h2>
         </div>
     </x-slot>
@@ -51,7 +57,7 @@
         <section aria-labelledby="timeline-title" class="lg:col-start-3 lg:col-span-1 space-y-6">
             @hasrole('Dean')
             @if($principalInvestigator->status == "Dean-Approved")
-                @livewire('principal-investigators.reviewer-create')
+                @livewire('principal-investigators.reviewer-create', ['principalInvestigator' => $principalInvestigator])
             @endif
             @endhasrole
 
