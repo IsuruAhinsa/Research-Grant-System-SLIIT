@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\PrincipalInvestigators;
 
+use App\Mail\ReviewApplicationApprovalRequest;
+use App\Mail\UserCreated;
 use App\Models\Faculty;
 use App\Models\PrincipalInvestigator;
 use App\Models\User;
@@ -9,6 +11,9 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class ReviewerCreate extends Component implements HasForms
@@ -83,6 +88,17 @@ class ReviewerCreate extends Component implements HasForms
                 $this->principalInvestigator->users()->attach($users);
 
                 // TODO: sending dashboard notifications and emails
+                foreach ($users as $user) {
+                    if ($user->last_login == null) {
+                        $password = Str::random(10);
+                        $user->password = Hash::make($password);
+                        $user->save();
+                        Mail::to($user->email)
+                            ->send(new UserCreated($user, $password));
+                    }
+                    Mail::to($user->email)
+                        ->send(new ReviewApplicationApprovalRequest($user, $this->principalInvestigator));
+                }
 
                 $this->reset(['user_id', 'faculty_id']);
 
