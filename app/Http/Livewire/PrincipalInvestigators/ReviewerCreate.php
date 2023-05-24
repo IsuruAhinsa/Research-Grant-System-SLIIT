@@ -36,9 +36,11 @@ class ReviewerCreate extends Component implements HasForms
             Select::make('user_id')
                 ->label('Reviewer')
                 ->options(function (callable $get) {
-                    $users = User::role('Principal Investigator')->where('faculty_id', $get('faculty_id'))->get();
+                    $users = User::role('Principal Investigator')
+                        ->where('faculty_id', $get('faculty_id'))
+                        ->whereNot('id', $this->principalInvestigator->user_id)
+                        ->get();
                     return $users->pluck('fullname', 'id');
-                    // TODO: prevent relevant user
                 })
                 ->required()
                 ->multiple()
