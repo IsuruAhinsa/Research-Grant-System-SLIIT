@@ -98,6 +98,22 @@ class ReviewerCreate extends Component implements HasForms
         }
     }
 
+    public function deleteReviewer($id)
+    {
+        if ($id) {
+            $this->principalInvestigator->users()->detach($id);
+
+            $this->emit('refreshReviewerCreate');
+
+            return back()->with([
+                Notification::make()
+                    ->title('Reviewer Unassigned!')
+                    ->success()
+                    ->send()
+            ]);
+        }
+    }
+
     public function render()
     {
         return view('principal-investigators.reviewer-create');
