@@ -87,7 +87,7 @@ class ReviewerCreate extends Component implements HasForms
             } else {
                 $this->principalInvestigator->users()->attach($users);
 
-                // TODO: sending dashboard notifications and emails
+                // TODO: sending dashboard notifications
                 foreach ($users as $user) {
                     if ($user->last_login == null) {
                         $password = Str::random(10);

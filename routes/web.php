@@ -5,6 +5,7 @@ use App\Http\Controllers\DisbursementPlanController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\PrincipalInvestigatorController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -114,4 +115,9 @@ Route::middleware([
 
     Route::view('disbursement_plans/success', 'disbursement-plans.success')
         ->name('disbursement_plans.success');
+
+    /**
+     * Principal Investigator - Review Routes
+     */
+    Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
 });
