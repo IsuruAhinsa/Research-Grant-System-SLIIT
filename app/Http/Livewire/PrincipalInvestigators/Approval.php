@@ -32,26 +32,19 @@ class Approval extends Component
         $role = auth()->user()->getRoleNames()->first();
 
         if (Auth::user()->hasRole('Principal Investigator')){
-            // check already approved by two reviewers.
-            $filtered = $this->principalInvestigator->statuses->filter(function (string $value, int $key) {
-                return $value == 'REVIEWER-APPROVED';
-            });
 
-            if ($filtered->count() == 2) {
-                return false;
-                // TODO: un assign other reviewers.
-            } else {
-                $this->principalInvestigator->statuses()->create([
-                    'user_id' => Auth::id(),
-                    'name' => 'REVIEWER-APPROVED',
-                ]);
-            }
+            $this->principalInvestigator->statuses()->create([
+                'user_id' => Auth::id(),
+                'name' => 'REVIEWER-APPROVED',
+            ]);
 
         } else {
+
             $this->principalInvestigator->statuses()->create([
                 'user_id' => Auth::id(),
                 'name' => Str::upper($role)."-APPROVED",
             ]);
+
         }
 
         // TODO: clean code & optimize.

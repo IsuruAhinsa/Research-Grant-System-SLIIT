@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('principal_investigator_id')->references('id')->on('principal_investigators')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->boolean('is_accepted')->nullable();
             $table->timestamps();
         });
     }

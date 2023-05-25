@@ -5,6 +5,6 @@
 
     @include('principal-investigators.reviews.partials.tabs')
 
-    @include('principal-investigators.reviews.approval-list')
+    @include('principal-investigators.reviews.request-list')
 
 </x-app-layout>

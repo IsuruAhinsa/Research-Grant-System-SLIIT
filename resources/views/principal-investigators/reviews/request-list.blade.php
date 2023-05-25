@@ -14,10 +14,7 @@
                         <p class="text-sm text-gray-500 truncate">{{ $application->faculty->name }}</p>
                     </a>
 
-                    @if($application->statuses->pluck('user_id')->doesntContain(Auth::id()))
-                        @livewire('principal-investigators.approval', ['principalInvestigator' => $application])
-                    @endif
-
+                    @livewire('principal-investigators.reviews.review-requests', ['principalInvestigator' => $application])
                 </div>
             </li>
         @endforeach

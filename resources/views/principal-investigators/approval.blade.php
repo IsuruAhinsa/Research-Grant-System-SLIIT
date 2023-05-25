@@ -5,6 +5,6 @@
         <x-ui.button wire:click.prevent="confirmDecline" class="bg-red-600 hover:bg-red-500 active:bg-red-700 focus:bg-red-700">Decline</x-ui.button>
     </div>
 
-    @include('principal-investigators.partials.approval-confirm-modal')
-    @include('principal-investigators.partials.decline-confirm-modal')
+    @include('principal-investigators.partials.modals.approval-confirm-modal')
+    @include('principal-investigators.partials.modals.decline-confirm-modal')
 </div>
