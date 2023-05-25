@@ -125,6 +125,7 @@ class User extends Authenticatable
 
     public function principal_investigators(): BelongsToMany
     {
-        return $this->belongsToMany(PrincipalInvestigator::class);
+        return $this->belongsToMany(PrincipalInvestigator::class)
+            ->withPivot('is_accepted');
     }
 }

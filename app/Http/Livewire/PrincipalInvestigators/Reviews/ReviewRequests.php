@@ -44,13 +44,15 @@ class ReviewRequests extends Component
                 'is_accepted' => true,
             ]);
 
-            Notification::make()
-                ->title('Accepted')
-                ->body('Thank You! You have been accepted to review this research.')
-                ->success()
-                ->send();
-
             $this->emit('refreshReviewRequests');
+
+            return redirect()->route('reviews.index', ['status' => 'accepted'])->with([
+                Notification::make()
+                    ->title('Accepted')
+                    ->body('Thank You! You have been accepted to review this research.')
+                    ->success()
+                    ->send()
+            ]);
         }
 
     }
@@ -61,13 +63,13 @@ class ReviewRequests extends Component
             'is_accepted' => false,
         ]);
 
-        Notification::make()
-            ->title('Declined')
-            ->body('Thank you for your response.')
-            ->danger()
-            ->send();
-
-        $this->emit('refreshReviewRequests');
+        return redirect()->route('reviews.index', ['status' => 'requested'])->with([
+            Notification::make()
+                ->title('Declined')
+                ->body('Thank you for your response.')
+                ->danger()
+                ->send()
+        ]);
     }
 
     public function render()
