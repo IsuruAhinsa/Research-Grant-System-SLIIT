@@ -49,6 +49,11 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
     {
         $this->form->fill([
             'email' => Auth::user()->email,
+            'title' => Auth::user()->title,
+            'first_name' => Auth::user()->first_name,
+            'last_name' => Auth::user()->last_name,
+            'designation_id' => Auth::user()->designation_id,
+            'faculty_id' => Auth::user()->faculty_id,
             'user_id' => Auth::id(),
         ]);
     }
@@ -61,7 +66,9 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                     ->description('Fill your details and upload documents.')
                     ->schema([
                         Grid::make(2)->schema([
+
                             Hidden::make('user_id'),
+
                             TextInput::make('title')
                                 ->datalist([
                                     'Dr',
@@ -83,16 +90,19 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                 ->string()
                                 ->placeholder('Please select the title.')
                                 ->required(),
+
                             TextInput::make('first_name')
                                 ->string()
                                 ->maxLength(50)
                                 ->placeholder('Enter your first name.')
                                 ->required(),
+
                             TextInput::make('last_name')
                                 ->string()
                                 ->maxLength(50)
                                 ->placeholder('Enter your last name.')
                                 ->required(),
+
                             TextInput::make('email')
                                 ->string()
                                 ->maxLength(75)
@@ -100,29 +110,34 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                 ->placeholder('Enter your sliit email address.')
                                 ->endsWith(['sliit.lk'])
                                 ->required(),
+
                             TextInput::make('phone')
                                 ->string()
                                 ->maxLength(75)
                                 ->placeholder('Enter your contact number.')
                                 ->regex('/^[0-9]{10}/')
                                 ->required(),
+
                             TextInput::make('research_title')
                                 ->string()
                                 ->maxLength(255)
                                 ->placeholder('Enter your research title.')
                                 ->required(),
+
                             Select::make('designation_id')
                                 ->label('Designation')
                                 ->options(Designation::all()->pluck('designation', 'id'))
                                 ->string()
                                 ->searchable()
                                 ->required(),
+
                             Select::make('faculty_id')
                                 ->label('Faculty')
                                 ->options(Faculty::all()->pluck('name', 'id'))
                                 ->string()
                                 ->required()
                                 ->searchable(),
+
                             FileUpload::make('resume')
                                 ->required()
                                 ->helperText('Accepted filetype is pdf only. Max upload size 20mb.')
@@ -134,6 +149,7 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                     return (string)str($file->getClientOriginalExtension())->prepend($filename . ".");
                                 })
                                 ->acceptedFileTypes(['application/pdf']),
+
                             FileUpload::make('research_grant_proposal')
                                 ->required()
                                 ->maxSize(1024 * 20)
@@ -145,6 +161,7 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                     return (string)str($file->getClientOriginalExtension())->prepend($filename . ".");
                                 })
                                 ->acceptedFileTypes(['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']),
+
                             FileUpload::make('budget_activity_plan')
                                 ->required()
                                 ->maxSize(1024 * 20)
@@ -158,9 +175,11 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                 ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']),
                         ])
                     ]),
+
                 Wizard\Step::make('Co-Principal Investigator Details')
                     ->description('Upload your co-investigator\'s documents.')
                     ->schema([
+
                         FileUpload::make('co_pi_attachments')
                             ->required()
                             ->label('Upload Co-Principal Investigator\'s CV(s)')
@@ -172,9 +191,11 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                             ->directory('uploads/co_pi_attachments')
                             ->acceptedFileTypes(['application/pdf']),
                     ]),
+
                 Wizard\Step::make('Research Assistant Details')
                     ->description('Upload your assistant\'s documents.')
                     ->schema([
+
                         FileUpload::make('assistant_attachments')
                             ->label('Upload assistant\'s CV(s)')
                             ->helperText('Accepted filetype is pdf only. Max upload size 20mb.')
