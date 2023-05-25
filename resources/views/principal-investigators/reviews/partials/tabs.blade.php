@@ -3,39 +3,29 @@
         <label for="tabs" class="sr-only">Select a tab</label>
         <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
         <select id="tabs" name="tabs" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-            <option>Request</option>
+            <option>Requests</option>
 
-            <option>Phone Screening</option>
+            <option>Approved</option>
 
-            <option selected>Interview</option>
-
-            <option>Offer</option>
-
-            <option>Disqualified</option>
+            <option selected>Rejected</option>
         </select>
     </div>
     <div class="hidden sm:block">
         <div class="border-b border-gray-200">
             <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200" -->
-                <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium text-sm">
-                    Request
+                <x-ui.tab-link
+                    href="{{ route('reviews.index') }}"
+                    :active="request()->routeIs('reviews.index')" :count="Auth::user()->principal_investigators()->count()">
+                    Requests
+                </x-ui.tab-link>
 
-                    <!-- Current: "bg-indigo-100 text-indigo-600", Default: "bg-gray-100 text-gray-900" -->
-                    <span class="bg-gray-100 text-gray-900 hidden ml-3 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block">{{ Auth::user()->principal_investigators()->count() }}</span>
-                </a>
-
-                <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium text-sm">
+                <x-ui.tab-link href="#" :active="request()->routeIs()" :count="2">
                     Approved
+                </x-ui.tab-link>
 
-                    <span class="bg-gray-100 text-gray-900 hidden ml-3 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block">6</span>
-                </a>
-
-                <a href="#" class="border-indigo-500 text-indigo-600 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium text-sm" aria-current="page">
+                <x-ui.tab-link href="#" :active="request()->routeIs()" :count="3">
                     Rejected
-
-                    <span class="bg-indigo-100 text-indigo-600 hidden ml-3 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block">4</span>
-                </a>
+                </x-ui.tab-link>
             </nav>
         </div>
     </div>

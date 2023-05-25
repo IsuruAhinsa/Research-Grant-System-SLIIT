@@ -1,4 +1,5 @@
-@unlessrole('Dean')
+@if($principalInvestigator->user_id == Auth::id())
+    @unlessrole('Dean')
     <div class="sm:col-span-1">
         <dt class="text-sm font-medium text-gray-500">Full name</dt>
         <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->full_name }}</dd>
@@ -15,7 +16,8 @@
         <dt class="text-sm font-medium text-gray-500">Sliit ID</dt>
         <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->user->index }}</dd>
     </div>
-@endunlessrole
+    @endunlessrole
+@endif
 
 @isset($principalInvestigator->grant_number)
     <div class="sm:col-span-1">

@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\PrincipalInvestigators;
 
 use Filament\Notifications\Notification;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -31,7 +30,25 @@ class Approval extends Component
 
         $role = auth()->user()->getRoleNames()->first();
 
-        $this->principalInvestigator->setStatus("{$role}-Approved");
+        if (Auth::user()->hasRole('Principal Investigator')){
+            // check already approved by two reviewers.
+            $filtered = $this->principalInvestigator->statuses->filter(function (string $value, int $key) {
+                return $value == 'Reviewer-Approved';
+            });
+
+            if ($filtered->count() == 2) {
+                return false;
+                // TODO: un assign other reviewers.
+            } else {
+                $this->principalInvestigator->setStatus("Reviewer-Approved", Auth::id());
+            }
+
+        } else {
+            $this->principalInvestigator->setStatus("{$role}-Approved");
+        }
+
+        // TODO: clean code & optimize.
+        // TODO: uppercase to all status.
 
         if (Auth::user()->hasRole(['Super Administrator', 'Administrator'])) {
             $this->principalInvestigator->grant_number = $this->grant_number;
@@ -60,6 +77,10 @@ class Approval extends Component
         ]);
 
         $role = auth()->user()->getRoleNames()->first();
+
+        if ($role === 'Principal Investigator'){
+            $role = 'Reviewer';
+        }
 
         $this->principalInvestigator->setStatus("{$role}-Rejected", $this->remarks);
 

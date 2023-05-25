@@ -4,12 +4,12 @@
             {{--            {{ Breadcrumbs::render('principal-investigators.show', $principalInvestigator) }}--}}
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 @hasanyrole('Super Administrator|Administrator')
-                    {{ $principalInvestigator->full_name }}
+                {{ $principalInvestigator->full_name }}
                 @else
                     @isset($principalInvestigator->grant_number)
                         {{ $principalInvestigator->grant_number }}
                     @endisset
-                @endhasanyrole
+                    @endhasanyrole
             </h2>
         </div>
     </x-slot>
@@ -30,19 +30,23 @@
 
                         <div class="sm:col-span-2 space-y-5">
 
-                            @unlessrole('Dean')
-                                @include('principal-investigators.partials.download-principal-investigator-resume-attachment')
-                            @endunlessrole
+                            @if($principalInvestigator->user_id == Auth::id())
+                                @unlessrole('Dean')
+                                    @include('principal-investigators.partials.download-principal-investigator-resume-attachment')
+                                @endunlessrole
+                            @endif
 
                             @include('principal-investigators.partials.download-research-grant-proposal')
 
                             @include('principal-investigators.partials.download-budget-activity-plan')
 
-                            @unlessrole('Dean')
-                                @include('principal-investigators.partials.download-co-principal-investigator-resume')
+                            @if($principalInvestigator->user_id == Auth::id())
+                                @unlessrole('Dean')
+                                    @include('principal-investigators.partials.download-co-principal-investigator-resume')
 
-                                @include('principal-investigators.partials.download-research-assistant-resume')
-                            @endunlessrole
+                                    @include('principal-investigators.partials.download-research-assistant-resume')
+                                @endunlessrole
+                            @endif
 
                         </div>
 

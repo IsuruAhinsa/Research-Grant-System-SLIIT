@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        Review Dashboard
+        <h2 class="font-bold">Review Dashboard</h2>
     </x-slot>
 
     @include('principal-investigators.reviews.partials.tabs')
