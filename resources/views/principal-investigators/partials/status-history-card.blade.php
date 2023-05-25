@@ -4,6 +4,9 @@
     <div class="mt-6 flow-root">
         <ul role="list" class="-mb-8">
             @foreach ($principalInvestigator->statuses->sortBy('id') as $status)
+{{-- TODO: display username approved or rejected using user_id
+       TODO: hide other status for pi (only show approved, rejected, pending)
+   --}}
                 <li>
                     <div class="relative pb-8">
 
@@ -15,7 +18,7 @@
                         <div class="relative flex space-x-3">
                             <div>
 
-                                @if ($status->name == 'Pending')
+                                @if ($status->name == 'PENDING')
 
                                     <span
                                         class="h-8 w-8 rounded-full bg-yellow-400 flex items-center justify-center ring-8 ring-white">
@@ -27,7 +30,7 @@
 
                                     </span>
 
-                                @elseif(str_contains($status->name, 'Approved'))
+                                @elseif(str_contains($status->name, 'APPROVED'))
 
                                     <span
                                         class="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white">
@@ -39,7 +42,7 @@
                                     </svg>
                                     </span>
 
-                                @elseif(str_contains($status->name, 'Rejected'))
+                                @elseif(str_contains($status->name, 'REJECTED'))
 
                                     <span
                                         class="h-8 w-8 rounded-full bg-red-500 flex items-center justify-center ring-8 ring-white">
@@ -52,17 +55,19 @@
                                 @endif
                             </div>
 
-                            <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                            <div class="min-w-0 pt-1.5 flex space-x-4">
+
                                 <div>
-                                    <p class="text-sm text-gray-500">
-                                        <x-ui.badge>{{ $status->name }}</x-ui.badge>
-                                    </p>
-                                    @if(str_contains($status->name, 'Rejected'))
-                                        <small class="flex text-red-500 mt-1">{{ $status->reason }}</small>
+                                    <x-ui.badge>{{ $status->name }}</x-ui.badge>
+
+                                    <div class="text-xs whitespace-nowrap text-gray-500 mt-1 ml-1">
+                                        <time datetime="2020-09-20">{{ $status->created_at->toDateString() }}</time>
+                                    </div>
+
+                                    @if(str_contains($status->name, 'REJECTED'))
+                                        <small class="flex text-red-500 mt-1 ml-1">{{ $status->reason }}</small>
                                     @endif
-                                </div>
-                                <div class="text-right text-xs whitespace-nowrap text-gray-500">
-                                    <time datetime="2020-09-20">{{ $status->created_at->toDateString() }}</time>
+
                                 </div>
                             </div>
                         </div>

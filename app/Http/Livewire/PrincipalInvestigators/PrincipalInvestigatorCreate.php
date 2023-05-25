@@ -127,14 +127,12 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                             Select::make('designation_id')
                                 ->label('Designation')
                                 ->options(Designation::all()->pluck('designation', 'id'))
-                                ->string()
                                 ->searchable()
                                 ->required(),
 
                             Select::make('faculty_id')
                                 ->label('Faculty')
                                 ->options(Faculty::all()->pluck('name', 'id'))
-                                ->string()
                                 ->required()
                                 ->searchable(),
 
@@ -235,7 +233,10 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
             }
         }
 
-        $principal_investigator->setStatus('Pending');
+        $principal_investigator->statuses()->create([
+            'user_id' => Auth::id(),
+            'name' => 'PENDING',
+        ]);
 
         return redirect(route('disbursement_plans.create', $principal_investigator->id))->with([
             Notification::make()

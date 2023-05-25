@@ -4,6 +4,7 @@ namespace App\Http\Livewire\PrincipalInvestigators;
 
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -33,23 +34,29 @@ class Approval extends Component
         if (Auth::user()->hasRole('Principal Investigator')){
             // check already approved by two reviewers.
             $filtered = $this->principalInvestigator->statuses->filter(function (string $value, int $key) {
-                return $value == 'Reviewer-Approved';
+                return $value == 'REVIEWER-APPROVED';
             });
 
             if ($filtered->count() == 2) {
                 return false;
                 // TODO: un assign other reviewers.
             } else {
-                $this->principalInvestigator->setStatus("Reviewer-Approved", Auth::id());
+                $this->principalInvestigator->statuses()->create([
+                    'user_id' => Auth::id(),
+                    'name' => 'REVIEWER-APPROVED',
+                ]);
             }
 
         } else {
-            $this->principalInvestigator->setStatus("{$role}-Approved");
+            $this->principalInvestigator->statuses()->create([
+                'user_id' => Auth::id(),
+                'name' => Str::upper($role)."-APPROVED",
+            ]);
         }
 
         // TODO: clean code & optimize.
-        // TODO: uppercase to all status.
 
+        // assign grant number
         if (Auth::user()->hasRole(['Super Administrator', 'Administrator'])) {
             $this->principalInvestigator->grant_number = $this->grant_number;
             $this->principalInvestigator->save();
@@ -79,10 +86,14 @@ class Approval extends Component
         $role = auth()->user()->getRoleNames()->first();
 
         if ($role === 'Principal Investigator'){
-            $role = 'Reviewer';
+            $role = 'REVIEWER';
         }
 
-        $this->principalInvestigator->setStatus("{$role}-Rejected", $this->remarks);
+        $this->principalInvestigator->statuses()->create([
+            'user_id' => Auth::id(),
+            'name' => Str::upper($role)."-REJECTED",
+            'reason' => $this->remarks,
+        ]);
 
         $this->confirmingDecline = false;
 

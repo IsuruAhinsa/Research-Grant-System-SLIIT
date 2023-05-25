@@ -9,7 +9,8 @@
                     @isset($principalInvestigator->grant_number)
                         {{ $principalInvestigator->grant_number }}
                     @endisset
-                    @endhasanyrole
+                @endhasanyrole
+                    {{-- TODO: display breadcrumbs --}}
             </h2>
         </div>
     </x-slot>
@@ -60,7 +61,7 @@
 
         <section aria-labelledby="timeline-title" class="lg:col-start-3 lg:col-span-1 space-y-6">
             @hasrole('Dean')
-            @if($principalInvestigator->status == "Dean-Approved")
+            @if($principalInvestigator->status == "DEAN-APPROVED")
                 @livewire('principal-investigators.reviewer-create', ['principalInvestigator' => $principalInvestigator])
             @endif
             @endhasrole

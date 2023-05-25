@@ -1,8 +1,8 @@
-@if($slot == 'Pending')
+@if($slot == 'PENDING')
     @php $color = 'warning'; @endphp
-@elseif(str_contains($slot, 'Approved'))
+@elseif(str_contains($slot, 'APPROVED'))
     @php $color = 'success'; @endphp
-@elseif(str_contains($slot, 'Rejected'))
+@elseif(str_contains($slot, 'REJECTED'))
     @php $color = 'danger'; @endphp
 @else
     @php $color = 'primary'; @endphp
