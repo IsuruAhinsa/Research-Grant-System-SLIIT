@@ -18,7 +18,7 @@ class FacultyFactory extends Factory
     {
         return [
             'name' => fake()->company,
-            'code' => fake()->stateAbbr,
+            'code' => fake()->unique()->lexify,
         ];
     }
 }
