@@ -15,7 +15,13 @@
         </div>
     </x-slot>
 
-    <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
+    @hasrole('Principal Investigator')
+        @if($principalInvestigator->user_id != Auth::id())
+            @include('principal-investigators.partials.dashboard-actions')
+        @endif
+    @endhasrole
+
+    <div class="mt-4 max-w-3xl mx-auto grid grid-cols-1 gap-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
 
         <div class="space-y-6 lg:col-start-1 lg:col-span-2">
 
@@ -68,5 +74,6 @@
 
             @include('principal-investigators.partials.status-history-card')
         </section>
+
     </div>
 </x-app-layout>
