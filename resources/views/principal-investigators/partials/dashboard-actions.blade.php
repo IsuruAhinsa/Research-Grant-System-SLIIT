@@ -16,7 +16,6 @@
                 <div class="relative group py-4 flex items-start space-x-3">
                     <div class="flex-shrink-0">
                         <span class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-pink-500">
-                            <!-- Heroicon name: outline/speakerphone -->
                             <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -26,7 +25,7 @@
                     </div>
                     <div class="min-w-0 flex-1">
                         <div class="text-sm font-medium text-gray-900">
-                            <a href="#">
+                            <a href="{{ route('reviewer-feedback.create', $principalInvestigator->id) }}">
                                 <span class="absolute inset-0" aria-hidden="true"></span>
                                 Reviewer Comments
                             </a>
@@ -34,7 +33,6 @@
                         <p class="text-sm text-gray-500">Evaluation Report of Research Proposal for Funding.</p>
                     </div>
                     <div class="flex-shrink-0 self-center">
-                        <!-- Heroicon name: solid/chevron-right -->
                         <svg class="h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd"
