@@ -27,8 +27,8 @@
                         <div class="text-sm font-medium text-gray-900">
                             <a href="{{ route('reviewer-feedback.create', $principalInvestigator->id) }}">
                                 <span class="absolute inset-0" aria-hidden="true"></span>
-                                {{ $principalInvestigator->isFeedbackSubmitted() ? __('Review Feedback') : __('Submit Feedback') }}
-                                @if($principalInvestigator->isFeedbackSubmitted())
+                                {{ $principalInvestigator->isFeedbackSubmitted(auth()->id()) ? __('Review Feedback') : __('Submit Feedback') }}
+                                @if($principalInvestigator->isFeedbackSubmitted(auth()->id()))
                                     <x-ui.badge class="ml-2">
                                         Feedback Submitted
                                     </x-ui.badge>

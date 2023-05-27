@@ -65,7 +65,7 @@
 
         <section aria-labelledby="timeline-title" class="lg:col-start-3 lg:col-span-1 space-y-6">
             @hasrole('Dean')
-                @if($principalInvestigator->status == "DEAN-APPROVED")
+                @if($principalInvestigator->hasEverHadStatus('DEAN-APPROVED'))
                     @livewire('principal-investigators.reviewer-create', ['principalInvestigator' => $principalInvestigator])
                 @endif
             @endhasrole

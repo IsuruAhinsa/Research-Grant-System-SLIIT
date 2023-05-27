@@ -12,6 +12,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Livewire\Component;
 
 class CreateReviewerFeedback extends Component implements HasForms
@@ -49,15 +50,13 @@ class CreateReviewerFeedback extends Component implements HasForms
     public function mount($principalInvestigator): void
     {
         $this->principal_investigator_id = $principalInvestigator;
-        $this->reviewer_id = auth()->id();
+        $this->reviewer_id = Request::has('reviewerId') ? Request::input('reviewerId') : auth()->id();
 
         $feedback = ReviewerFeedback::where('principal_investigator_id', $principalInvestigator)
-            ->where('reviewer_id', auth()->id())->first();
+            ->where('reviewer_id', $this->reviewer_id)->first();
 
         if ($feedback) {
             $this->form->fill([
-                'principal_investigator_id' => $principalInvestigator,
-                'reviewer_id' => Auth::id(),
                 'objectives_clarity' => $feedback->objectives_clarity,
                 'objectives_realistic' => $feedback->objectives_realistic,
                 'objectives_achievable' => $feedback->objectives_achievable,
@@ -408,7 +407,7 @@ class CreateReviewerFeedback extends Component implements HasForms
 
     public function isExistsRecord(): bool
     {
-        return ReviewerFeedback::where('reviewer_id', auth()->id())
+        return ReviewerFeedback::where('reviewer_id', $this->reviewer_id)
             ->where('principal_investigator_id', $this->principal_investigator_id)
             ->exists();
     }

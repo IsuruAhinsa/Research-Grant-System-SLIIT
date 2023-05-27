@@ -95,10 +95,10 @@ class PrincipalInvestigator extends Model
         return $this->hasMany(ReviewerFeedback::class);
     }
 
-    public function isFeedbackSubmitted(): bool
+    public function isFeedbackSubmitted($user_id): bool
     {
         return $this->reviewerFeedbacks()
-            ->where('reviewer_id', auth()->id())
+            ->where('reviewer_id', $user_id)
             ->exists();
     }
 }
