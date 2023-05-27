@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ReviewerFeedback extends Model
 {
@@ -61,4 +62,9 @@ class ReviewerFeedback extends Model
         // 7. Suggestions to Proposers
         'suggestions',
     ];
+
+    public function principalInvestigator(): BelongsTo
+    {
+        return $this->belongsTo(PrincipalInvestigator::class);
+    }
 }

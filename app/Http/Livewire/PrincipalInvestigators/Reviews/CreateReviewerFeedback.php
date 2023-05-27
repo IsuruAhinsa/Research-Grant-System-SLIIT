@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\PrincipalInvestigators\Reviews;
 
-use App\Models\PrincipalInvestigator;
 use App\Models\ReviewerFeedback;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Radio;
@@ -48,10 +47,66 @@ class CreateReviewerFeedback extends Component implements HasForms
 
     public function mount($principalInvestigator): void
     {
-        $this->form->fill([
-            'principal_investigator_id' => $principalInvestigator,
-            'reviewer_id' => Auth::id(),
-        ]);
+        $this->principal_investigator_id = $principalInvestigator;
+        $this->reviewer_id = auth()->id();
+
+        $feedback = ReviewerFeedback::where('principal_investigator_id', $principalInvestigator)
+            ->where('reviewer_id', auth()->id())->first();
+
+        if ($feedback) {
+            $this->form->fill([
+                'principal_investigator_id' => $principalInvestigator,
+                'reviewer_id' => Auth::id(),
+                'objectives_clarity' => $feedback->objectives_clarity,
+                'objectives_realistic' => $feedback->objectives_realistic,
+                'objectives_achievable' => $feedback->objectives_achievable,
+                'objectives_comments' => $feedback->objectives_comments,
+                // 1.2	Contribution
+                'contribution_beyond' => $feedback->contribution_beyond,
+                'contribution_state_of_affairs' => $feedback->contribution_state_of_affairs,
+                'contribution_references' => $feedback->contribution_references,
+                'contribution_comments' => $feedback->contribution_comments,
+                // 1.3	Approach
+                'approach_concept' => $feedback->approach_concept,
+                'approach_transitions' => $feedback->approach_transitions,
+                'approach_references' => $feedback->approach_references,
+                'approach_methodology' => $feedback->approach_methodology,
+                'approach_comments' => $feedback->approach_comments,
+                // 2.1 Impact of project outcomes
+                'impact_technology' => $feedback->impact_technology,
+                'impact_knowledge' => $feedback->impact_knowledge,
+                'impact_economic' => $feedback->impact_economic,
+                'impact_social' => $feedback->impact_social,
+                'impact_other' => $feedback->impact_other,
+                'impact_comments' => $feedback->impact_comments,
+                // 2.2 Dissemination of outcomes
+                'impact_dissemination_plan' => $feedback->impact_dissemination_plan,
+                // 3. Work Plan
+                'work_plan_structure' => $feedback->work_plan_structure,
+                'work_plan_details' => $feedback->work_plan_details,
+                'work_plan_approaches_activities' => $feedback->work_plan_approaches_activities,
+                'work_plan_timing' => $feedback->work_plan_timing,
+                'work_plan_comments' => $feedback->work_plan_comments,
+                // 4. Budget
+                'budget_realistic' => $feedback->budget_realistic,
+                'budget_disbursement_plan' => $feedback->budget_disbursement_plan,
+                'budget_expected_outcomes' => $feedback->budget_expected_outcomes,
+                'budget_comments' => $feedback->budget_comments,
+                // 5. Availability of Resource
+                'resource_capacity_lead' => $feedback->resource_capacity_lead,
+                'resource_background_co_investigators' => $feedback->resource_background_co_investigators,
+                'resource_infrastructure_institutions' => $feedback->resource_infrastructure_institutions,
+                'resource_capable_proposers' => $feedback->resource_capable_proposers,
+                'resource_comments' => $feedback->resource_comments,
+                // 6. Overall Evaluation and Recommendations
+                'overall_strong' => $feedback->overall_strong,
+                'overall_recommendation' => $feedback->overall_recommendation,
+                'overall_comments' => $feedback->overall_comments,
+                // 7. Suggestions to Proposers
+                'suggestions' => $feedback->suggestions,
+            ]);
+        }
+
     }
 
     protected function getFormSchema(): array
@@ -60,6 +115,7 @@ class CreateReviewerFeedback extends Component implements HasForms
             // 1.1	Objectives
             Section::make('1. Merit')
                 ->columns(2)
+                ->disabled($this->isExistsRecord())
                 ->collapsible()
                 ->description('1.1 Objectives')
                 ->schema([
@@ -91,6 +147,7 @@ class CreateReviewerFeedback extends Component implements HasForms
             Section::make('1. Merit')
                 ->columns(2)
                 ->collapsible()
+                ->disabled($this->isExistsRecord())
                 ->description('1.2 Contribution')
                 ->schema([
 
@@ -117,6 +174,7 @@ class CreateReviewerFeedback extends Component implements HasForms
             Section::make('1. Merit')
                 ->columns(2)
                 ->collapsible()
+                ->disabled($this->isExistsRecord())
                 ->description('1.3 Approach')
                 ->schema([
 
@@ -150,6 +208,7 @@ class CreateReviewerFeedback extends Component implements HasForms
             Section::make('2. Impact')
                 ->columns(2)
                 ->collapsible()
+                ->disabled($this->isExistsRecord())
                 ->description('2.1 Impact of project outcomes')
                 ->schema([
 
@@ -186,6 +245,7 @@ class CreateReviewerFeedback extends Component implements HasForms
             // 2.2 Dissemination of outcomes
             Section::make('2. Impact')
                 ->collapsible()
+                ->disabled($this->isExistsRecord())
                 ->description('2.2 Dissemination of outcomes')
                 ->schema([
 
@@ -198,6 +258,7 @@ class CreateReviewerFeedback extends Component implements HasForms
             Section::make('3. Work Plan')
                 ->columns(2)
                 ->collapsible()
+                ->disabled($this->isExistsRecord())
                 ->schema([
 
                     Radio::make('work_plan_structure')
@@ -229,6 +290,7 @@ class CreateReviewerFeedback extends Component implements HasForms
             Section::make('4. Budget')
                 ->columns(2)
                 ->collapsible()
+                ->disabled($this->isExistsRecord())
                 ->schema([
 
                     Radio::make('budget_realistic')
@@ -254,6 +316,7 @@ class CreateReviewerFeedback extends Component implements HasForms
             Section::make('5. Availability of Resource')
                 ->columns(2)
                 ->collapsible()
+                ->disabled($this->isExistsRecord())
                 ->schema([
 
                     Radio::make('resource_capacity_lead')
@@ -285,6 +348,7 @@ class CreateReviewerFeedback extends Component implements HasForms
             Section::make('6. Overall Evaluation and Recommendations')
                 ->columns(2)
                 ->collapsible()
+                ->disabled($this->isExistsRecord())
                 ->schema([
 
                     Radio::make('overall_strong')
@@ -312,6 +376,7 @@ class CreateReviewerFeedback extends Component implements HasForms
             // 7. Suggestions to Proposers
             Section::make('7. Suggestions to Proposers')
                 ->collapsible()
+                ->disabled($this->isExistsRecord())
                 ->schema([
 
                     Textarea::make('suggestions')
@@ -323,16 +388,25 @@ class CreateReviewerFeedback extends Component implements HasForms
 
     public function saveReviewerComment()
     {
-        // TODO: only once submission
-        ReviewerFeedback::create($this->form->getState());
+        if (! $this->isExistsRecord()) {
+            // Record does not exist, create a new one
+            ReviewerFeedback::create($this->form->getState());
 
-        return redirect()->route('principal-investigators.show', $this->principal_investigator_id)->with([
-            Notification::make()
-                ->title('Feedback Submitted')
-                ->body('Thank you for your feedback!')
-                ->success()
-                ->send()
-        ]);
+            return redirect()->route('principal-investigators.show', $this->principal_investigator_id)->with([
+                Notification::make()
+                    ->title('Feedback Submitted')
+                    ->body('Thank you for your feedback!')
+                    ->success()
+                    ->send()
+            ]);
+        }
+    }
+
+    public function isExistsRecord(): bool
+    {
+        return ReviewerFeedback::where('reviewer_id', auth()->id())
+            ->where('principal_investigator_id', $this->principal_investigator_id)
+            ->exists();
     }
 
     public function render()

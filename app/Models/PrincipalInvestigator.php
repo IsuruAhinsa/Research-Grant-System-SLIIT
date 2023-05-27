@@ -89,4 +89,9 @@ class PrincipalInvestigator extends Model
             ->wherePivotNull('is_accepted')
             ->exists();
     }
+
+    public function reviewerFeedbacks(): HasMany
+    {
+        return $this->hasMany(ReviewerFeedback::class, 'reviewer_id');
+    }
 }

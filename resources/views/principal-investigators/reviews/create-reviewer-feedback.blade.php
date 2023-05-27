@@ -25,9 +25,11 @@
     <form class="mt-5" wire:submit.prevent="saveReviewerComment">
         {{ $this->form }}
 
-        <div class="mt-3">
-            <x-ui.button>Submit Feedback</x-ui.button>
-        </div>
+        @unless($this->isExistsRecord())
+            <div class="mt-3">
+                <x-ui.button>Submit Feedback</x-ui.button>
+            </div>
+        @endunless
     </form>
 
 </div>
