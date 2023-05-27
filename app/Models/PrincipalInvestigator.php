@@ -92,6 +92,13 @@ class PrincipalInvestigator extends Model
 
     public function reviewerFeedbacks(): HasMany
     {
-        return $this->hasMany(ReviewerFeedback::class, 'reviewer_id');
+        return $this->hasMany(ReviewerFeedback::class);
+    }
+
+    public function isFeedbackSubmitted(): bool
+    {
+        return $this->reviewerFeedbacks()
+            ->where('reviewer_id', auth()->id())
+            ->exists();
     }
 }

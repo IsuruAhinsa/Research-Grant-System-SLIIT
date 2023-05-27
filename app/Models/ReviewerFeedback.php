@@ -65,6 +65,6 @@ class ReviewerFeedback extends Model
 
     public function principalInvestigator(): BelongsTo
     {
-        return $this->belongsTo(PrincipalInvestigator::class);
+        return $this->belongsTo(PrincipalInvestigator::class, 'reviewer_id');
     }
 }

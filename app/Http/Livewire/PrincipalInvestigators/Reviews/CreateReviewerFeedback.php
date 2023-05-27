@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PrincipalInvestigators\Reviews;
 
+use App\Models\PrincipalInvestigator;
 use App\Models\ReviewerFeedback;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Radio;
@@ -388,9 +389,12 @@ class CreateReviewerFeedback extends Component implements HasForms
 
     public function saveReviewerComment()
     {
-        if (! $this->isExistsRecord()) {
+        if (!$this->isExistsRecord()) {
             // Record does not exist, create a new one
             ReviewerFeedback::create($this->form->getState());
+
+            // create reviewer status
+            $this->setReviewerStatus();
 
             return redirect()->route('principal-investigators.show', $this->principal_investigator_id)->with([
                 Notification::make()
@@ -407,6 +411,25 @@ class CreateReviewerFeedback extends Component implements HasForms
         return ReviewerFeedback::where('reviewer_id', auth()->id())
             ->where('principal_investigator_id', $this->principal_investigator_id)
             ->exists();
+    }
+
+    public function setReviewerStatus(): void
+    {
+        if ($this->overall_strong > 3) {
+            PrincipalInvestigator::find($this->principal_investigator_id)
+                ->statuses()
+                ->create([
+                    'user_id' => auth()->id(),
+                    'name' => 'REVIEWER-APPROVED',
+                ]);
+        } else {
+            PrincipalInvestigator::find($this->principal_investigator_id)
+                ->statuses()
+                ->create([
+                    'user_id' => auth()->id(),
+                    'name' => 'REVIEWER-REJECTED',
+                ]);
+        }
     }
 
     public function render()

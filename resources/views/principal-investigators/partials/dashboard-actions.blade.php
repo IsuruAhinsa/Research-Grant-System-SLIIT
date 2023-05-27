@@ -27,7 +27,12 @@
                         <div class="text-sm font-medium text-gray-900">
                             <a href="{{ route('reviewer-feedback.create', $principalInvestigator->id) }}">
                                 <span class="absolute inset-0" aria-hidden="true"></span>
-                                Reviewer Comments
+                                {{ $principalInvestigator->isFeedbackSubmitted() ? __('Review Feedback') : __('Submit Feedback') }}
+                                @if($principalInvestigator->isFeedbackSubmitted())
+                                    <x-ui.badge class="ml-2">
+                                        Feedback Submitted
+                                    </x-ui.badge>
+                                @endif
                             </a>
                         </div>
                         <p class="text-sm text-gray-500">Evaluation Report of Research Proposal for Funding.</p>
