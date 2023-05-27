@@ -1,23 +1,28 @@
-@if($principalInvestigator->user_id == Auth::id())
-    @unlessrole('Dean')
+@unlessrole('Dean')
+
+@if(!$principalInvestigator->isReviewer())
     <div class="sm:col-span-1">
         <dt class="text-sm font-medium text-gray-500">Full name</dt>
         <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->full_name }}</dd>
     </div>
+
     <div class="sm:col-span-1">
         <dt class="text-sm font-medium text-gray-500">Email address</dt>
         <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->email }}</dd>
     </div>
+
     <div class="sm:col-span-1">
         <dt class="text-sm font-medium text-gray-500">Phone</dt>
         <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->phone }}</dd>
     </div>
+
     <div class="sm:col-span-1">
         <dt class="text-sm font-medium text-gray-500">Sliit ID</dt>
         <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->user->index }}</dd>
     </div>
-    @endunlessrole
 @endif
+
+@endunlessrole
 
 @isset($principalInvestigator->grant_number)
     <div class="sm:col-span-1">
@@ -33,10 +38,10 @@
 
 <div class="sm:col-span-1">
     <dt class="text-sm font-medium text-gray-500">Faculty</dt>
-    <dd class="mt-1 text-sm text-gray-900">{{ \App\Models\Faculty::where('id',$principalInvestigator->faculty_id)->first()->name }}</dd>
+    <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->faculty->name }}</dd>
 </div>
 
 <div class="sm:col-span-1">
     <dt class="text-sm font-medium text-gray-500">Designation</dt>
-    <dd class="mt-1 text-sm text-gray-900">{{ \App\Models\Designation::where('id', $principalInvestigator->designation_id)->first()->designation }}</dd>
+    <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->designation->designation }}</dd>
 </div>

@@ -44,7 +44,7 @@ class ReviewerCreate extends Component implements HasForms
                     $users = User::role('Principal Investigator')
                         ->where('faculty_id', $get('faculty_id'))
                         ->whereNot('id', $this->principalInvestigator->user_id)
-                        ->whereNotIn('id', $this->principalInvestigator->users()->pluck('user_id'))
+                        ->whereNotIn('id', $this->principalInvestigator->reviewers()->pluck('user_id'))
                         ->get();
                     return $users->pluck('fullname', 'id');
                 })

@@ -15,11 +15,9 @@
         </div>
     </x-slot>
 
-    @hasrole('Principal Investigator')
-        @if($principalInvestigator->user_id != Auth::id())
-            @include('principal-investigators.partials.dashboard-actions')
-        @endif
-    @endhasrole
+    @if($principalInvestigator->isReviewer())
+        @include('principal-investigators.partials.dashboard-actions')
+    @endif
 
     <div class="mt-4 max-w-3xl mx-auto grid grid-cols-1 gap-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
 
@@ -37,7 +35,7 @@
 
                         <div class="sm:col-span-2 space-y-5">
 
-                            @if($principalInvestigator->user_id == Auth::id())
+                            @if(!$principalInvestigator->isReviewer())
                                 @unlessrole('Dean')
                                     @include('principal-investigators.partials.download-principal-investigator-resume-attachment')
                                 @endunlessrole
@@ -47,7 +45,7 @@
 
                             @include('principal-investigators.partials.download-budget-activity-plan')
 
-                            @if($principalInvestigator->user_id == Auth::id())
+                            @if(!$principalInvestigator->isReviewer())
                                 @unlessrole('Dean')
                                     @include('principal-investigators.partials.download-co-principal-investigator-resume')
 
@@ -67,9 +65,9 @@
 
         <section aria-labelledby="timeline-title" class="lg:col-start-3 lg:col-span-1 space-y-6">
             @hasrole('Dean')
-            @if($principalInvestigator->status == "DEAN-APPROVED")
-                @livewire('principal-investigators.reviewer-create', ['principalInvestigator' => $principalInvestigator])
-            @endif
+                @if($principalInvestigator->status == "DEAN-APPROVED")
+                    @livewire('principal-investigators.reviewer-create', ['principalInvestigator' => $principalInvestigator])
+                @endif
             @endhasrole
 
             @include('principal-investigators.partials.status-history-card')

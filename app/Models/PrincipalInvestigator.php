@@ -63,9 +63,30 @@ class PrincipalInvestigator extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function users(): BelongsToMany
+    public function reviewers(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
             ->withPivot('is_accepted');
+    }
+
+    /**
+     * @return bool
+     * check if user (principal investigator) is reviewer.
+     */
+    public function isReviewer(): bool
+    {
+        return $this->reviewers()->where('user_id', auth()->id())->exists();
+    }
+
+    /**
+     * @return bool
+     * check if is exists pending reviewer requests.
+     */
+    public function hasPendingReviewerRequest(): bool
+    {
+        return $this->reviewers()
+            ->wherePivot('user_id', auth()->id())
+            ->wherePivotNull('is_accepted')
+            ->exists();
     }
 }
