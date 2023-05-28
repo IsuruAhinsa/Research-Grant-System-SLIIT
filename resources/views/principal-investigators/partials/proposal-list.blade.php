@@ -1,3 +1,19 @@
+@php
+    if ($principal_investigator->isPending()) {
+        $statues = 'PENDING';
+        $color1 = "bg-warning-100";
+        $color2 = "bg-warning-400";
+    } elseif ($principal_investigator->isApproved()) {
+        $statues = 'APPROVED';
+        $color1 = "bg-success-100";
+        $color2 = "bg-success-400";
+    } elseif ($principal_investigator->isRejected()) {
+        $statues = 'REJECTED';
+        $color1 = "bg-danger-100";
+        $color2 = "bg-danger-400";
+    }
+@endphp
+
 <div class="bg-white lg:min-w-0 lg:flex-1">
     <div class="pl-4 pr-6 pt-4 pb-4 border-b border-t border-gray-200 sm:pl-6 lg:pl-8 xl:pl-6 xl:pt-6 xl:border-t-0">
         <div class="flex items-center">
@@ -7,12 +23,12 @@
     <ul role="list" class="relative z-0 divide-y divide-gray-200 border-b border-gray-200">
         <li class="relative pl-4 pr-6 py-5 hover:bg-gray-50 sm:py-6 sm:pl-6 lg:pl-8 xl:pl-6">
             @if($principal_investigator)
-            <div class="flex items-center justify-between space-x-4">
+                <div class="flex items-center justify-between space-x-4">
                 <!-- Repo name and link -->
                 <div class="min-w-0 space-y-3">
                     <div class="flex items-center space-x-3">
-                  <span class="h-4 w-4 bg-green-100 rounded-full flex items-center justify-center" aria-hidden="true">
-                    <span class="h-2 w-2 bg-green-400 rounded-full"></span>
+                  <span class="h-4 w-4 rounded-full flex items-center justify-center {{ $color1 }}" aria-hidden="true">
+                    <span class="h-2 w-2 rounded-full {{ $color2 }}"></span>
                   </span>
                         <span class="block">
                       <a href="#">
@@ -23,7 +39,9 @@
                       </a>
                   </span>
                         </div>
-                        <x-ui.badge>{{ $principal_investigator->status }}</x-ui.badge>
+                        <x-ui.badge>
+                            {{ $statues }}
+                        </x-ui.badge>
                     </div>
                     <!-- Repo meta info -->
                     <div class="flex flex-col flex-shrink-0 items-end space-y-3">
