@@ -116,14 +116,18 @@ class PrincipalInvestigator extends Model
         if ($this->statuses()->where('name', 'like', '%REJECTED%')->doesntExist()) {
             if ($this->reviewers()->exists()) {
                 if ($this->reviewers()->wherePivot('is_accepted', TRUE)->count() == 2) {
-                    if ($this->reviewerFeedbacks()->where('overall_strong', '>', 3)->count() == 2) {
-                        return true;
+                    if ($this->reviewerFeedbacks()->exists()) {
+                        if ($this->reviewerFeedbacks()->where('overall_strong', '>', 3)->count() == 2) {
+                            return true;
+                        }
+                        return false;
                     }
+                    return false;
                 }
                 return false;
             }
+            return false;
         }
-
         return false;
     }
 
