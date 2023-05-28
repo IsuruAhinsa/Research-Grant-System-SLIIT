@@ -1,5 +1,6 @@
 @php
-    if ($principal_investigator->isPending()) {
+    if ($principal_investigator) {
+        if ($principal_investigator->isPending()) {
         $statues = 'PENDING';
         $color1 = "bg-warning-100";
         $color2 = "bg-warning-400";
@@ -11,6 +12,7 @@
         $statues = 'REJECTED';
         $color1 = "bg-danger-100";
         $color2 = "bg-danger-400";
+    }
     }
 @endphp
 
@@ -63,7 +65,7 @@
                     </div>
                 </div>
 
-                @if($principal_investigator->isApproved())
+                @if($principal_investigator && $principal_investigator->isApproved())
                     @include('principal-investigators.partials.feedbacks')
                 @endif
 
