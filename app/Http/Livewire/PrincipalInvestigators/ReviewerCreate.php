@@ -74,9 +74,9 @@ class ReviewerCreate extends Component implements HasForms
         } else {
             $users = User::whereIn('id', $userIds)->get();
 
-            $this->principalInvestigator->users()->detach($users);
+            $this->principalInvestigator->reviewers()->detach($users);
 
-            if ($this->principalInvestigator->users()->count() >= 4) {
+            if ($this->principalInvestigator->reviewers()->count() >= 4) {
                 return back()->with([
                     Notification::make()
                         ->title('Error')
@@ -85,7 +85,7 @@ class ReviewerCreate extends Component implements HasForms
                         ->send()
                 ]);
             } else {
-                $this->principalInvestigator->users()->attach($users);
+                $this->principalInvestigator->reviewers()->attach($users);
 
                 // TODO: sending dashboard notifications
                 foreach ($users as $user) {
