@@ -14,4 +14,11 @@
             @livewire('principal-investigators.approval', ['principalInvestigator' => $principalInvestigator])
         @endif
     @endhasrole
+
+    @hasrole('Principal Investigator')
+        @unless($principalInvestigator->isReviewer())
+            @include('principal-investigators.partials.principal-investigator-status')
+        @endunless
+    @endhasrole
+
 </div>

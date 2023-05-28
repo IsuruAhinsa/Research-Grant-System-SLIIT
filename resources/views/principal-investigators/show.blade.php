@@ -1,3 +1,11 @@
+@php
+    if (auth()->user()->hasRole('Principal Investigator') && !$principalInvestigator->isReviewer()) {
+        $classes = 'mt-4 max-w-full mx-auto gap-6';
+    } else {
+        $classes = 'mt-4 max-w-3xl mx-auto gap-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3 grid grid-cols-1';
+    }
+@endphp
+
 <x-app-layout>
     <x-slot name="header">
         <div>
@@ -19,7 +27,7 @@
         @include('principal-investigators.partials.dashboard-actions')
     @endif
 
-    <div class="mt-4 max-w-3xl mx-auto grid grid-cols-1 gap-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
+    <div class="{{ $classes }}">
 
         <div class="space-y-6 lg:col-start-1 lg:col-span-2">
 
@@ -64,13 +72,30 @@
         </div>
 
         <section aria-labelledby="timeline-title" class="lg:col-start-3 lg:col-span-1 space-y-6">
+
+            {{-- Create Reviewer Form  --}}
+
             @hasrole('Dean')
                 @if($principalInvestigator->hasEverHadStatus('DEAN-APPROVED'))
                     @livewire('principal-investigators.reviewer-create', ['principalInvestigator' => $principalInvestigator])
                 @endif
             @endhasrole
 
-            @include('principal-investigators.partials.status-history-card')
+            {{-- Status Timeline --}}
+
+            @role('Principal Investigator')
+
+                @if($principalInvestigator->isReviewer())
+                    @include('principal-investigators.partials.status-history-card')
+                @endif
+
+            @else
+
+                @include('principal-investigators.partials.status-history-card')
+
+            @endrole
+
+
         </section>
 
     </div>
