@@ -117,7 +117,7 @@ class ReviewerCreate extends Component implements HasForms
     public function deleteReviewer($id)
     {
         if ($id) {
-            $this->principalInvestigator->users()->detach($id);
+            $this->principalInvestigator->reviewers()->detach($id);
 
             $this->emit('refreshReviewerCreate');
 
