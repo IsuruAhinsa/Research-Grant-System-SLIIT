@@ -7,7 +7,7 @@
                     class="relative group p-2 w-full flex items-center justify-between rounded-full border border-gray-300 shadow-sm space-x-3 text-left hover:bg-teal-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <span class="min-w-0 flex-1 flex items-center space-x-3">
                         <span class="block flex-shrink-0">
-                            <span class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-pink-500">
+                            <span class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-orange-500">
                                 <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

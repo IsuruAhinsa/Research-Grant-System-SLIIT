@@ -24,7 +24,13 @@
     </div>
     <ul role="list" class="relative z-0 divide-y divide-gray-200 border-b border-gray-200">
         @if($principal_investigator && $principal_investigator->isApproved())
+
             @livewire('principal-investigators.agreement', ['principalInvestigator' => $principal_investigator])
+
+        @elseif($principal_investigator && $principal_investigator->isRejected())
+
+            @include('principal-investigators.partials.decline-message')
+
         @endif
         <li class="relative pl-4 pr-6 py-5 sm:py-6 sm:pl-6 lg:pl-8 xl:pl-6">
             @if($principal_investigator)
@@ -68,9 +74,10 @@
                     </div>
                 </div>
 
-                {{--    TODO: Changes        --}}
-                @if($principal_investigator && $principal_investigator->isApproved())
-                    @include('principal-investigators.partials.feedbacks')
+                @if($principal_investigator)
+                    @if($principal_investigator->isApproved() || $principal_investigator->isRejected())
+                        @include('principal-investigators.partials.feedbacks')
+                    @endif
                 @endif
 
             @else
