@@ -31,7 +31,7 @@ return new class extends Migration
             $table->text('remarks')->nullable();
             $table->string('grant_number')->nullable();
             $table->boolean('is_agreed')->default(false);
-            $table->enum('type', ['NEW', 'CORRECTED']);
+//            $table->enum('type', ['NEW', 'CORRECTED']);
             $table->timestamps();
         });
     }
