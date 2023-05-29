@@ -148,4 +148,9 @@ class PrincipalInvestigator extends Model
                 ->value('reason');
         }
     }
+
+    public function progresses(): HasMany
+    {
+        return $this->hasMany(MonthlyProgress::class);
+    }
 }

@@ -112,6 +112,19 @@ Breadcrumbs::for('principal-investigators.dashboard', function (BreadcrumbTrail 
     $trail->push('Research Proposal Overview', route('principal-investigators.dashboard', auth()->id()));
 });
 
+Breadcrumbs::for('monthly-progress.index', function (BreadcrumbTrail $trail, $principal_investigator) {
+    $trail->parent('dashboard');
+    $trail->push('Research Proposal Overview', route('principal-investigators.dashboard', auth()->id()));
+    $trail->push('Monthly Progress', route('monthly-progress.index', $principal_investigator));
+});
+
+Breadcrumbs::for('monthly-progress.create', function (BreadcrumbTrail $trail, $principal_investigator) {
+    $trail->parent('dashboard');
+    $trail->push('Research Proposal Overview', route('principal-investigators.dashboard', auth()->id()));
+    $trail->push('Monthly Progress', route('monthly-progress.index', $principal_investigator));
+    $trail->push('Create Monthly Progress', route('monthly-progress.create', $principal_investigator));
+});
+
 // TODO: create breadcrumbs for principal investigator detail page.
 //Breadcrumbs::for('principal-investigators.show', function (BreadcrumbTrail $trail, $principalInvestigator) {
 //    $trail->parent('dashboard');
