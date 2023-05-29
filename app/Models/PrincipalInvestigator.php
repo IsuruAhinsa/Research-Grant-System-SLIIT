@@ -29,6 +29,8 @@ class PrincipalInvestigator extends Model
         'remarks',
         'user_id',
         'grant_number',
+        'is_agreed',
+        'type'
     ];
 
     public function designation(): BelongsTo

@@ -30,6 +30,8 @@ return new class extends Migration
             $table->string('budget_activity_plan');
             $table->text('remarks')->nullable();
             $table->string('grant_number')->nullable();
+            $table->boolean('is_agreed')->default(false);
+            $table->enum('type', ['NEW', 'CORRECTED']);
             $table->timestamps();
         });
     }
