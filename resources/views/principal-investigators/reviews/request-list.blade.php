@@ -13,8 +13,8 @@
 
                     </div>
                     <a href="#" class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900 truncate hover:underline">{{ $item->grant_number }}</p>
-                        <p class="text-sm text-gray-500 truncate">{{ $item->faculty->name }}</p>
+                        <p class="text-sm font-medium text-gray-900 truncate hover:underline">{{ $item->research_title }}</p>
+                        <p class="text-sm text-gray-500 truncate">{{ $item->grant_number }} | {{ $item->faculty->name }}</p>
                     </a>
 
                     @livewire('principal-investigators.reviews.review-requests', ['principalInvestigator' => $item])

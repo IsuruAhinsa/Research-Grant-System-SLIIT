@@ -5,7 +5,7 @@
         <select id="tabs" name="tabs" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
             <option>Requests</option>
 
-            <option selected>Approved</option>
+            <option selected>Accepted</option>
         </select>
     </div>
     <div class="hidden sm:block">
@@ -22,7 +22,7 @@
                     href="{{ route('reviews.index', ['status' => 'accepted']) }}"
                     :active="Route::currentRouteName() == 'reviews.index' && request()->status == 'accepted'"
                     :count="$accepted_count">
-                    Approved
+                    Accepted
                 </x-ui.tab-link>
             </nav>
         </div>

@@ -114,29 +114,25 @@ class PrincipalInvestigator extends Model
     public function isApproved(): bool
     {
         if ($this->statuses()->where('name', 'like', '%REJECTED%')->doesntExist()) {
-            if ($this->reviewers()->exists()) {
-                if ($this->reviewers()->wherePivot('is_accepted', TRUE)->count() == 2) {
-                    if ($this->reviewerFeedbacks()->exists()) {
-                        if ($this->reviewerFeedbacks()->where('overall_strong', '>', 3)->count() == 2) {
-                            return true;
-                        }
-                        return false;
-                    }
-                    return false;
+            if ($this->reviewers()->exists() && $this->reviewers()->wherePivot('is_accepted', TRUE)->count() == 2) {
+                if ($this->reviewerFeedbacks()->exists() && $this->reviewerFeedbacks()->where('overall_strong', '>', 3)->count() == 2) {
+                    return true;
                 }
-                return false;
             }
-            return false;
         }
         return false;
     }
 
     public function isRejected(): bool
     {
-        if ($this->isApproved() === FALSE) {
+        if ($this->statuses()->where('name', 'like', '%REJECTED%')->exists()) {
             return true;
-        } elseif ($this->statuses()->where('name', 'like', '%REJECTED%')->exists()) {
-            return true;
+        }
+
+        if ($this->reviewers()->exists() && $this->reviewers()->wherePivot('is_accepted', TRUE)->count() == 2) {
+            if ($this->reviewerFeedbacks()->exists() && $this->reviewerFeedbacks()->where('overall_strong', '<=', 3)->exists()) {
+                return true;
+            }
         }
 
         return false;

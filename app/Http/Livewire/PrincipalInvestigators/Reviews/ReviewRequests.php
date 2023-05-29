@@ -23,7 +23,7 @@ class ReviewRequests extends Component
 
             Notification::make()
                 ->title('Sorry! you are late')
-                ->body('Sorry. Two reviewers have already involved with this research for evaluating. You will be removed from this research soon.')
+                ->body('Sorry. Two reviewers have already involved with this research for evaluating. You will be removed from this research.')
                 ->warning()
                 ->send();
 
@@ -36,7 +36,7 @@ class ReviewRequests extends Component
             // un-assign other reviewers.
             $this->principalInvestigator->reviewers()->detach($result);
 
-            $this->emit('refreshReviewRequests');
+            return redirect()->route('reviews.index', ['status' => 'requested']);
 
         } else {
 

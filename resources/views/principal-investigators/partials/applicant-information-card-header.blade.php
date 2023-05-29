@@ -25,6 +25,10 @@
 
 </div>
 
-@if($principalInvestigator->isRejected())
-    @include('principal-investigators.partials.decline-message')
-@endif
+@hasrole('Principal Investigator')
+    @unless($principalInvestigator->isReviewer())
+        @if($principalInvestigator->isRejected())
+            @include('principal-investigators.partials.decline-message')
+        @endif
+    @endunless
+@endhasrole
