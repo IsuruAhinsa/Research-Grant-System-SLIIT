@@ -20,7 +20,9 @@ class MonthlyProgressCreate extends Component implements HasForms
 
     public $principal_investigator;
 
-    public $current_progress,
+    public
+        $principal_investigator_id,
+        $current_progress,
         $current_progress_month,
         $current_progress_year,
         $next_progress,
@@ -45,6 +47,7 @@ class MonthlyProgressCreate extends Component implements HasForms
 
     public function mount($principalInvestigator)
     {
+        $this->principal_investigator_id = $principalInvestigator;
         $this->principal_investigator = $principalInvestigator;
         $this->current_progress_month = Carbon::now()->monthName;
         $this->next_progress_month = Carbon::now()->addMonth()->monthName;
@@ -60,6 +63,7 @@ class MonthlyProgressCreate extends Component implements HasForms
 
                     Fieldset::make('Progress for the Current Month')->schema([
                         TextInput::make('current_progress_year')
+                            ->rules(["date_format:Y", "after_or_equal:".Carbon::now()->year])
                             ->required(),
 
                         Select::make('current_progress_month')
@@ -73,6 +77,7 @@ class MonthlyProgressCreate extends Component implements HasForms
 
                     Fieldset::make('Progress Expected for the Next Month')->schema([
                         TextInput::make('next_progress_year')
+                            ->rules(["date_format:Y", "after_or_equal:".Carbon::now()->year])
                             ->required(),
 
                         Select::make('next_progress_month')
@@ -96,6 +101,17 @@ class MonthlyProgressCreate extends Component implements HasForms
     public function saveMonthlyProgress()
     {
         $principalInvestigator = PrincipalInvestigator::find($this->principal_investigator);
+
+        if ($principalInvestigator->progresses()->where('current_progress_month', $this->current_progress_month)->exists()) {
+            $this->addError('current_progress_month', 'You already entered monthly progress with this month.');
+            return false;
+        }
+
+        if ($principalInvestigator->progresses()->where('next_progress_month', $this->next_progress_month)->exists()) {
+            $this->addError('next_progress_month', 'You already entered excepted progress with this month.');
+            return false;
+        }
+
         $principalInvestigator->progresses()->create($this->form->getState());
 
         return redirect()->route('monthly-progress.index', $this->principal_investigator)->with([
