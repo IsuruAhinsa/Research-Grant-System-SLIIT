@@ -46,6 +46,13 @@ class PrincipalInvestigatorPendingTable extends Component implements HasTable
 
             TextColumn::make('designation.designation'),
 
+            BadgeColumn::make('type')
+                ->label('Proposal Type')
+                ->colors([
+                    'primary' => 'NEW',
+                    'warning' => 'CORRECTED'
+                ]),
+
             TextColumn::make('created_at'),
         ];
     }

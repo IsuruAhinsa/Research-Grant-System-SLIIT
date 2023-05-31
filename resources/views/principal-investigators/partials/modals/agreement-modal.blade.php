@@ -1,6 +1,6 @@
 <x-ui.dialog-modal wire:model="confirmingAgreement">
     <x-slot name="title">
-        {{ __('Agreement on Acceptance of Research Grant For Funding.') }}
+        <p class="font-bold">{{ __('Agreement on Acceptance of Research Grant For Funding.') }}</p>
     </x-slot>
 
     <x-slot name="content">

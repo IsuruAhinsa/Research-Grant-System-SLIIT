@@ -250,7 +250,7 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
             // checking if is exists dean
             if (User::role('dean')->exists()) {
                 // getting dean
-                $dean = User::role('Dean')->first()->value('email');
+                $dean = User::role('Dean')->first();
                 // sending email to dean
                 Mail::to($dean->email)->send(new ReserchProposalSubmitted($principal_investigator, $dean));
             }

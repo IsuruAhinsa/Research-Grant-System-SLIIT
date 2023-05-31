@@ -26,10 +26,12 @@ class Agreement extends Component
 
         $this->confirmingAgreement = false;
 
-        Notification::make()
-            ->title('Agreed!')
-            ->success()
-            ->send();
+        return redirect()->route('principal-investigators.dashboard')->with([
+            Notification::make()
+                ->title('Agreed!')
+                ->success()
+                ->send()
+        ]);
     }
 
     public function disagree()

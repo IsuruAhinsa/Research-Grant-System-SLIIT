@@ -5,16 +5,6 @@
     </x-ui.svg-icon>
 </x-ui.sidebar-item>
 
-@role('Dean')
-
-<x-ui.sidebar-item title="Approved Applications" route="{{ route('principal-investigators.index', ['status' => 'Approved']) }}">
-    <x-ui.svg-icon class="mr-3 flex-shrink-0 text-white">
-        <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" ></path>
-    </x-ui.svg-icon>
-</x-ui.sidebar-item>
-
-@endrole
-
 @hasanyrole('Super Administrator|Administrator')
 <div x-data="{ open: false }">
     <x-ui.sidebar-item @click="open = !open" route="#">
@@ -62,7 +52,7 @@
 </x-ui.sidebar-item>
 
 @if(Auth::user()->principal_investigators()->wherePivotNull('is_accepted')->exists())
-    <x-ui.sidebar-item title="Reviews" route="{{ route('reviews.index', ['status' => 'requested']) }}">
+    <x-ui.sidebar-item title="Review Center" route="{{ route('reviews.index', ['status' => 'requested']) }}">
         <x-ui.svg-icon class="mr-3 flex-shrink-0 text-white">
             <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3" />
         </x-ui.svg-icon>
@@ -71,7 +61,7 @@
 
 @endrole
 
-@hasanyrole('Super Administrator|Administrator')
+@hasanyrole('Super Administrator|Administrator|Dean')
 
 <div x-data="{ open: false }">
     <x-ui.sidebar-item @click="open = !open" route="#">
@@ -89,10 +79,14 @@
     <div class="space-y-1 border-2 border-blue-600 rounded-lg m-3 p-2" id="sub-menu-2"
          x-show="open">
 
-        <a href="{{ route('principal-investigators.index', ['status' => 'Pending']) }}"
-           class="group w-full flex items-center pl-2 pr-2 py-2 text-sm font-medium text-white rounded-md hover:bg-primary-600">
-            New Applications
-        </a>
+        @unlessrole('Dean')
+
+            <a href="{{ route('principal-investigators.index', ['status' => 'Pending']) }}"
+               class="group w-full flex items-center pl-2 pr-2 py-2 text-sm font-medium text-white rounded-md hover:bg-primary-600">
+                New Applications
+            </a>
+
+        @endunlessrole
 
         <a href="{{ route('principal-investigators.index', ['status' => 'Approved']) }}"
            class="group w-full flex items-center pl-2 pr-2 py-2 text-sm font-medium text-white rounded-md hover:bg-primary-600">
@@ -102,11 +96,6 @@
         <a href="{{ route('principal-investigators.index', ['status' => 'Rejected']) }}"
            class="group w-full flex items-center pl-2 pr-2 py-2 text-sm font-medium text-white rounded-md hover:bg-primary-600">
             Rejected Applications
-        </a>
-
-        <a href="#"
-           class="group w-full flex items-center pl-2 pr-2 py-2 text-sm font-medium text-white rounded-md hover:bg-primary-600">
-            Corrected Applications
         </a>
 
     </div>
