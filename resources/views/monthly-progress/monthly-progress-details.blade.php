@@ -1,7 +1,9 @@
 <div>
     <x-slot name="header">
         <div>
-            {{ Breadcrumbs::render('monthly-progress.show', $monthlyProgress) }}
+            @role('Principal Investigator')
+                {{ Breadcrumbs::render('monthly-progress.show', $monthlyProgress) }}
+            @endrole
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ $monthlyProgress->current_progress_month }} Progress Reports
             </h2>

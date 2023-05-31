@@ -23,9 +23,15 @@
         </div>
     </x-slot>
 
-    @if($principalInvestigator->isReviewer())
+    @hasanyrole('Super Administrator|Administrator|Dean')
         @include('principal-investigators.partials.dashboard-actions')
-    @endif
+    @endhasanyrole
+
+    @hasrole('Principal Investigator')
+        @if($principalInvestigator->isReviewer())
+            @include('principal-investigators.partials.dashboard-actions')
+        @endif
+    @endhasrole
 
     <div class="{{ $classes }}">
 
