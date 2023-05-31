@@ -8,12 +8,12 @@ use Livewire\Component;
 
 class MonthlyProgressDetails extends Component
 {
-    public $principal_investigator;
+    public $principalInvestigator;
     public $monthlyProgress;
 
     public function mount(PrincipalInvestigator $principalInvestigator, MonthlyProgress $monthlyProgress)
     {
-        $this->principal_investigator = $principalInvestigator;
+        $this->principalInvestigator = $principalInvestigator;
         $this->monthlyProgress = $monthlyProgress;
     }
 

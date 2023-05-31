@@ -16,7 +16,7 @@ class MonthlyProgressTable extends Component implements HasTable
 {
     use InteractsWithTable;
 
-    public $principal_investigator;
+    public PrincipalInvestigator $principalInvestigator;
 
     public $monthsArray = [
         'January' => 'January',
@@ -35,12 +35,12 @@ class MonthlyProgressTable extends Component implements HasTable
 
     public function mount($principalInvestigator)
     {
-        $this->principal_investigator = $principalInvestigator;
+        $this->principalInvestigator = $principalInvestigator;
     }
 
     protected function getTableQuery(): Builder
     {
-        return MonthlyProgress::query()->where('principal_investigator_id', $this->principal_investigator);
+        return MonthlyProgress::query()->where('principal_investigator_id', $this->principalInvestigator->id);
     }
 
     protected function getTableColumns(): array
@@ -62,14 +62,6 @@ class MonthlyProgressTable extends Component implements HasTable
         ];
     }
 
-    protected function getTableActions(): array
-    {
-        return [
-            Action::make('show')
-                ->url(fn (MonthlyProgress $record): string => route('monthly-progress.show', [$this->principal_investigator, $record])),
-        ];
-    }
-
     protected function isTablePaginationEnabled(): bool
     {
         return false;
@@ -77,7 +69,7 @@ class MonthlyProgressTable extends Component implements HasTable
 
     protected function getTableRecordUrlUsing(): ?Closure
     {
-        return fn (MonthlyProgress $record): string =>  route('monthly-progress.show', [$this->principal_investigator, $record]);
+        return fn (MonthlyProgress $record): string =>  route('monthly-progress.show', [$this->principalInvestigator->id, $record]);
     }
 
     protected function getTableEmptyStateHeading(): ?string
@@ -95,7 +87,7 @@ class MonthlyProgressTable extends Component implements HasTable
         return [
             Action::make('create')
                 ->label('Create Monthly Progress')
-                ->url(route('monthly-progress.create', $this->principal_investigator))
+                ->url(route('monthly-progress.create', $this->principalInvestigator->id))
                 ->size('lg')
                 ->button(),
         ];

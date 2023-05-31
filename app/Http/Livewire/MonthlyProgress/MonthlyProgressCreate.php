@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\MonthlyProgress;
 
+use App\Models\MonthlyProgress;
 use App\Models\PrincipalInvestigator;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
@@ -11,6 +12,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 
@@ -63,11 +65,28 @@ class MonthlyProgressCreate extends Component implements HasForms
 
                     Fieldset::make('Progress for the Current Month')->schema([
                         TextInput::make('current_progress_year')
+                            ->label('Year')
                             ->rules(["date_format:Y", "after_or_equal:".Carbon::now()->year])
+                            ->reactive()
                             ->required(),
-                        // TODO: filter months with database records.
+
                         Select::make('current_progress_month')
-                            ->options($this->monthsArray)
+                            ->label('Month')
+                            ->options(function (callable $get) {
+                                $dbMonths = MonthlyProgress::query()
+                                    ->where('principal_investigator_id', $this->principal_investigator_id)
+                                    ->where('current_progress_year', $get('current_progress_year'))
+                                    ->pluck('current_progress_month')
+                                    ->toArray();
+
+                                $dbMonthsArray = [];
+
+                                foreach ($dbMonths as $dbMonth) {
+                                    $dbMonthsArray[$dbMonth] = $dbMonth;
+                                }
+
+                                return Arr::except($this->monthsArray, $dbMonthsArray);
+                            })
                             ->required(),
 
                         Textarea::make('current_progress')
@@ -77,12 +96,29 @@ class MonthlyProgressCreate extends Component implements HasForms
 
                     Fieldset::make('Progress Expected for the Next Month')->schema([
                         TextInput::make('next_progress_year')
+                            ->label('Year')
                             ->rules(["date_format:Y", "after_or_equal:".Carbon::now()->year])
+                            ->reactive()
                             ->required(),
-                        // TODO: filter months with database records.
+
                         Select::make('next_progress_month')
+                            ->label('Month')
                             ->required()
-                            ->options($this->monthsArray),
+                            ->options(function (callable $get) {
+                                $dbMonths = MonthlyProgress::query()
+                                    ->where('principal_investigator_id', $this->principal_investigator_id)
+                                    ->where('next_progress_year', $get('next_progress_year'))
+                                    ->pluck('next_progress_month')
+                                    ->toArray();
+
+                                $dbMonthsArray = [];
+
+                                foreach ($dbMonths as $dbMonth) {
+                                    $dbMonthsArray[$dbMonth] = $dbMonth;
+                                }
+
+                                return Arr::except($this->monthsArray, $dbMonthsArray);
+                            }),
 
                         Textarea::make('next_progress')
                             ->columnSpan(2)
