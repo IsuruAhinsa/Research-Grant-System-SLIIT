@@ -85,7 +85,7 @@ Route::middleware([
     Route::resource('principal-investigators', PrincipalInvestigatorController::class)
         ->except(['create', 'store']);
 
-    Route::get('principal-investigators/{user}/dashboard', [PrincipalInvestigatorController::class, 'dashboard'])
+    Route::get('principal-investigators/dashboard/overview', [PrincipalInvestigatorController::class, 'dashboard'])
         ->name('principal-investigators.dashboard');
 
     Route::get('principal-investigators/{principalInvestigator}/downloads/resume', [PrincipalInvestigatorController::class, 'downloadResume'])

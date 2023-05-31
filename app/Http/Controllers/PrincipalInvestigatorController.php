@@ -21,9 +21,22 @@ class PrincipalInvestigatorController extends Controller
         return view('principal-investigators.index');
     }
 
-    public function dashboard(User $user)
+    public function dashboard()
     {
-        $principal_investigator = $user->principal_investigator;
+        $exists = PrincipalInvestigator::where('type', 'CORRECTED')
+            ->where('user_id', auth()->id())
+            ->exists();
+
+        if ($exists) {
+            $principal_investigator = PrincipalInvestigator::where('type', 'CORRECTED')
+                ->where('user_id', auth()->id())
+                ->first();
+        } else {
+            $principal_investigator = PrincipalInvestigator::where('type', 'NEW')
+                ->where('user_id', auth()->id())
+                ->first();
+        }
+
         return view('principal-investigators.dashboard', [
             'principal_investigator' => $principal_investigator
         ]);

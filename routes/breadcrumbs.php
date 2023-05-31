@@ -109,7 +109,7 @@ Breadcrumbs::for('principal-investigators.index', function (BreadcrumbTrail $tra
 
 Breadcrumbs::for('principal-investigators.dashboard', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
-    $trail->push('Research Proposal Overview', route('principal-investigators.dashboard', auth()->id()));
+    $trail->push('Research Proposal Overview', route('principal-investigators.dashboard'));
 });
 
 // TODO: create breadcrumbs for principal investigator detail page.
@@ -121,20 +121,20 @@ Breadcrumbs::for('principal-investigators.dashboard', function (BreadcrumbTrail 
 
 Breadcrumbs::for('monthly-progress.index', function (BreadcrumbTrail $trail, $principal_investigator) {
     $trail->parent('dashboard');
-    $trail->push('Research Proposal Overview', route('principal-investigators.dashboard', auth()->id()));
+    $trail->push('Research Proposal Overview', route('principal-investigators.dashboard'));
     $trail->push('Monthly Progress', route('monthly-progress.index', $principal_investigator));
 });
 
 Breadcrumbs::for('monthly-progress.create', function (BreadcrumbTrail $trail, $principal_investigator) {
     $trail->parent('dashboard');
-    $trail->push('Research Proposal Overview', route('principal-investigators.dashboard', auth()->id()));
+    $trail->push('Research Proposal Overview', route('principal-investigators.dashboard'));
     $trail->push('Monthly Progress', route('monthly-progress.index', $principal_investigator));
     $trail->push('Create Monthly Progress', route('monthly-progress.create', $principal_investigator));
 });
 
 Breadcrumbs::for('monthly-progress.show', function (BreadcrumbTrail $trail, $monthlyProgress) {
     $trail->parent('dashboard');
-    $trail->push('Research Proposal Overview', route('principal-investigators.dashboard', auth()->id()));
+    $trail->push('Research Proposal Overview', route('principal-investigators.dashboard'));
     $trail->push('Monthly Progress', route('monthly-progress.index', $monthlyProgress->principal_investigator_id));
     $trail->push($monthlyProgress->current_progress_month.' Progress', route('monthly-progress.show', [$monthlyProgress->principal_investigator_id, $monthlyProgress]));
 });
