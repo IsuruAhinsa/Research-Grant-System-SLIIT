@@ -65,7 +65,7 @@ class MonthlyProgressCreate extends Component implements HasForms
                         TextInput::make('current_progress_year')
                             ->rules(["date_format:Y", "after_or_equal:".Carbon::now()->year])
                             ->required(),
-
+                        // TODO: filter months with database records.
                         Select::make('current_progress_month')
                             ->options($this->monthsArray)
                             ->required(),
@@ -79,7 +79,7 @@ class MonthlyProgressCreate extends Component implements HasForms
                         TextInput::make('next_progress_year')
                             ->rules(["date_format:Y", "after_or_equal:".Carbon::now()->year])
                             ->required(),
-
+                        // TODO: filter months with database records.
                         Select::make('next_progress_month')
                             ->required()
                             ->options($this->monthsArray),

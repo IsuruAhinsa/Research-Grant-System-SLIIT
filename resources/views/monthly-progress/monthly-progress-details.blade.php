@@ -1,14 +1,14 @@
 <div>
     <x-slot name="header">
         <div>
-{{--            {{ Breadcrumbs::render('monthly-progress.show', $principal_investigator) }}--}}
+            {{ Breadcrumbs::render('monthly-progress.show', $monthlyProgress) }}
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ $monthlyProgress->current_progress_month }} Progress Reports
             </h2>
         </div>
     </x-slot>
 
-    <div class="bg-gray-900">
+    <div class="bg-gray-900 mt-4">
         <div class="pt-6 sm:pt-8 lg:pt-12">
             <div class="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
                 <div class="max-w-3xl mx-auto space-y-2 lg:max-w-none">

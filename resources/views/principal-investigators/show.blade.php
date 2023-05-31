@@ -9,7 +9,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div>
-            {{--            {{ Breadcrumbs::render('principal-investigators.show', $principalInvestigator) }}--}}
+{{--            {{ Breadcrumbs::render('principal-investigators.show', $principalInvestigator) }}--}}
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 @hasanyrole('Super Administrator|Administrator')
                 {{ $principalInvestigator->full_name }}

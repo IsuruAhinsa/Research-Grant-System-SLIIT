@@ -37,6 +37,13 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        // checking if is exists dean
+        if ($request->input('roles') == 'Dean') {
+            if (User::role('Dean')->exists()) {
+                return back()->withErrors(['roles' => 'Dean has already Exists.']);
+            }
+        }
+
         $user = new User();
         $user->title = $request->input('title');
         $user->first_name = $request->input('first_name');

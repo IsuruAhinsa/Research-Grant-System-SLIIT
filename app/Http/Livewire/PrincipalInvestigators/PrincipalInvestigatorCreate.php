@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\PrincipalInvestigators;
 
+use App\Mail\ReserchProposalSubmitted;
 use App\Models\CoPrincipalInvestigator;
 use App\Models\Designation;
 use App\Models\Faculty;
 use App\Models\PrincipalInvestigator;
 use App\Models\ResearchAssistant;
+use App\Models\User;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
@@ -18,6 +20,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\HtmlString;
 use Livewire\Component;
 use Livewire\TemporaryUploadedFile;
@@ -40,6 +43,7 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
     public $co_pi_attachments = [];
     public $assistant_attachments = [];
     public $user_id;
+    public $type;
 
     protected $messages = [
         'email.ends_with' => 'Please enter the valid email domain. (sliit.lk)'
@@ -55,6 +59,7 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
             'designation_id' => Auth::user()->designation_id,
             'faculty_id' => Auth::user()->faculty_id,
             'user_id' => Auth::id(),
+            'type' => 'NEW',
         ]);
     }
 
@@ -68,6 +73,8 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                         Grid::make(2)->schema([
 
                             Hidden::make('user_id'),
+
+                            Hidden::make('type'),
 
                             TextInput::make('title')
                                 ->datalist([
@@ -215,9 +222,16 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
 
     public function savePrincipalInvestigator()
     {
-        $principal_investigator = PrincipalInvestigator::create($this->form->getStateExcept(['co_pi_attachment', 'assistant_attachments']));
+        $exists = PrincipalInvestigator::where('email', $this->email)->exists();
+
+        if ($exists) {
+            $this->type = 'CORRECTED';
+        }
+
+        $principal_investigator = PrincipalInvestigator::create($this->form->getStateExcept(['co_pi_attachments', 'assistant_attachments']));
 
         if ($principal_investigator) {
+            // saving co principal investigator attachments.
             $array1 = $this->form->getStateOnly(['co_pi_attachments']);
             foreach ($array1['co_pi_attachments'] as $var) {
                 $principal_investigator->co_principal_investigators()->save(
@@ -225,14 +239,24 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                 );
             }
 
+            // saving assistant attachments.
             $array2 = $this->form->getStateOnly(['assistant_attachments']);
             foreach ($array2['assistant_attachments'] as $var) {
                 $principal_investigator->research_assistants()->save(
                     new ResearchAssistant(['attachment' => $var])
                 );
             }
-        }
 
+            // checking if is exists dean
+            if (User::role('dean')->exists()) {
+                // getting dean
+                $dean = User::role('Dean')->first()->value('email');
+                // sending email to dean
+                Mail::to($dean->email)->send(new ReserchProposalSubmitted($principal_investigator, $dean));
+            }
+
+        }
+        // creating statuses
         $principal_investigator->statuses()->create([
             'user_id' => Auth::id(),
             'name' => 'PENDING',

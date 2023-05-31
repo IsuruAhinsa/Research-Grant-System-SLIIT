@@ -5,7 +5,7 @@
         </div>
         <div>
             <ul class="py-4 text-sm" role="list">
-                @if($principal_investigator)
+                @if($principal_investigator && $principal_investigator->is_agreed)
                     <li>
                         <a href="{{ route('monthly-progress.index', $principal_investigator) }}" class="flex items-center text-indigo-600 font-semibold hover:text-indigo-900 hover:underline">
 
