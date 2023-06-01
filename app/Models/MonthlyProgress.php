@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MonthlyProgress extends Model
 {
@@ -24,5 +25,24 @@ class MonthlyProgress extends Model
     public function principalInvestigator(): BelongsTo
     {
         return $this->belongsTo(PrincipalInvestigator::class);
+    }
+
+    public function monthlyProgressGrades(): HasMany
+    {
+        return $this->hasMany(MonthlyProgressGrade::class);
+    }
+
+    public function checkExistsGrading(): bool
+    {
+        return $this
+            ->monthlyProgressGrades()
+            ->where('graded_by', auth()->user()->getRoleNames())
+            ->exists();
+    }
+
+    public function getGrading()
+    {
+        return $this->monthlyProgressGrades()
+            ->where('graded_by', auth()->user()->getRoleNames())->first();
     }
 }

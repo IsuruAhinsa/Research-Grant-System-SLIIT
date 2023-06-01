@@ -4,6 +4,7 @@ use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DisbursementPlanController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\MonthlyProgressGradeController;
 use App\Http\Controllers\PrincipalInvestigatorController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoleController;
@@ -120,4 +121,10 @@ Route::middleware([
      * Principal Investigator - Review Routes
      */
     Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
+
+    /**
+     * Monthly Progress Grading Routes
+     */
+    Route::post('monthly-progress-grade/store', [MonthlyProgressGradeController::class, 'store'])
+        ->name('monthly-progress.grade.store');
 });
