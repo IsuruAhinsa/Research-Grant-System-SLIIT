@@ -29,12 +29,14 @@
         </p>
     </x-slot>
         <x-slot name="footer">
-            <x-ui.secondary-button  wire:click.prevent="disagree" wire:loading.attr="disabled">
-                {{ __('Disagree') }}
-            </x-ui.secondary-button>
-
-            <x-ui.button class="ml-3" wire:click.prevent="agree" wire:loading.attr="disabled">
-                {{ __('I Agree') }}
-            </x-ui.button>
+            @if($is_agreed === FALSE)
+                <x-ui.button class="ml-3" wire:click.prevent="agree" wire:loading.attr="disabled">
+                    {{ __('I Agree') }}
+                </x-ui.button>
+            @else
+                <x-ui.secondary-button wire:click="$toggle('confirmingAgreement')" wire:loading.attr="disabled">
+                    {{ __('Close') }}
+                </x-ui.secondary-button>
+            @endif
         </x-slot>
 </x-ui.dialog-modal>

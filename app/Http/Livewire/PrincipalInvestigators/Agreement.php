@@ -34,19 +34,6 @@ class Agreement extends Component
         ]);
     }
 
-    public function disagree()
-    {
-        $this->principalInvestigator->is_agreed = FALSE;
-        $this->principalInvestigator->save();
-
-        $this->confirmingAgreement = false;
-
-        Notification::make()
-            ->title('Disagreed!')
-            ->success()
-            ->send();
-    }
-
     public function render()
     {
         return view('principal-investigators.agreement');
