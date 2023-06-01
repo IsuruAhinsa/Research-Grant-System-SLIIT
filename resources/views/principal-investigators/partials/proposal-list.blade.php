@@ -23,15 +23,20 @@
         </div>
     </div>
     <ul role="list" class="relative z-0 divide-y divide-gray-200 border-b border-gray-200">
-        @if($principal_investigator && $principal_investigator->isApproved())
+        @if($principal_investigator && $principal_investigator->isApprovedMonthlyProgress())
+            @if($principal_investigator->isApproved())
 
-            @livewire('principal-investigators.agreement', ['principalInvestigator' => $principal_investigator])
+                @livewire('principal-investigators.agreement', ['principalInvestigator' => $principal_investigator])
 
-        @elseif($principal_investigator && $principal_investigator->isRejected())
+            @elseif($principal_investigator->isRejected())
 
-            @include('principal-investigators.partials.decline-message')
+                @include('principal-investigators.partials.decline-message')
 
+            @endif
+        @else
+            @include('monthly-progress.partials.monthly-progress-decline-message', ['principalInvestigator' => $principal_investigator])
         @endif
+
         <li class="relative pl-4 pr-6 py-5 sm:py-6 sm:pl-6 lg:pl-8 xl:pl-6">
             @if($principal_investigator)
                 <div class="flex items-center justify-between space-x-4">

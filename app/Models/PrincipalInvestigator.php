@@ -153,4 +153,21 @@ class PrincipalInvestigator extends Model
     {
         return $this->hasMany(MonthlyProgress::class);
     }
+
+    public function isApprovedMonthlyProgress(): bool
+    {
+        $monthlyProgresses = $this->progresses;
+
+        foreach ($monthlyProgresses as $monthlyProgress) {
+            if ($monthlyProgress->monthlyProgressGrades()
+                ->where('grade', 'Poor')
+                ->orWhere('grade', 'Satisfactory')
+                ->orWhere('grade', 'Average')
+                ->exists()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

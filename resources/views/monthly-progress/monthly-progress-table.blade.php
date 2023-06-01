@@ -14,9 +14,16 @@
 
         @role('Principal Investigator')
             @if($principalInvestigator->progresses()->exists())
-                <a class="flex justify-end my-4" href="{{ route('monthly-progress.create', $principalInvestigator) }}">
-                    <x-ui.button>Create Monthly Progress</x-ui.button>
-                </a>
+                @if($principalInvestigator->isApprovedMonthlyProgress())
+                    <a class="flex justify-end my-4" href="{{ route('monthly-progress.create', $principalInvestigator) }}">
+                        <x-ui.button>Create Monthly Progress</x-ui.button>
+                    </a>
+
+                @else
+
+                @include('monthly-progress.partials.monthly-progress-decline-message')
+
+                @endif
             @endif
         @endrole
 
