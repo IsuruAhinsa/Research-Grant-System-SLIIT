@@ -86,6 +86,9 @@ Route::middleware([
     Route::resource('principal-investigators', PrincipalInvestigatorController::class)
         ->except(['create', 'store']);
 
+    Route::view('principal-investigators/success/message', 'principal-investigators.success')
+        ->name('principal-investigators.success');
+
     Route::get('principal-investigators/dashboard/overview', [PrincipalInvestigatorController::class, 'dashboard'])
         ->name('principal-investigators.dashboard');
 
@@ -113,9 +116,6 @@ Route::middleware([
 
     Route::post('disbursement_plans/store', [DisbursementPlanController::class, 'store'])
         ->name('disbursement_plans.store');
-
-    Route::view('disbursement_plans/success', 'disbursement-plans.success')
-        ->name('disbursement_plans.success');
 
     /**
      * Principal Investigator - Review Routes
