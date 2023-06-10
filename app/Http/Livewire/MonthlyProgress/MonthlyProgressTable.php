@@ -79,13 +79,18 @@ class MonthlyProgressTable extends Component implements HasTable
 
     protected function getTableEmptyStateDescription(): ?string
     {
-        return 'You may create a your monthly progress using the button below.';
+        if (auth()->user()->getRoleNames()->first() === 'Principal Investigator') {
+            return 'You may create a your monthly progress using the button below.';
+        }
+
+        return '';
     }
 
     protected function getTableEmptyStateActions(): array
     {
         return [
             Action::make('create')
+                ->visible(auth()->user()->getRoleNames()->first() === 'Principal Investigator')
                 ->label('Create Monthly Progress')
                 ->url(route('monthly-progress.create', $this->principalInvestigator->id))
                 ->size('lg')

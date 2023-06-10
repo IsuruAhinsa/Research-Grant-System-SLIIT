@@ -4,7 +4,7 @@
             <h2 class="font-semibold">Activity Center</h2>
         </div>
         <div>
-            <ul class="py-4 text-sm" role="list">
+            <ul class="py-4 text-sm space-y-2" role="list">
                 @if($principal_investigator)
                     <li>
                         <a href="{{ route('disbursement_plans.create', $principal_investigator) }}" class="flex items-center text-indigo-600 font-semibold hover:text-indigo-900 hover:underline">

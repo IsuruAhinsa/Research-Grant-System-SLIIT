@@ -12,8 +12,6 @@ class Agreement extends Component
 
     public $confirmingAgreement = false;
 
-    public $is_agreed;
-
     public function confirmAgreement()
     {
         $this->confirmingAgreement = true;

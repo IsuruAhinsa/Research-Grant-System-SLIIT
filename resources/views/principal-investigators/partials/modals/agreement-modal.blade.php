@@ -29,7 +29,7 @@
         </p>
     </x-slot>
         <x-slot name="footer">
-            @if($is_agreed === FALSE)
+            @if($principalInvestigator->is_agreed == FALSE)
                 <x-ui.button class="ml-3" wire:click.prevent="agree" wire:loading.attr="disabled">
                     {{ __('I Agree') }}
                 </x-ui.button>
