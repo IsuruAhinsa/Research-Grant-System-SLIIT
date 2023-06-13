@@ -2,13 +2,12 @@
 
 namespace App\Http\Livewire\PrincipalInvestigators;
 
-use App\Mail\ReserchProposalSubmitted;
+use App\Mail\ResearchProposalSubmitted;
 use App\Models\CoPrincipalInvestigator;
 use App\Models\Designation;
 use App\Models\Faculty;
 use App\Models\PrincipalInvestigator;
 use App\Models\ResearchAssistant;
-use App\Models\User;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
@@ -17,7 +16,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -37,6 +35,8 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
     public $research_title;
     public $designation_id;
     public $faculty_id;
+    public $dean_name;
+    public $dean_email;
     public $resume;
     public $research_grant_proposal;
     public $budget_activity_plan;
@@ -143,6 +143,20 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                 ->required()
                                 ->searchable(),
 
+                            TextInput::make('dean_name')
+                                ->string()
+                                ->maxLength(255)
+                                ->placeholder('Enter your dean\'s name of your faculty')
+                                ->required(),
+
+                            TextInput::make('dean_email')
+                                ->string()
+                                ->maxLength(75)
+                                ->email()
+                                ->placeholder('Enter your dean\'s sliit email address of your faculty')
+                                ->endsWith(['sliit.lk'])
+                                ->required(),
+
                             FileUpload::make('resume')
                                 ->required()
                                 ->helperText('Accepted filetype is pdf only. Max upload size 20mb.')
@@ -247,13 +261,8 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                 );
             }
 
-            // checking if is exists dean
-            if (User::role('dean')->exists()) {
-                // getting dean
-                $dean = User::role('Dean')->first();
-                // sending email to dean
-                Mail::to($dean->email)->send(new ReserchProposalSubmitted($principal_investigator, $dean));
-            }
+            // sending email to dean
+            Mail::to($this->dean_email)->send(new ResearchProposalSubmitted($principal_investigator, $this->dean_name));
 
         }
         // creating statuses

@@ -11,7 +11,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ReserchProposalSubmitted extends Mailable
+class ResearchProposalSubmitted extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -20,7 +20,7 @@ class ReserchProposalSubmitted extends Mailable
      */
     public function __construct(
         public PrincipalInvestigator $principalInvestigator,
-        public User $dean,
+        public $dean_name,
     )
     {
         //

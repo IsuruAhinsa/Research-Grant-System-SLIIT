@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('research_title');
             $table->string('phone');
             $table->string('email');
+            $table->string('dean_name');
+            $table->string('dean_email');
             $table->string('resume');
             $table->string('research_grant_proposal');
             $table->string('budget_activity_plan');
