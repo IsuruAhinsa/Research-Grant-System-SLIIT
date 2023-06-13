@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\DisbursementPlans\Payments;
 use App\Http\Livewire\MonthlyProgress\MonthlyProgressCreate;
 use App\Http\Livewire\MonthlyProgress\MonthlyProgressDetails;
 use App\Http\Livewire\MonthlyProgress\MonthlyProgressTable;
@@ -25,3 +26,6 @@ Route::get('principal-investigators/{principalInvestigator}/monthly-progress/cre
 
 Route::get('principal-investigators/{principalInvestigator}/monthly-progress/{monthlyProgress}/show', MonthlyProgressDetails::class)
     ->name('monthly-progress.show');
+
+Route::get('disbursement_plans/{principalInvestigator}/payments', Payments::class)
+    ->name('disbursement_plans.payments');

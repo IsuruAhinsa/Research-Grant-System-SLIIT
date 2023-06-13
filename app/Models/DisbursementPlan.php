@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 class DisbursementPlan extends Model
@@ -60,5 +61,10 @@ class DisbursementPlan extends Model
         }
 
         return self::where('principal_investigator_id', $principalInvestigatorId)->sum('amount');
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 }
