@@ -24,7 +24,7 @@
     </x-slot>
 
     @hasanyrole('Super Administrator|Administrator|Dean')
-        @include('principal-investigators.partials.dashboard-actions')
+        @includeWhen($principalInvestigator->isApproved(), 'principal-investigators.partials.dashboard-actions')
     @endhasanyrole
 
     @hasrole('Principal Investigator')

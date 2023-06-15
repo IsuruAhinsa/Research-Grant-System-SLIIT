@@ -37,12 +37,11 @@
 
         @if(\App\Models\DisbursementPlan::where('principal_investigator_id', $principalInvestigatorId)->exists())
             <div class="flex justify-end space-x-4 mt-4">
-                <a href="{{ route('principal-investigators.dashboard') }}">
-                    <x-ui.button>Save & Back to Research Center</x-ui.button>
+                <a href="{{ route('principal-investigators.success') }}">
+                    <x-ui.button>Save and Exit</x-ui.button>
                 </a>
             </div>
         @endif
-
     </div>
 
 </x-app-layout>

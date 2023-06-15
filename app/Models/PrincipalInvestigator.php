@@ -172,4 +172,37 @@ class PrincipalInvestigator extends Model
 
         return true;
     }
+
+    public function checkStatus()
+    {
+        if ($this->isPending()) {
+            return 'PENDING';
+        } elseif ($this->isApproved()) {
+            return 'APPROVED';
+        } elseif ($this->isRejected()) {
+            return 'REJECTED';
+        }
+    }
+
+    public function checkStatusColor1()
+    {
+        if ($this->isPending()) {
+            return 'bg-warning-100';
+        } elseif ($this->isApproved()) {
+            return 'bg-success-100';
+        } elseif ($this->isRejected()) {
+            return 'bg-danger-100';
+        }
+    }
+
+    public function checkStatusColor2()
+    {
+        if ($this->isPending()) {
+            return 'bg-warning-400';
+        } elseif ($this->isApproved()) {
+            return 'bg-success-400';
+        } elseif ($this->isRejected()) {
+            return 'bg-danger-400';
+        }
+    }
 }

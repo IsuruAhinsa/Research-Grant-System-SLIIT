@@ -1,9 +1,9 @@
 <div class="mt-10">
     <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Reviewer Feedbacks</h3>
     <ul role="list" class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        @foreach ($principal_investigator->reviewerFeedbacks as $feedback)
+        @foreach ($proposal->reviewerFeedbacks as $feedback)
             <li>
-                <a href="{{ route('reviewer-feedback.create', ['principalInvestigator' => $principal_investigator->id, 'reviewerId' => $feedback->reviewer_id]) }}"
+                <a href="{{ route('reviewer-feedback.create', ['principalInvestigator' => $proposal->id, 'reviewerId' => $feedback->reviewer_id]) }}"
                     class="relative group p-2 w-full flex items-center justify-between rounded-full border border-gray-300 shadow-sm space-x-3 text-left hover:bg-teal-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <span class="min-w-0 flex-1 flex items-center space-x-3">
                         <span class="block flex-shrink-0">

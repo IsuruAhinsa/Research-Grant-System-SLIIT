@@ -271,7 +271,7 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
             'name' => 'PENDING',
         ]);
 
-        return redirect()->route('principal-investigators.success', ['principal_investigator' => $principal_investigator->id]);
+        return redirect()->route('disbursement_plans.create', $principal_investigator->id);
     }
 
     public function render(): View
