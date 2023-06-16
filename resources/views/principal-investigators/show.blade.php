@@ -87,6 +87,10 @@
                 @endif
             @endhasrole
 
+            @hasanyrole('Administrator|Super Administrator')
+                @includeWhen($principalInvestigator->reviewers()->exists(), 'principal-investigators.partials.reviewers-list')
+            @endhasanyrole
+
             {{-- Status Timeline --}}
 
             @role('Principal Investigator')

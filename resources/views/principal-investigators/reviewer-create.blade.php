@@ -14,7 +14,7 @@
         </div>
     </form>
 
-    @include('principal-investigators.partials.reviewers-list')
+    @includeWhen($principalInvestigator->reviewers()->exists(), 'principal-investigators.partials.reviewers-list')
 
 </div>
 
