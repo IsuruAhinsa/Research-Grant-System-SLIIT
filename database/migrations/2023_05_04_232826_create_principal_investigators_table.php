@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('grant_number')->nullable();
             $table->boolean('is_agreed')->default(false);
             $table->enum('type', ['NEW', 'CORRECTED']);
+            $table->boolean('is_ban')->default(false);
             $table->timestamps();
         });
     }

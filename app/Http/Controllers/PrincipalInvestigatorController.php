@@ -37,13 +37,8 @@ class PrincipalInvestigatorController extends Controller
                 ->first();
         }
 
-        $previous_proposals = PrincipalInvestigator::where('user_id', auth()->id())
-            ->where('id', '!=', $principal_investigator->id)
-            ->get();
-
         return view('principal-investigators.dashboard', [
             'principal_investigator' => $principal_investigator,
-            'previous_proposals' => $previous_proposals,
         ]);
     }
 

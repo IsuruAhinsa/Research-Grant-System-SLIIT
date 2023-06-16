@@ -156,57 +156,28 @@ class PrincipalInvestigator extends Model
         return $this->hasMany(MonthlyProgress::class);
     }
 
-    public function isApprovedMonthlyProgress(): bool
+    public function isMonthlyProgressGraded(): bool
     {
         $monthlyProgresses = $this->progresses;
-
         foreach ($monthlyProgresses as $monthlyProgress) {
+            $monthlyProgressId = $monthlyProgress->latest()->value('id');
             if ($monthlyProgress->monthlyProgressGrades()->exists()) {
-                if ($monthlyProgress
-                    ->monthlyProgressGrades()
-                    ->latest()
-                    ->where('grade', 'Good')
-                    ->orWhere('grade', 'Excellent')
-                    ->exists()
-                ) {
-                    return true;
+                foreach ($monthlyProgress->monthlyProgressGrades as $grade) {
+                    if ($grade->latest()->where('monthly_progress_id', $monthlyProgressId)->count() === 2) {
+                        return true;
+                    }
                 }
             }
         }
 
         return false;
+
     }
 
-    public function checkStatus()
+    public function getPreviousProposals($id)
     {
-        if ($this->isPending()) {
-            return 'PENDING';
-        } elseif ($this->isApproved()) {
-            return 'APPROVED';
-        } elseif ($this->isRejected()) {
-            return 'REJECTED';
-        }
-    }
-
-    public function checkStatusColor1()
-    {
-        if ($this->isPending()) {
-            return 'bg-warning-100';
-        } elseif ($this->isApproved()) {
-            return 'bg-success-100';
-        } elseif ($this->isRejected()) {
-            return 'bg-danger-100';
-        }
-    }
-
-    public function checkStatusColor2()
-    {
-        if ($this->isPending()) {
-            return 'bg-warning-400';
-        } elseif ($this->isApproved()) {
-            return 'bg-success-400';
-        } elseif ($this->isRejected()) {
-            return 'bg-danger-400';
-        }
+        return self::where('user_id', auth()->id())
+            ->where('id', '!=', $id)
+            ->get();
     }
 }
