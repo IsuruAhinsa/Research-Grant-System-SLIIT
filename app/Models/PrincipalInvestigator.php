@@ -161,16 +161,20 @@ class PrincipalInvestigator extends Model
         $monthlyProgresses = $this->progresses;
 
         foreach ($monthlyProgresses as $monthlyProgress) {
-            if ($monthlyProgress->monthlyProgressGrades()
-                ->where('grade', 'Poor')
-                ->orWhere('grade', 'Satisfactory')
-                ->orWhere('grade', 'Average')
-                ->exists()) {
-                return false;
+            if ($monthlyProgress->monthlyProgressGrades()->exists()) {
+                if ($monthlyProgress
+                    ->monthlyProgressGrades()
+                    ->latest()
+                    ->where('grade', 'Good')
+                    ->orWhere('grade', 'Excellent')
+                    ->exists()
+                ) {
+                    return true;
+                }
             }
         }
 
-        return true;
+        return false;
     }
 
     public function checkStatus()

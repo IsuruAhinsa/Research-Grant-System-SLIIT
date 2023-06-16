@@ -17,6 +17,12 @@ class MonthlyProgressGradeController extends Controller
         $monthlyProgressGrade->comments = $request->input('comments');
         $monthlyProgressGrade->save();
 
+        if ($monthlyProgressGrade->grade == 'Poor' || $monthlyProgressGrade->grade == 'Satisfactory' || $monthlyProgressGrade->grade == 'Average') {
+            $principalInvestigator = $monthlyProgressGrade->monthlyProgress->principalInvestigator;
+            $principalInvestigator->is_ban = TRUE;
+            $principalInvestigator->save();
+        }
+
         return back()->with([
             Notification::make()
                 ->title('Graded!')
