@@ -12,11 +12,6 @@
 
                 @include('principal-investigators.proposal-item', ['principal_investigator' => $proposal])
 
-                @if($proposal)
-                    @if($proposal->isApproved() || $proposal->isRejected())
-                        @include('principal-investigators.partials.feedbacks', ['proposal' => $proposal])
-                    @endif
-                @endif
             </li>
         @endforeach
     </ul>

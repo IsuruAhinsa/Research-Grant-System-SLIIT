@@ -62,3 +62,9 @@
         </p>
     </div>
 </div>
+
+@if($principal_investigator->isApproved() || $principal_investigator->isRejected())
+    @if($principal_investigator->reviewerFeedbacks()->exists())
+        @include('principal-investigators.partials.feedbacks', ['proposal' => $principal_investigator])
+    @endif
+@endif

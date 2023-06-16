@@ -11,11 +11,6 @@
         <li class="relative pl-4 pr-6 py-5 sm:py-6 sm:pl-6 lg:pl-8 xl:pl-6">
             @if($principal_investigator)
                 @include('principal-investigators.proposal-item')
-
-                @if($principal_investigator->isApproved() || $principal_investigator->isRejected())
-                    @include('principal-investigators.partials.feedbacks', ['proposal' => $principal_investigator])
-                @endif
-
             @else
                 <p class="text-gray-500 text-center">There are no submitted proposals.</p>
             @endif
