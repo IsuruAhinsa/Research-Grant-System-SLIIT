@@ -140,4 +140,7 @@ Route::middleware([
 
     Route::get('reports/financial', [ReportController::class, 'showFinancialReportsForm'])
         ->name('reports.financial');
+
+    Route::get('reports/export/financial', [ReportController::class, 'exportFinancial'])
+        ->name('reports.export.financial');
 });

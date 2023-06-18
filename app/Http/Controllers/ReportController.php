@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\FinancialExport;
 use App\Exports\PrincipalInvestigatorsExport;
+use App\Models\DisbursementPlan;
 use App\Models\PrincipalInvestigator;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -61,5 +63,23 @@ class ReportController extends Controller
     public function showFinancialReportsForm()
     {
         return view('reports.financial.index');
+    }
+
+    public function exportFinancial(Request $request)
+    {
+        $query = DisbursementPlan::query();
+
+        // Apply filters
+        if ($request->has('principal_investigator')) {
+            if ($request->input('principal_investigator') != 'all') {
+                $query->where('principal_investigator_id', $request->input('principal_investigator'));
+            }
+        }
+
+        if ($request->date('from') && $request->date('to')) {
+            $query->whereBetween('created_at', [$request->input('from'), $request->input('to')]);
+        }
+
+        return Excel::download(new FinancialExport($query), 'financials.xlsx');
     }
 }
