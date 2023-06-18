@@ -138,3 +138,13 @@ Breadcrumbs::for('monthly-progress.show', function (BreadcrumbTrail $trail, $mon
     $trail->push('Monthly Progress', route('monthly-progress.index', $monthlyProgress->principal_investigator_id));
     $trail->push($monthlyProgress->current_progress_month.' Progress', route('monthly-progress.show', [$monthlyProgress->principal_investigator_id, $monthlyProgress]));
 });
+
+Breadcrumbs::for('reports.principal-investigator', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Generate Principal Investigator Reports', route('reports.principal-investigator'));
+});
+
+Breadcrumbs::for('reports.financial', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Generate Financial Reports', route('reports.financial'));
+});

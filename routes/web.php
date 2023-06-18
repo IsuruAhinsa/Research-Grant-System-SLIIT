@@ -6,6 +6,7 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\MonthlyProgressGradeController;
 use App\Http\Controllers\PrincipalInvestigatorController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -127,4 +128,16 @@ Route::middleware([
      */
     Route::post('monthly-progress-grade/store', [MonthlyProgressGradeController::class, 'store'])
         ->name('monthly-progress.grade.store');
+
+    /**
+     * Report Routes
+     */
+    Route::get('reports/principal-investigator', [ReportController::class, 'showPrincipalInvestigatorReportsForm'])
+        ->name('reports.principal-investigator');
+
+    Route::get('reports/export/principal-investigators', [ReportController::class, 'exportPrincipalInvestigator'])
+        ->name('reports.export.principal-investigators');
+
+    Route::get('reports/financial', [ReportController::class, 'showFinancialReportsForm'])
+        ->name('reports.financial');
 });

@@ -21,7 +21,8 @@ class PrincipalInvestigatorRejectedTable extends Component implements HasTable
     protected function getTableQuery(): Builder
     {
         return PrincipalInvestigator::query()
-            ->currentStatus(['DEAN-REJECTED', 'SUPER ADMINISTRATOR-REJECTED', 'ADMINISTRATOR-REJECTED', 'REVIEWER-REJECTED']);
+            ->currentStatus(['DEAN-REJECTED', 'SUPER ADMINISTRATOR-REJECTED', 'ADMINISTRATOR-REJECTED', 'REVIEWER-REJECTED'])
+            ->orwhere('is_ban', TRUE);
     }
 
     protected function getTableColumns(): array
