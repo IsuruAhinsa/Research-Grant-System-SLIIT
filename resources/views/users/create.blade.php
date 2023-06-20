@@ -73,7 +73,7 @@
                     <x-ui.select class="mt-1 block w-full" name="faculty">
                         <option selected disabled>Select a faculty</option>
                         @foreach($faculties as $faculty)
-                            <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
+                            <option value="{{ $faculty->id }}" {{ old('faculty') == $faculty->id ? 'selected' : '' }}>{{ $faculty->name }}</option>
                         @endforeach
                     </x-ui.select>
                     <x-ui.input-error for="faculty" class="mt-2"/>
@@ -84,7 +84,7 @@
                     <x-ui.select class="mt-1 block w-full" name="designation">
                         <option selected disabled>Select a Designation</option>
                         @foreach($designations as $designation)
-                            <option value="{{ $designation->id }}">{{ $designation->designation }}</option>
+                            <option value="{{ $designation->id }}" {{ old('designation') == $designation->id ? 'selected' : '' }}>{{ $designation->designation }}</option>
                         @endforeach
                     </x-ui.select>
                     <x-ui.input-error for="designation" class="mt-2"/>
@@ -93,8 +93,9 @@
                 <div>
                     <x-ui.label for="roles" value="{{ __('Roles') }}"/>
                     <x-ui.select class="mt-1 block w-full" name="roles">
+                        <option selected disabled>Select a Designation</option>
                         @foreach($roles as $role)
-                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                            <option value="{{ $role->name }}" {{ old('roles') == $role->name ? 'selected' : '' }}>{{ $role->name }}</option>
                         @endforeach
                     </x-ui.select>
                     <x-ui.input-error for="roles" class="mt-2"/>
