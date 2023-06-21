@@ -25,21 +25,9 @@
                     <x-ui.label for="title" value="{{ __('Title') }}"/>
                     <x-ui.input list="titles" id="title" type="text" placeholder="Enter Title" class="mt-1 block w-full" name="title" value="{{ old('title') }}"/>
                     <datalist id="titles">
-                        <option value="Dr">
-                        <option value="Esq">
-                        <option value="Hon">
-                        <option value="Jr">
                         <option value="Mr">
                         <option value="Mrs">
                         <option value="Ms">
-                        <option value="Messrs">
-                        <option value="Mmes">
-                        <option value="Msgr">
-                        <option value="Prof">
-                        <option value="Rev">
-                        <option value="Rt. Hon">
-                        <option value="Sr">
-                        <option value="St">
                     </datalist>
                     <x-ui.input-error for="title" class="mt-2"/>
                 </div>
