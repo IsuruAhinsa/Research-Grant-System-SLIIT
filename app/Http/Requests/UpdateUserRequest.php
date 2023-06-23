@@ -50,4 +50,11 @@ class UpdateUserRequest extends FormRequest
             'email.ends_with' => 'Please enter the valid email domain. (sliit.lk)',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'index' => 'sliit id'
+        ];
+    }
 }
