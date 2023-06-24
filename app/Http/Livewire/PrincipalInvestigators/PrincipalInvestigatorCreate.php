@@ -144,12 +144,14 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
                                 ->searchable(),
 
                             TextInput::make('dean_name')
+                                ->label('Dean\'s name')
                                 ->string()
                                 ->maxLength(255)
                                 ->placeholder('Enter your dean\'s name of your faculty')
                                 ->required(),
 
                             TextInput::make('dean_email')
+                                ->label('Dean\'s email')
                                 ->string()
                                 ->maxLength(75)
                                 ->email()
