@@ -7,8 +7,11 @@
                 @if(\App\Models\PrincipalInvestigator::exists())
                     <option selected value="all">All Principal Investigators</option>
                 @endif
+                @php $previousEmail = null  @endphp
                 @forelse(\App\Models\PrincipalInvestigator::all() as $principal_investigator)
+                    @break($principal_investigator->email == $previousEmail)
                     <option value="{{ $principal_investigator->email }}">{{ $principal_investigator->full_name }}</option>
+                    @php $previousEmail = $principal_investigator->email  @endphp
                 @empty
                     <option selected disabled>No Principal Investigators...</option>
                 @endforelse
