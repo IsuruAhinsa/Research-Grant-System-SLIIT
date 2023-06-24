@@ -15,7 +15,6 @@
                 <p class="text-gray-500 text-center">There are no submitted proposals.</p>
             @endif
         </li>
+        @includeWhen($principal_investigator, 'principal-investigators.partials.previous-proposals')
     </ul>
-
-    @includeWhen($principal_investigator, 'principal-investigators.partials.previous-proposals')
 </div>
