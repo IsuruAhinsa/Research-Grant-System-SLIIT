@@ -30,6 +30,7 @@ class PrincipalInvestigator extends Model
         'user_id',
         'grant_number',
         'is_agreed',
+        'agreed_date',
         'type',
         'dean_name',
         'dean_email',

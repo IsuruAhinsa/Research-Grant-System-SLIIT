@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\PrincipalInvestigators;
 
 use App\Models\PrincipalInvestigator;
+use Carbon\Carbon;
 use Filament\Notifications\Notification;
 use Livewire\Component;
 
@@ -20,6 +21,7 @@ class Agreement extends Component
     public function agree()
     {
         $this->principalInvestigator->is_agreed = TRUE;
+        $this->principalInvestigator->agreed_date = Carbon::today()->toDate();
         $this->principalInvestigator->save();
 
         $this->confirmingAgreement = false;
