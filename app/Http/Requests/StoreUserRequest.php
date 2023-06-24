@@ -28,7 +28,7 @@ class StoreUserRequest extends FormRequest
             'first_name' => ['required', 'string', 'max:100', 'min:2'],
             'last_name' => ['required', 'string', 'max:100', 'min:2'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users,email', 'ends_with:sliit.lk'],
-            'index' => ['required', 'integer', 'digits:4', 'unique:users,index'],
+            'index' => ['required', 'string', 'digits:4', 'unique:users,index'],
             'password' => ['nullable', 'confirmed'],
             'roles' => ['required'],
         ];

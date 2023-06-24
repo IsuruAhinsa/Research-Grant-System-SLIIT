@@ -32,7 +32,7 @@ class UpdateUserRequest extends FormRequest
                 Rule::unique('users', 'email')->ignore($this->route('user')->id),
                 'ends_with:sliit.lk'
             ],
-            'index' => ['required', 'integer', 'digits:4',
+            'index' => ['required', 'string', 'digits:4',
                 Rule::unique('users', 'index')->ignore($this->route('user')->id),],
             'password' => ['nullable', 'confirmed'],
             'roles' => ['required'],
