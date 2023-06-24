@@ -138,6 +138,9 @@ Route::middleware([
     Route::get('reports/export/principal-investigators', [ReportController::class, 'exportPrincipalInvestigator'])
         ->name('reports.export.principal-investigators');
 
+    Route::get('reports/export/principal-investigators/history', [ReportController::class, 'exportPrincipalInvestigatorHistory'])
+        ->name('reports.export.principal-investigators.history');
+
     Route::get('reports/financial', [ReportController::class, 'showFinancialReportsForm'])
         ->name('reports.financial');
 

@@ -6,6 +6,7 @@ use App\Exports\FinancialExport;
 use App\Exports\PrincipalInvestigatorsExport;
 use App\Models\DisbursementPlan;
 use App\Models\PrincipalInvestigator;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -57,7 +58,7 @@ class ReportController extends Controller
             return back()->withErrors('No Records to Export.');
         }
 
-        return Excel::download(new PrincipalInvestigatorsExport($query), 'principalInvestigators.xlsx');
+        return Excel::download(new PrincipalInvestigatorsExport($query), 'principal-investigators.xlsx');
     }
 
     public function showFinancialReportsForm()
@@ -80,6 +81,36 @@ class ReportController extends Controller
             $query->whereBetween('created_at', [$request->input('from'), $request->input('to')]);
         }
 
+        if ($query->count() == 0) {
+            return back()->withErrors('No Records to Export.');
+        }
+
         return Excel::download(new FinancialExport($query), 'financials.xlsx');
+    }
+
+    public function exportPrincipalInvestigatorHistory(Request $request)
+    {
+        $query = PrincipalInvestigator::query();
+
+        // Apply filters
+        if ($request->has('principal_investigator')) {
+            if ($request->input('principal_investigator') != 'all') {
+                $query->where('email', $request->input('principal_investigator'));
+            }
+        }
+
+        if ($request->date('from') && $request->date('to')) {
+            $query->whereBetween('created_at', [$request->input('from'), $request->input('to')]);
+        }
+
+        if ($query->count() == 0) {
+            return back()->withErrors('No Records to Export.');
+        }
+
+        $data = $query->get()->toArray();
+
+        $pdf = Pdf::loadView('reports.principal-investigator.pdf.history', ['data' => $data]);
+
+        return $pdf->download('principal-investigator-history.pdf');
     }
 }
