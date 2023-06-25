@@ -30,8 +30,6 @@
 
                     <a href="{{ route('contact') }}" class="text-base font-medium text-white hover:text-gray-300">Contact Us</a>
 
-                    <a href="#" class="text-base font-medium text-white hover:text-gray-300">SLIIT University</a>
-
                 </div>
             </div>
             <div class="hidden md:flex md:items-center md:space-x-6">
@@ -40,10 +38,6 @@
                         Sign in
                     </a>
                 @endif
-                {{--<a href="{{ route('register') }}"
-                   class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-secondary-800 hover:bg-secondary-900">
-                    Sign Up
-                </a>--}}
             </div>
         </nav>
     </div>
@@ -83,15 +77,6 @@
 
                     <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Contact
                         Us</a>
-
-                    <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">SLIIT
-                        University</a>
-
-                </div>
-                <div class="mt-6 px-5">
-                   {{-- <a href="{{ route('register') }}"
-                       class="block text-center w-full py-3 px-4 rounded-md shadow bg-gradient-to-r from-secondary-400 to-primary-600 text-white font-medium hover:from-secodary-600 hover:to-primary-700">Sign
-                        Up</a>--}}
                 </div>
                 <div class="mt-6 px-5">
                     <p class="text-center text-base font-medium text-gray-500">Existing Sliit User? <a
