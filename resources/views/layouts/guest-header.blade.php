@@ -6,7 +6,7 @@
                 <div class="flex items-center justify-between w-full md:w-auto">
                     <a href="{{ url('/') }}">
                         <span class="sr-only">SLIIT</span>
-                        <x-ui.application-logo class="h-10 w-auto sm:h-12"/>
+                        <x-ui.application-logo class="h-12 w-auto sm:h-14"/>
                     </a>
                     <div class="-mr-2 flex items-center md:hidden">
                         <button type="button"
