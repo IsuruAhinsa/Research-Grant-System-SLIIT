@@ -47,7 +47,7 @@
                 class="py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Remaining
                 Balance
             </td>
-            <td class="px-2 py-2 text-sm font-medium text-gray-900 text-right">LKR. {{ number_format(400000 - $disbursement_plans->sum('amount'), 2) }}</td>
+            <td class="px-2 py-2 text-sm font-medium text-gray-900 text-right">LKR. {{ number_format(\App\Models\Setting::getSettings()->budget - $disbursement_plans->sum('amount'), 2) }}</td>
         </tr>
         </tbody>
     </table>

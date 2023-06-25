@@ -148,3 +148,8 @@ Breadcrumbs::for('reports.financial', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
     $trail->push('Generate Financial Reports', route('reports.financial'));
 });
+
+Breadcrumbs::for('settings.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Settings', route('settings.index'));
+});

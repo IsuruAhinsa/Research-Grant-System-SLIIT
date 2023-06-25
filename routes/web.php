@@ -9,6 +9,7 @@ use App\Http\Controllers\PrincipalInvestigatorController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -146,4 +147,13 @@ Route::middleware([
 
     Route::get('reports/export/financial', [ReportController::class, 'exportFinancial'])
         ->name('reports.export.financial');
+
+    /**
+     * Settings Routes
+     */
+    Route::get('settings', [SettingController::class, 'index'])
+        ->name('settings.index');
+
+    Route::post('settings/disbursement/budget', [SettingController::class, 'budget'])
+    ->name('settings.disbursement.budget');
 });

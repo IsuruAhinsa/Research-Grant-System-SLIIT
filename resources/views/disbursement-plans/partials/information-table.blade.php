@@ -1,5 +1,5 @@
 <h3 class="text-lg font-medium leading-6 text-gray-900">
-    The upper limit of a single granted is Rs.400,000 per year.
+    The upper limit of a single granted is Rs.{{ number_format(\App\Models\Setting::getSettings()->budget, 2) }} per year.
 </h3>
 
 <p class="mt-1 text-gray-500">

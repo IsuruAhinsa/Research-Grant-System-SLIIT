@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDisbursementPlanRequest;
 use App\Models\DisbursementPlan;
+use App\Models\Setting;
 use Filament\Notifications\Notification;
 
 class DisbursementPlanController extends Controller
@@ -33,9 +34,9 @@ class DisbursementPlanController extends Controller
             $grant_amount = $amount;
         }
 
-        $remaining_amount = 400000 - $grant_amount;
+        $remaining_amount = Setting::getSettings()->budget - $grant_amount;
 
-        $max_amount = 400000 * ($category['percentage'] / 100);
+        $max_amount = Setting::getSettings()->budget * ($category['percentage'] / 100);
 
         if ($remaining_amount >= $max_amount) {
             if ($request->input('amount') <= $remaining_amount && $request->input('amount') <= $max_amount) {
