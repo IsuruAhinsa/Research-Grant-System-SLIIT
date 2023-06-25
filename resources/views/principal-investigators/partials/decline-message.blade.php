@@ -7,7 +7,7 @@
         </div>
         <div class="ml-3">
             <h3 class="text-sm font-medium text-danger-800">Attention needed</h3>
-            <h2 class="text-sm font-medium text-danger-800">Sorry! Your research proposal is rejected.</h2>
+            <h2 class="text-sm font-medium text-danger-800">Sorry! Your research proposal is rejected. Please do the needful changes and resubmit again.</h2>
             <div class="mt-2 text-sm text-danger-700">
                 <p>{{ $principal_investigator->getRejectedReasonMessage() }}</p>
             </div>
