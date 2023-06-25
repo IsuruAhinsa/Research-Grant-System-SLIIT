@@ -56,9 +56,9 @@
     <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->designation->designation }}</dd>
 </div>
 
-@isset($principalInvestigator->is_agreed)
+@if($principalInvestigator->is_agreed == TRUE)
     <div class="sm:col-span-1">
         <dt class="text-sm font-medium text-gray-500">Agreement Date</dt>
         <dd class="mt-1 text-sm text-gray-900">{{ $principalInvestigator->agreed_date }}</dd>
     </div>
-@endisset
+@endif

@@ -97,6 +97,7 @@
                             @endforelse
 
                             @unless($disbursement_plan->amount === $disbursement_plan->payments->sum('amount'))
+                                @unlessrole('Dean')
                                 <tr>
                                     <td colspan="5"
                                         class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 text-center">
@@ -105,6 +106,7 @@
                                         </a>
                                     </td>
                                 </tr>
+                                @endunlessrole
                             @endunless
 
                         @empty
