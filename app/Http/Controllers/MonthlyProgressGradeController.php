@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ResearchProposalRejected;
 use App\Models\MonthlyProgressGrade;
 use Filament\Notifications\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class MonthlyProgressGradeController extends Controller
 {
@@ -21,6 +23,9 @@ class MonthlyProgressGradeController extends Controller
             $principalInvestigator = $monthlyProgressGrade->monthlyProgress->principalInvestigator;
             $principalInvestigator->is_ban = TRUE;
             $principalInvestigator->save();
+
+            // sending rejected mail
+            Mail::to($principalInvestigator->dean_email)->send(new ResearchProposalRejected($principalInvestigator));
         }
 
         return back()->with([

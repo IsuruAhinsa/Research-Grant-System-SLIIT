@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\PrincipalInvestigators;
 
+use App\Mail\ResearchProposalRejected;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -87,6 +89,9 @@ class Approval extends Component
             'name' => Str::upper($role)."-REJECTED",
             'reason' => $this->remarks,
         ]);
+
+        // sending rejected mail
+        Mail::to($this->principalInvestigator->dean_email)->send(new ResearchProposalRejected($this->principalInvestigator));
 
         $this->confirmingDecline = false;
 

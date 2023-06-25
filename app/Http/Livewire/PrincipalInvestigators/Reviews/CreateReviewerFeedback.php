@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\PrincipalInvestigators\Reviews;
 
+use App\Mail\ResearchProposalApproved;
+use App\Mail\ResearchProposalRejected;
 use App\Models\PrincipalInvestigator;
 use App\Models\ReviewerFeedback;
 use Filament\Forms\Components\Hidden;
@@ -11,7 +13,8 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request;
 use Livewire\Component;
 
@@ -415,6 +418,12 @@ class CreateReviewerFeedback extends Component implements HasForms
     public function setReviewerStatus(): void
     {
         if ($this->overall_strong > 3) {
+            // sending approved mail
+            if (PrincipalInvestigator::find($this->principal_investigator_id)->statuses()->where('name', 'REVIEWER-APPROVED')->exists()) {
+                Mail::to(PrincipalInvestigator::find($this->principal_investigator_id)->dean_email)
+                    ->send(new ResearchProposalApproved(PrincipalInvestigator::find($this->principal_investigator_id)));
+            }
+
             PrincipalInvestigator::find($this->principal_investigator_id)
                 ->statuses()
                 ->create([
@@ -428,6 +437,15 @@ class CreateReviewerFeedback extends Component implements HasForms
                     'user_id' => auth()->id(),
                     'name' => 'REVIEWER-REJECTED',
                 ]);
+
+            // sending rejected mail
+            if (!Cache::has('email_sent:' . $this->principal_investigator_id)) {
+                Mail::to(PrincipalInvestigator::find($this->principal_investigator_id)->dean_email)
+                    ->send(new ResearchProposalRejected(PrincipalInvestigator::find($this->principal_investigator_id)));
+
+                // Set cache to mark the email as sent
+                Cache::put('email_sent:' . $this->principal_investigator_id, true, 1440 * 5); // Expires in 24 * 5 hours
+            }
         }
     }
 

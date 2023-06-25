@@ -4,12 +4,13 @@ namespace App\Mail;
 
 use App\Models\PrincipalInvestigator;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ResearchProposalSubmitted extends Mailable
+class ResearchProposalApproved extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,8 +18,7 @@ class ResearchProposalSubmitted extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public PrincipalInvestigator $principalInvestigator,
-        public $dean_name,
+        public PrincipalInvestigator $principalInvestigator
     )
     {
         //
@@ -30,7 +30,7 @@ class ResearchProposalSubmitted extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Research Proposal Submission - Request for Review',
+            subject: 'Research Proposal Approved',
         );
     }
 
@@ -40,7 +40,7 @@ class ResearchProposalSubmitted extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.principal-investigators.proposal-submitted',
+            markdown: 'emails.principal-investigators.proposal-approved',
         );
     }
 }
