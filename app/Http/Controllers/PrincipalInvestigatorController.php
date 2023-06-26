@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CoPrincipalInvestigator;
+use App\Models\DisbursementPlan;
 use App\Models\PrincipalInvestigator;
 use App\Models\ResearchAssistant;
 use Illuminate\Support\Facades\Storage;
@@ -35,6 +36,7 @@ class PrincipalInvestigatorController extends Controller
 
         return view('principal-investigators.dashboard', [
             'principal_investigator' => $principal_investigator,
+            'all_payments_settled' => $this->allPaymentsSettled($principal_investigator->id)
         ]);
     }
 
@@ -81,5 +83,17 @@ class PrincipalInvestigatorController extends Controller
             $filename = $researchAssistant->created_at . "_" . $researchAssistant->id;
             return Storage::disk('public')->download($researchAssistant->attachment, $filename);
         }
+    }
+
+    public function allPaymentsSettled($principal_investigator_id)
+    {
+        return DisbursementPlan::where('principal_investigator_id', $principal_investigator_id)
+            ->with('payments')
+            ->get()
+            ->every(function ($dplan) {
+                $totalAmountDue = $dplan->amount;
+                $settledAmount = $dplan->payments->sum('amount');
+                return $totalAmountDue === $settledAmount;
+            });
     }
 }

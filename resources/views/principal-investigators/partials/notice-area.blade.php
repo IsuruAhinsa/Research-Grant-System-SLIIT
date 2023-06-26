@@ -13,3 +13,5 @@
 @if($principal_investigator->is_ban)
     @include('monthly-progress.partials.monthly-progress-decline-message', ['principalInvestigator' => $principal_investigator])
 @endif
+
+@includeWhen($all_payments_settled, 'disbursement-plans.partials.payment-settled-success-message')

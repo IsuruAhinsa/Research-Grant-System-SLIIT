@@ -68,6 +68,18 @@ class Payments extends Component
         $this->comment = null;
     }
 
+    public function allPaymentsSettled()
+    {
+        return DisbursementPlan::where('principal_investigator_id', $this->principalInvestigator->id)
+            ->with('payments')
+            ->get()
+            ->every(function ($dplan) {
+                $totalAmountDue = $dplan->amount;
+                $settledAmount = $dplan->payments->sum('amount');
+                return $totalAmountDue === $settledAmount;
+            });
+    }
+
     public function render()
     {
         return view('disbursement-plans.payments');
