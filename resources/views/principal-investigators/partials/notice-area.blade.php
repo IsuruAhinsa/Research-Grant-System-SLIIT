@@ -15,3 +15,7 @@
 @endif
 
 @includeWhen($all_payments_settled, 'disbursement-plans.partials.payment-settled-success-message')
+
+@includeWhen($principal_investigator->is_completed, 'principal-investigators.partials.completed-message')
+
+

@@ -16,9 +16,11 @@
             @if($principalInvestigator->progresses()->exists())
                 @if($principalInvestigator->isMonthlyProgressGraded())
                     @unless($principalInvestigator->is_ban)
-                        <a class="flex justify-end my-4" href="{{ route('monthly-progress.create', $principalInvestigator) }}">
-                            <x-ui.button>Create Monthly Progress</x-ui.button>
-                        </a>
+                        @unless($principalInvestigator->is_completed)
+                            <a class="flex justify-end my-4" href="{{ route('monthly-progress.create', $principalInvestigator) }}">
+                                <x-ui.button>Create Monthly Progress</x-ui.button>
+                            </a>
+                        @endunless
                     @endunless
                 @endif
 

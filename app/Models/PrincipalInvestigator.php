@@ -34,6 +34,7 @@ class PrincipalInvestigator extends Model
         'type',
         'dean_name',
         'dean_email',
+        'is_completed',
     ];
 
     public function designation(): BelongsTo

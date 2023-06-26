@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\MonthlyProgress;
 
+use App\Mail\ResearchProposalCompleted;
 use App\Models\MonthlyProgress;
 use App\Models\PrincipalInvestigator;
 use Filament\Forms\Components\Fieldset;
@@ -14,6 +15,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class MonthlyProgressCreate extends Component implements HasForms
@@ -138,6 +140,11 @@ class MonthlyProgressCreate extends Component implements HasForms
     {
         $principalInvestigator = PrincipalInvestigator::find($this->principal_investigator);
 
+        // checking evaluation cycle is completed
+        if ($principalInvestigator->progresses()->count() >= 12) {
+            return false;
+        }
+
         if ($principalInvestigator->progresses()->where('current_progress_month', $this->current_progress_month)->exists()) {
             $this->addError('current_progress_month', 'You already entered monthly progress with this month.');
             return false;
@@ -149,6 +156,14 @@ class MonthlyProgressCreate extends Component implements HasForms
         }
 
         $principalInvestigator->progresses()->create($this->form->getState());
+
+        if ($principalInvestigator->progresses()->count() == 12) {
+            $principalInvestigator->is_completed = TRUE;
+            $principalInvestigator->save();
+
+            // sending completed mail to faculty dean
+            Mail::to($principalInvestigator->dean_email)->send(new ResearchProposalCompleted($principalInvestigator));
+        }
 
         return redirect()->route('monthly-progress.index', $this->principal_investigator)->with([
             Notification::make()

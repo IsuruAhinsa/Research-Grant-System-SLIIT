@@ -36,6 +36,7 @@ return new class extends Migration
             $table->date('agreed_date')->nullable();
             $table->enum('type', ['NEW', 'CORRECTED']);
             $table->boolean('is_ban')->default(false);
+            $table->boolean('is_completed')->default(false);
             $table->timestamps();
         });
     }
