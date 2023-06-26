@@ -14,8 +14,4 @@
             </button>
         </div>
     </div>
-    <p class="mt-3 text-sm text-gray-300 sm:mt-4">Start your free journey, no
-        credit card necessary. By providing your email, you agree to our
-        <a href="#" class="font-medium text-white">terms of service</a>.
-    </p>
 </form>

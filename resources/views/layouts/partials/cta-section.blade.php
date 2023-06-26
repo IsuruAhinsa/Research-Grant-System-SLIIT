@@ -10,21 +10,20 @@
         class="relative mx-auto max-w-md px-4 py-12 sm:max-w-7xl sm:px-6 sm:py-20 md:py-28 lg:px-8 lg:py-32">
         <div class="md:ml-auto md:w-1/2 md:pl-10">
             <h2 class="text-base font-semibold uppercase tracking-wider text-gray-300">
-                Award winning support
+                RGS support centre
             </h2>
             <p class="mt-2 text-white text-3xl font-extrabold tracking-tight sm:text-4xl">
                 We’re here to help
             </p>
             <p class="mt-3 text-lg text-gray-300">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, egestas tempus tellus etiam
-                sed. Quam a scelerisque amet ullamcorper eu enim et fermentum, augue. Aliquet amet volutpat
-                quisque ut interdum tincidunt duis.
+                This User Guide, is intended to assist  principal investigator in using a particular software.
+                It is crucial for ensuring the proper and safe usage of the product. This User manuals is an excellent resource by help the user to learning about and making the most of the software in question.
             </p>
             <div class="mt-8">
                 <div class="inline-flex rounded-md shadow">
                     <a href="#"
                        class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-50">
-                        Download User Guide
+                        Download Principal Investigator User Guide
                     </a>
                 </div>
             </div>
