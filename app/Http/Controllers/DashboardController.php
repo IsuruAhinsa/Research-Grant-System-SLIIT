@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DisbursementPlan;
+use App\Models\PrincipalInvestigator;
 
 class DashboardController extends Controller
 {
@@ -18,13 +19,17 @@ class DashboardController extends Controller
         return DisbursementPlan::with('payments')
             ->get()
             ->map(function ($dplan) {
-                $settledAmount = $dplan->payments->sum('amount');
-                $remainingAmount = $dplan->amount - $settledAmount;
-                $dplan->remainingAmount = $remainingAmount;
-                return $dplan;
+                $pi = PrincipalInvestigator::find($dplan->principal_investigator_id);
+
+                if ($pi->isApproved()) {
+                    $settledAmount = $dplan->payments->sum('amount');
+                    $remainingAmount = $dplan->amount - $settledAmount;
+                    $dplan->remainingAmount = $remainingAmount;
+                    return $dplan;
+                }
             })
             ->filter(function ($dplan) {
-                return $dplan->remainingAmount > 0;
+                return $dplan && $dplan->remainingAmount > 0;
             })
             ->take(10);
     }
