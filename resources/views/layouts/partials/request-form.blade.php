@@ -10,7 +10,7 @@
         <div class="mt-3 sm:mt-0 sm:ml-3">
             <button type="submit"
                     class="block w-full py-3 px-4 rounded-md shadow bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 focus:ring-offset-gray-900">
-                Request for Login
+                Request to Login
             </button>
         </div>
     </div>

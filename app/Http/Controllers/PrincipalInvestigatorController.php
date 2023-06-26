@@ -36,7 +36,7 @@ class PrincipalInvestigatorController extends Controller
 
         return view('principal-investigators.dashboard', [
             'principal_investigator' => $principal_investigator,
-            'all_payments_settled' => $this->allPaymentsSettled($principal_investigator->id)
+            'all_payments_settled' => $principal_investigator && $this->allPaymentsSettled($principal_investigator->id)
         ]);
     }
 
