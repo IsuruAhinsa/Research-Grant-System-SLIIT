@@ -33,7 +33,6 @@ class RolePermissionSeeder extends Seeder
         // create roles
         $superAdministrator = Role::create(['name' => 'Super Administrator']);
         Role::create(['name' => 'Administrator']);
-        Role::create(['name' => 'Generic User']);
         Role::create(['name' => 'Dean']);
         Role::create(['name' => 'Principal Investigator']);
 
