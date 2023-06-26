@@ -89,10 +89,6 @@
                 </div>
             </div>
             <div class="flex flex-row justify-end space-x-4 py-4">
-                <x-ui.secondary-button>
-                    Nevermind
-                </x-ui.secondary-button>
-
                 <x-ui.button type="submit">
                     {{ __('Update Role') }}
                 </x-ui.button>
