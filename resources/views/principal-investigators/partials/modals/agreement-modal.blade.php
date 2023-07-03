@@ -8,7 +8,7 @@
 
         <ol class="list-decimal list-inside space-y-4 my-4">
             <li>
-                I confirm the acceptance of the Research Grant to the value of LKR 400,000 to be used for the purposes indicated in the research proposal to FGSR of SLIIT.
+                I confirm the acceptance of the Research Grant to the value of LKR {{ number_format(\App\Models\Setting::getSettings()->budget, 2) }} to be used for the purposes indicated in the research proposal to FGSR of SLIIT.
             </li>
 
             <li>

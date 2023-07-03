@@ -10,7 +10,9 @@ class Setting extends Model
     use HasFactory;
 
     protected $fillable = [
-        'budget'
+        'budget',
+        'start_date',
+        'end_date',
     ];
 
     /**

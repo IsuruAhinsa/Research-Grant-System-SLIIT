@@ -153,6 +153,6 @@ Route::middleware([
     Route::get('settings', [SettingController::class, 'index'])
         ->name('settings.index');
 
-    Route::post('settings/disbursement/budget', [SettingController::class, 'budget'])
-    ->name('settings.disbursement.budget');
+    Route::post('settings/general', [SettingController::class, 'general'])
+    ->name('settings.general');
 });

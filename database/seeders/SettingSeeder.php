@@ -15,6 +15,10 @@ class SettingSeeder extends Seeder
     {
         DB::table('settings')->delete();
 
-        Setting::create(['budget' => 400000.00]);
+        Setting::create([
+            'budget' => 400000.00,
+            'start_data' => 2022-07-01,
+            'end_date' => 2023-06-30,
+        ]);
     }
 }
