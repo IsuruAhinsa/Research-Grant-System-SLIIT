@@ -7,11 +7,13 @@
         {{ __('Do you really want to approve this application? Once Approved, It will not be allowed to reject.') }}
 
         @hasanyrole('Super Administrator|Administrator')
-            <div class="mt-4">
-                <x-ui.input wire:model.defer="grant_number" class="mt-1 block w-full" placeholder="Enter grant number"/>
+            @unless($principalInvestigator->grant_number)
+                <div class="mt-4">
+                    <x-ui.input wire:model.defer="grant_number" class="mt-1 block w-full" placeholder="Enter grant number"/>
 
-                <x-ui.input-error for="grant_number" class="mt-2" />
-            </div>
+                    <x-ui.input-error for="grant_number" class="mt-2" />
+                </div>
+            @endunless
         @endhasanyrole
     </x-slot>
 

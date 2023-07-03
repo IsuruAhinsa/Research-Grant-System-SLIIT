@@ -268,6 +268,14 @@ class PrincipalInvestigatorCreate extends Component implements HasForms
             Mail::to($this->dean_email)->send(new ResearchProposalSubmitted($principal_investigator, $this->dean_name));
 
         }
+
+        if ($exists) {
+            // catch grant number
+            $grant_number = PrincipalInvestigator::where('email', $this->email)->value('grant_number');
+            $principal_investigator->grant_number = $grant_number;
+            $principal_investigator->save();
+        }
+
         // creating statuses
         $principal_investigator->statuses()->create([
             'user_id' => Auth::id(),

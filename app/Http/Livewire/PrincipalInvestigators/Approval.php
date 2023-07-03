@@ -28,7 +28,7 @@ class Approval extends Component
     public function approve()
     {
         $this->validate(
-            ['grant_number' => Rule::requiredIf(Auth::user()->hasRole(['Super Administrator', 'Administrator']))]
+            ['grant_number' => Rule::requiredIf(Auth::user()->hasRole(['Super Administrator', 'Administrator']) && $this->principalInvestigator->grant_number === null)]
         );
 
         $role = auth()->user()->getRoleNames()->first();
@@ -52,7 +52,7 @@ class Approval extends Component
         // TODO: clean code & optimize.
 
         // assign grant number
-        if (Auth::user()->hasRole(['Super Administrator', 'Administrator'])) {
+        if (Auth::user()->hasRole(['Super Administrator', 'Administrator']) && $this->principalInvestigator->grant_number === null) {
             $this->principalInvestigator->grant_number = $this->grant_number;
             $this->principalInvestigator->save();
         }
