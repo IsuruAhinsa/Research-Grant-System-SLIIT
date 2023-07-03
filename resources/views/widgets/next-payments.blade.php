@@ -1,7 +1,7 @@
 <div class="p-6 lg:p-8">
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-            <h1 class="text-xl font-semibold text-gray-900">Next Transactions</h1>
+            <h1 class="text-xl font-semibold text-gray-900">Next Claim Transactions</h1>
         </div>
     </div>
     <div class="mt-4 flex flex-col">

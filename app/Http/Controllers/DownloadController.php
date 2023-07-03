@@ -33,4 +33,11 @@ class DownloadController extends Controller
             return Storage::disk('public')->download('docs/Other Research Documents.xlsx');
         }
     }
+
+    public function downloadUserGuide()
+    {
+        if (Storage::disk('public')->exists('docs/Principal Investigator User Guide.pdf')) {
+            return Storage::disk('public')->download('docs/Principal Investigator User Guide.pdf');
+        }
+    }
 }

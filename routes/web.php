@@ -35,6 +35,12 @@ Route::view('contact', 'contact')->name('contact');
 
 Route::post('request', [UserController::class, 'requestToLogin'])->name('request');
 
+/**
+ * Download User Guide Routes
+ */
+Route::get('downloads/user-guide', [DownloadController::class, 'downloadUserGuide'])
+    ->name('downloads.user-guide');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

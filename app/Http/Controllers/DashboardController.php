@@ -67,4 +67,9 @@ class DashboardController extends Controller
     {
         return DisbursementPlan::sum('amount');
     }
+
+    public function downloadUserGuide()
+    {
+        
+    }
 }
