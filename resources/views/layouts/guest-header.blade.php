@@ -26,10 +26,6 @@
 
                     <a href="{{ url('/') }}" class="text-base font-medium text-white hover:text-gray-300">Home</a>
 
-                    <a href="{{ route('about') }}" class="text-base font-medium text-white hover:text-gray-300">About</a>
-
-                    <a href="{{ route('contact') }}" class="text-base font-medium text-white hover:text-gray-300">Contact Us</a>
-
                 </div>
             </div>
             <div class="hidden md:flex md:items-center md:space-x-6">
@@ -69,14 +65,8 @@
             </div>
             <div class="pt-5 pb-6">
                 <div class="px-2 space-y-1">
-
                     <a href="{{ url('/') }}"
                        class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Home</a>
-
-                    <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">About</a>
-
-                    <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Contact
-                        Us</a>
                 </div>
                 <div class="mt-6 px-5">
                     <p class="text-center text-base font-medium text-gray-500">Existing Sliit User? <a
