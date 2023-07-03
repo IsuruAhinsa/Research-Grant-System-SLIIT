@@ -22,11 +22,6 @@
                         </button>
                     </div>
                 </div>
-                <div class="hidden space-x-8 md:flex md:ml-10">
-
-                    <a href="{{ url('/') }}" class="text-base font-medium text-white hover:text-gray-300">Home</a>
-
-                </div>
             </div>
             <div class="hidden md:flex md:items-center md:space-x-6">
                 @if(!request()->routeIs('login'))

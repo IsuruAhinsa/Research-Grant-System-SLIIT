@@ -26,6 +26,8 @@
                         Download Principal Investigator User Guide
                     </a>
                 </div>
+
+                <p class="mt-6 text-xl text-gray-300">For any inquires <a class="text-blue-500 underline" href="mailto:rgs@sliit.lk">rgs@sliit.lk</a></p>
             </div>
         </div>
     </div>
