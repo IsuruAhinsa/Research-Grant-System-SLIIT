@@ -16,6 +16,8 @@ return new class extends Migration
             $table->double('budget', 8, 2);
             $table->date('start_date');
             $table->date('end_date');
+            $table->year('research_funding_year')->default('2018');
+            $table->year('faculty_code')->default('FGSR');
             $table->timestamps();
         });
     }

@@ -8,19 +8,19 @@
 
         <ol class="list-decimal list-inside space-y-4 my-4">
             <li>
-                I confirm the acceptance of the Research Grant to the value of LKR {{ number_format(\App\Models\Setting::getSettings()->budget, 2) }} to be used for the purposes indicated in the research proposal to FGSR of SLIIT.
+                I confirm the acceptance of the Research Grant to the value of LKR {{ number_format(\App\Models\Setting::getSettings()->budget, 2) }} to be used for the purposes indicated in the research proposal to {{ \App\Models\Setting::getSettings()->faculty_code }} of SLIIT.
             </li>
 
             <li>
-                I confirm that the component of the research project funded by this grant will commence on 1st July 2022 and conclude on 30th June 2023.
+                I confirm that the component of the research project funded by this grant will commence on {{ \Carbon\Carbon::make(\App\Models\Setting::getSettings()->start_date)->toFormattedDateString() }} and conclude on {{ \Carbon\Carbon::make(\App\Models\Setting::getSettings()->end_date)->toFormattedDateString() }}.
             </li>
 
             <li>
-                I agree to abide by the rules and regulations stipulated in <b><i>“SLIIT Research Funding 2018”</i></b> document and any other relevant guidelines that are available at SLIIT.
+                I agree to abide by the rules and regulations stipulated in <b><i>“SLIIT Research Funding {{ \App\Models\Setting::getSettings()->research_funding_year }}”</i></b> document and any other relevant guidelines that are available at SLIIT.
             </li>
 
             <li>
-                I shall submit a brief summary of progress periodically at the end of every quarter to the FGSR until such time, the “Final Report” is submitted.
+                I shall submit a brief summary of progress periodically at the end of every quarter to the {{ \App\Models\Setting::getSettings()->faculty_code }} until such time, the “Final Report” is submitted.
             </li>
         </ol>
 

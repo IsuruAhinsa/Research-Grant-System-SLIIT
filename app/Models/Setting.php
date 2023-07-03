@@ -13,6 +13,8 @@ class Setting extends Model
         'budget',
         'start_date',
         'end_date',
+        'research_funding_year',
+        'faculty_code',
     ];
 
     /**

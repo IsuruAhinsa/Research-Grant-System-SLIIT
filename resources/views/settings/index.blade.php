@@ -25,7 +25,7 @@
             <div class="w-full md:w-3/4 md:mx-2 my-2">
 
                 <div x-show="showGeneralTab">
-                    @include('settings.disbursement-budget-form')
+                    @include('settings.general-settings-form')
                 </div>
 
             </div>
