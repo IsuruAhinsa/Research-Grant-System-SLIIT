@@ -10,7 +10,7 @@
             <x-ui.select id="month" name="month" class="mt-1 block w-full">
                 <option selected disabled>Select Month</option>
                 @foreach(\App\Models\DisbursementPlan::months()->all() as $month)
-                    <option value="{{$month['name']}}">{{ $month['name'] }}</option>
+                    <option value="{{$month['name']}}" {{ old('month') == $month['name'] ? 'selected' : '' }}>{{ $month['name'] }}</option>
                 @endforeach
             </x-ui.select>
             <x-ui.input-error for="month" class="mt-2"/>
@@ -21,7 +21,7 @@
             <x-ui.select id="category" name="category" class="mt-1 block w-full">
                 <option selected disabled>Select Category</option>
                 @foreach(\App\Models\DisbursementPlan::categories()->all() as $category)
-                    <option value="{{$category['name']}}">{{ $category['name'] }}</option>
+                    <option value="{{$category['name']}}" {{ old('category') == $category['name'] ? 'selected' : '' }}>{{ $category['name'] }}</option>
                 @endforeach
             </x-ui.select>
             <x-ui.input-error for="category" class="mt-2"/>

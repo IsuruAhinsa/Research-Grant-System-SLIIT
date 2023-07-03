@@ -3,7 +3,7 @@
 </h3>
 
 <p class="mt-1 text-gray-500">
-    Please follow the category table when creating the disbursement plan.
+    Please follow the uploaded Other Research Document’s Budget page and the list under category table when creating the disbursement plan.
 </p>
 
 <div class="mt-1 flex flex-col">
