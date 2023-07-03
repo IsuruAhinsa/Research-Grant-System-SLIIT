@@ -91,9 +91,10 @@
 
             @hasanyrole('Super Administrator|Administrator|Dean|Principal Investigator')
                 @unless($principalInvestigator->isReviewer())
-                    <li>
-                        <div class="relative group py-4 flex items-start space-x-3">
-                            <div class="flex-shrink-0">
+                    @if($principalInvestigator->is_agreed)
+                        <li>
+                            <div class="relative group py-4 flex items-start space-x-3">
+                                <div class="flex-shrink-0">
                         <span class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-yellow-500">
                             <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                                  viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -101,28 +102,29 @@
                                       d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </span>
-                            </div>
-                            <div class="min-w-0 flex-1">
-                                <div class="text-sm font-medium text-gray-900">
-                                    <a href="{{ route('disbursement_plans.payments', $principalInvestigator) }}">
-                                        <span class="absolute inset-0" aria-hidden="true"></span>
-                                        Disbursement Plan
-                                    </a>
                                 </div>
-                                <p class="text-sm text-gray-500">
-                                    The research disbursement plan efficiently allocates funds based on the project's budget and goals. Resources will be distributed to personnel, equipment, supplies, and travel expenses, ensuring transparency and maximizing the research's impact.
-                                </p>
+                                <div class="min-w-0 flex-1">
+                                    <div class="text-sm font-medium text-gray-900">
+                                        <a href="{{ route('disbursement_plans.payments', $principalInvestigator) }}">
+                                            <span class="absolute inset-0" aria-hidden="true"></span>
+                                            Disbursement Plan
+                                        </a>
+                                    </div>
+                                    <p class="text-sm text-gray-500">
+                                        The research disbursement plan efficiently allocates funds based on the project's budget and goals. Resources will be distributed to personnel, equipment, supplies, and travel expenses, ensuring transparency and maximizing the research's impact.
+                                    </p>
+                                </div>
+                                <div class="flex-shrink-0 self-center">
+                                    <svg class="h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                              clip-rule="evenodd" />
+                                    </svg>
+                                </div>
                             </div>
-                            <div class="flex-shrink-0 self-center">
-                                <svg class="h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd"
-                                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                          clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    @endif
                 @endunless
             @endhasanyrole
         </ul>
