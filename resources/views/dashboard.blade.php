@@ -16,6 +16,10 @@
                     @include('widgets.next-payments')
                 @endhasanyrole
             </div>
+
+            @unlessrole('Principal Investigator')
+                @include('widgets.stats')
+            @endunlessrole
         </div>
     </div>
 </x-app-layout>
