@@ -17,8 +17,8 @@ class SettingSeeder extends Seeder
 
         Setting::create([
             'budget' => 400000.00,
-            'start_data' => 2022-07-01,
-            'end_date' => 2023-06-30,
+            'start_date' => "2022-07-01",
+            'end_date' => "2023-06-30",
         ]);
     }
 }
