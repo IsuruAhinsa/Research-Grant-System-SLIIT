@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->year('research_funding_year')->default('2018');
-            $table->year('faculty_code')->default('FGSR');
+            $table->string('faculty_code')->default('FGSR');
             $table->timestamps();
         });
     }
