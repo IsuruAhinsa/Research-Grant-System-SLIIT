@@ -21,7 +21,8 @@ class PrincipalInvestigatorPendingTable extends Component implements HasTable
     protected function getTableQuery(): Builder
     {
         return PrincipalInvestigator::query()
-            ->currentStatus('PENDING');
+            ->currentStatus('PENDING')
+            ->orderBy('created_at', 'desc');
     }
 
     protected function getTableColumns(): array
